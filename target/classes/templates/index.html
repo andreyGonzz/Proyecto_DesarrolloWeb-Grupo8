@@ -11,9 +11,10 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="../static/images/image.png">
+    <link rel="icon" type="image/x-icon" th:href="@{/images/image.png}">
 
-    <link rel="stylesheet" href="../static/styles.css" />
+    <!-- Use Thymeleaf resource URL syntax; static files live in /static -->
+    <link rel="stylesheet" th:href="@{/styles.css}" />
 </head>
 
 <body>
@@ -21,8 +22,8 @@
     <header class="site-header">
         <div class="header-inner">
             <div class="brand">
-                <a href="/" class="logo-link">
-                    <img src="../static/images/image.png" alt="Salud con Amor" class="logo-img" />
+                <a th:href="@{/index}" class="logo-link">
+                    <img th:src="@{/images/image.png}" alt="Salud con Amor" class="logo-img" />
                 </a>
             </div>
 
@@ -62,8 +63,8 @@
                                 stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                         </g>
                     </svg></a>
-                <a class="user" href="../templates/login.html"><svg width="20px" height="20px" viewBox="0 0 16 16"
-                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                <a class="user" th:href="@{/login}"><svg width="20px" height="20px" viewBox="0 0 16 16" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                         <g id="SVGRepo_iconCarrier">
@@ -97,7 +98,7 @@
             </div>
 
             <div class="hero-visual">
-                <img src="../static/images/42dd9669a5a88b38f5ff170d1f3eb97e6ea4fc2a.png" alt="Doctor" />
+                <img th:src="@{/images/42dd9669a5a88b38f5ff170d1f3eb97e6ea4fc2a.png}" alt="Doctor" />
             </div>
         </div>
     </section>
@@ -110,42 +111,11 @@
                 <a class="cta-link" href="/productos">Ver todos →</a>
             </div>
 
-            <div class="products-grid">
-                <!-- Ejemplo Thymeleaf: itera lista 'popularProducts' -->
-                <!--
-        <article class="product-card" th:each="p : ${popularProducts}">
-          <img th:src="@{${p.imageUrl}}" th:alt="${p.nombre}" />
-          <h3 th:text="${p.nombre}">Nombre</h3>
-          <p class="price" th:text="${p.precio}">₡12.000</p>
-          <button class="add">Añadir al carrito</button>
-        </article>
-        -->
-                <!-- Si no usas Thymeleaf, duplica estos bloques con datos estáticos -->
-                <article class="product-card">
-                    <img src="/images/prod-1.jpg" alt="Ashwagandha" />
-                    <h3>Ashwagandha Extra Fuerte</h3>
-                    <p class="price">₡12.990</p>
-                    <button class="add">Añadir al carrito</button>
-                </article>
-
-                <article class="product-card">
-                    <img src="/images/prod-2.jpg" alt="Magnesio" />
-                    <h3>Glicinato de magnesio</h3>
-                    <p class="price">₡10.990</p>
-                    <button class="add">Añadir al carrito</button>
-                </article>
-
-                <article class="product-card">
-                    <img src="/images/prod-3.jpg" alt="CoQ10" />
-                    <h3>Vitacel Q10</h3>
-                    <p class="price">₡15.990</p>
-                    <button class="add">Añadir al carrito</button>
-                </article>
-
-                <article class="product-card">
-                    <img src="/images/prod-4.jpg" alt="Garcinia" />
-                    <h3>Garcinia Cambogia</h3>
-                    <p class="price">₡9.990</p>
+            <div class="products-grid" th:if="${popularProducts}">
+                <article class="product-card" th:each="p : ${popularProducts}">
+                    <img th:src="@{/images/{file}(file=${p.imageUrl})}" th:alt="${p.name}" />
+                    <h3 th:text="${p.name}">Nombre</h3>
+                    <p class="price" th:text="${p.price}">₡0.00</p>
                     <button class="add">Añadir al carrito</button>
                 </article>
             </div>
@@ -157,42 +127,11 @@
                 <a class="cta-link" href="/productos">Ver todos →</a>
             </div>
 
-            <div class="products-grid">
-                <!-- Ejemplo Thymeleaf: itera lista 'popularProducts' -->
-                <!--
-        <article class="product-card" th:each="p : ${popularProducts}">
-          <img th:src="@{${p.imageUrl}}" th:alt="${p.nombre}" />
-          <h3 th:text="${p.nombre}">Nombre</h3>
-          <p class="price" th:text="${p.precio}">₡12.000</p>
-          <button class="add">Añadir al carrito</button>
-        </article>
-        -->
-                <!-- Si no usas Thymeleaf, duplica estos bloques con datos estáticos -->
-                <article class="product-card">
-                    <img src="/images/prod-1.jpg" alt="Ashwagandha" />
-                    <h3>Ashwagandha Extra Fuerte</h3>
-                    <p class="price">₡12.990</p>
-                    <button class="add">Añadir al carrito</button>
-                </article>
-
-                <article class="product-card">
-                    <img src="/images/prod-2.jpg" alt="Magnesio" />
-                    <h3>Glicinato de magnesio</h3>
-                    <p class="price">₡10.990</p>
-                    <button class="add">Añadir al carrito</button>
-                </article>
-
-                <article class="product-card">
-                    <img src="/images/prod-3.jpg" alt="CoQ10" />
-                    <h3>Vitacel Q10</h3>
-                    <p class="price">₡15.990</p>
-                    <button class="add">Añadir al carrito</button>
-                </article>
-
-                <article class="product-card">
-                    <img src="/images/prod-4.jpg" alt="Garcinia" />
-                    <h3>Garcinia Cambogia</h3>
-                    <p class="price">₡9.990</p>
+            <div class="products-grid" th:if="${newProducts}">
+                <article class="product-card" th:each="p : ${newProducts}">
+                    <img th:src="@{/images/{file}(file=${p.imageUrl})}" th:alt="${p.name}" />
+                    <h3 th:text="${p.name}">Nombre</h3>
+                    <p class="price" th:text="${p.price}">₡0.00</p>
                     <button class="add">Añadir al carrito</button>
                 </article>
             </div>
@@ -220,42 +159,11 @@
                 <a class="cta-link" href="/productos">Ver todos →</a>
             </div>
 
-            <div class="products-grid">
-                <!-- Ejemplo Thymeleaf: itera lista 'popularProducts' -->
-                <!--
-        <article class="product-card" th:each="p : ${popularProducts}">
-          <img th:src="@{${p.imageUrl}}" th:alt="${p.nombre}" />
-          <h3 th:text="${p.nombre}">Nombre</h3>
-          <p class="price" th:text="${p.precio}">₡12.000</p>
-          <button class="add">Añadir al carrito</button>
-        </article>
-        -->
-                <!-- Si no usas Thymeleaf, duplica estos bloques con datos estáticos -->
-                <article class="product-card">
-                    <img src="/images/prod-1.jpg" alt="Ashwagandha" />
-                    <h3>Ashwagandha Extra Fuerte</h3>
-                    <p class="price">₡12.990</p>
-                    <button class="add">Añadir al carrito</button>
-                </article>
-
-                <article class="product-card">
-                    <img src="/images/prod-2.jpg" alt="Magnesio" />
-                    <h3>Glicinato de magnesio</h3>
-                    <p class="price">₡10.990</p>
-                    <button class="add">Añadir al carrito</button>
-                </article>
-
-                <article class="product-card">
-                    <img src="/images/prod-3.jpg" alt="CoQ10" />
-                    <h3>Vitacel Q10</h3>
-                    <p class="price">₡15.990</p>
-                    <button class="add">Añadir al carrito</button>
-                </article>
-
-                <article class="product-card">
-                    <img src="/images/prod-4.jpg" alt="Garcinia" />
-                    <h3>Garcinia Cambogia</h3>
-                    <p class="price">₡9.990</p>
+            <div class="products-grid" th:if="${suplementos}">
+                <article class="product-card" th:each="p : ${suplementos}">
+                    <img th:src="@{/images/{file}(file=${p.imageUrl})}" th:alt="${p.name}" />
+                    <h3 th:text="${p.name}">Nombre</h3>
+                    <p class="price" th:text="${p.price}">₡0.00</p>
                     <button class="add">Añadir al carrito</button>
                 </article>
             </div>
@@ -267,42 +175,11 @@
                 <a class="cta-link" href="/productos">Ver todos →</a>
             </div>
 
-            <div class="products-grid">
-                <!-- Ejemplo Thymeleaf: itera lista 'popularProducts' -->
-                <!--
-        <article class="product-card" th:each="p : ${popularProducts}">
-          <img th:src="@{${p.imageUrl}}" th:alt="${p.nombre}" />
-          <h3 th:text="${p.nombre}">Nombre</h3>
-          <p class="price" th:text="${p.precio}">₡12.000</p>
-          <button class="add">Añadir al carrito</button>
-        </article>
-        -->
-                <!-- Si no usas Thymeleaf, duplica estos bloques con datos estáticos -->
-                <article class="product-card">
-                    <img src="/images/prod-1.jpg" alt="Ashwagandha" />
-                    <h3>Ashwagandha Extra Fuerte</h3>
-                    <p class="price">₡12.990</p>
-                    <button class="add">Añadir al carrito</button>
-                </article>
-
-                <article class="product-card">
-                    <img src="/images/prod-2.jpg" alt="Magnesio" />
-                    <h3>Glicinato de magnesio</h3>
-                    <p class="price">₡10.990</p>
-                    <button class="add">Añadir al carrito</button>
-                </article>
-
-                <article class="product-card">
-                    <img src="/images/prod-3.jpg" alt="CoQ10" />
-                    <h3>Vitacel Q10</h3>
-                    <p class="price">₡15.990</p>
-                    <button class="add">Añadir al carrito</button>
-                </article>
-
-                <article class="product-card">
-                    <img src="/images/prod-4.jpg" alt="Garcinia" />
-                    <h3>Garcinia Cambogia</h3>
-                    <p class="price">₡9.990</p>
+            <div class="products-grid" th:if="${vitaminas}">
+                <article class="product-card" th:each="p : ${vitaminas}">
+                    <img th:src="@{/images/{file}(file=${p.imageUrl})}" th:alt="${p.name}" />
+                    <h3 th:text="${p.name}">Nombre</h3>
+                    <p class="price" th:text="${p.price}">₡0.00</p>
                     <button class="add">Añadir al carrito</button>
                 </article>
             </div>
@@ -336,7 +213,7 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="site-footer">
+    <footer class="site-footer" >
         <div class="footer-inner container">
             <div class="col">
                 <h4>Contacto</h4>
@@ -360,8 +237,8 @@
                 <h4>Síguenos</h4>
                 <div class="socials">
                     <ul>
-                        <li><a href="https://www.facebook.com/share/1GA6qnUVkZ/">Facebook</a></li>
-                        <li><a href="https://wa.link/9m9oan">WhatsApp</a></li>
+                        <li><a target="_blank" href="https://www.facebook.com/share/1GA6qnUVkZ/">Facebook</a></li>
+                        <li><a target="_blank" href="https://wa.link/9m9oan">WhatsApp</a></li>
                     </ul>
                 </div>
             </div>

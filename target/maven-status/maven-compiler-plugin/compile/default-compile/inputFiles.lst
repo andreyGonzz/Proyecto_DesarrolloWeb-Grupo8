@@ -1,0 +1,14 @@
+/home/andrey-gonzz/Documentos/GitHub/Proyecto_DesarrolloWeb-Grupo8/src/main/java/com/proyecto/proyectoweb/ProyectowebApplication.java
+/home/andrey-gonzz/Documentos/GitHub/Proyecto_DesarrolloWeb-Grupo8/src/main/java/com/proyecto/proyectoweb/config/WebConfig.java
+/home/andrey-gonzz/Documentos/GitHub/Proyecto_DesarrolloWeb-Grupo8/src/main/java/com/proyecto/proyectoweb/controller/AuthController.java
+/home/andrey-gonzz/Documentos/GitHub/Proyecto_DesarrolloWeb-Grupo8/src/main/java/com/proyecto/proyectoweb/controller/HomeController.java
+/home/andrey-gonzz/Documentos/GitHub/Proyecto_DesarrolloWeb-Grupo8/src/main/java/com/proyecto/proyectoweb/controller/LoginController.java
+/home/andrey-gonzz/Documentos/GitHub/Proyecto_DesarrolloWeb-Grupo8/src/main/java/com/proyecto/proyectoweb/controller/ProductAdminController.java
+/home/andrey-gonzz/Documentos/GitHub/Proyecto_DesarrolloWeb-Grupo8/src/main/java/com/proyecto/proyectoweb/controller/ProductController.java
+/home/andrey-gonzz/Documentos/GitHub/Proyecto_DesarrolloWeb-Grupo8/src/main/java/com/proyecto/proyectoweb/controller/RegisterController.java
+/home/andrey-gonzz/Documentos/GitHub/Proyecto_DesarrolloWeb-Grupo8/src/main/java/com/proyecto/proyectoweb/model/Product.java
+/home/andrey-gonzz/Documentos/GitHub/Proyecto_DesarrolloWeb-Grupo8/src/main/java/com/proyecto/proyectoweb/model/User.java
+/home/andrey-gonzz/Documentos/GitHub/Proyecto_DesarrolloWeb-Grupo8/src/main/java/com/proyecto/proyectoweb/repository/ProductRepository.java
+/home/andrey-gonzz/Documentos/GitHub/Proyecto_DesarrolloWeb-Grupo8/src/main/java/com/proyecto/proyectoweb/repository/UserRepository.java
+/home/andrey-gonzz/Documentos/GitHub/Proyecto_DesarrolloWeb-Grupo8/src/main/java/com/proyecto/proyectoweb/service/ProductService.java
+/home/andrey-gonzz/Documentos/GitHub/Proyecto_DesarrolloWeb-Grupo8/src/main/java/com/proyecto/proyectoweb/service/UserService.java

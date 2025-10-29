@@ -8,9 +8,11 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="../static/style.css">
+     <link rel="stylesheet" th:href="@{/style.css}" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="../static/images/image.png">
+    <link rel="icon" type="image/x-icon" th:href="@{/images/image.png}">
+
     <title>Macrobitica Salud con Amor</title>
 </head>
 
@@ -28,12 +30,12 @@
 
             <h2 id="title">Nombre de Usuario</h2>
 
-            <form class="form" action="#" method="post" onsubmit="return false;">
+            <form class="form" th:action="@{/login}" method="post">
                 <label class="label" for="user">Usuario</label>
-                <input id="user" class="input" type="text" placeholder="Escribe aquí" />
+                <input id="user" name="username" class="input" type="text" placeholder="Escribe aquí" />
 
                 <label class="label" for="pass">Contraseña</label>
-                <input id="pass" class="input" type="password" placeholder="Escribe aquí" />
+                <input id="pass" name="password" class="input" type="password" placeholder="Escribe aquí" />
 
                 <a class="recover" href="#">¿Olvidó su contraseña? <br><strong>Recuperar</strong></a>
 
@@ -43,7 +45,9 @@
 
                 <div style="height:8px"></div>
 
-                <button class="btn btn--secondary" type="button"><a     href="./register.html">Registrarse</a></button>
+                <button class="btn btn--secondary" type="button"><a th:href="@{/register}">Registrarse</a></button>
+
+                <div th:if="${error}" style="color:#b00020; margin-top:8px;">[[${error}]]</div>
 
                 <p class="help">¿Necesitas tus medicamentos?<br><span>Visita nuestra pagina y explora ofertas.</span></p>
             </form>
