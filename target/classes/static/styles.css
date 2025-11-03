@@ -31,11 +31,10 @@ a {
   color: inherit;
   text-decoration: none;
 }
-button{
-font-family: var(--font-family);
-font-size: 18px;
+button {
+  font-family: var(--font-family);
+  font-size: 18px;
 }
-
 
 /* UTIL: contenedor centrado */
 .container {
@@ -113,10 +112,10 @@ font-size: 18px;
   cursor: pointer;
 }
 
-.elements{
-&:hover{
-color: var(--green-700)
-}
+.elements {
+  &:hover {
+    color: var(--green-700);
+  }
 }
 
 /* HERO */
@@ -339,10 +338,14 @@ color: var(--green-700)
   color: #dbeedd;
 }
 .copyright {
+  display: flex;
   text-align: center;
   padding: 12px;
   color: rgba(255, 255, 255, 0.7);
   font-size: 13px;
+
+  align-items: center;
+  margin-right: 10px;
 }
 
 /* RESPONSIVE */
@@ -438,7 +441,7 @@ color: var(--green-700)
   }
 }
 
-.anuncios{
+.anuncios {
   min-width: 50%;
   height: auto;
   display: flex;
@@ -446,16 +449,13 @@ color: var(--green-700)
   align-items: center;
   gap: 20px;
   margin: 20px;
-  flex-wrap: wrap; 
-
-
-  
+  flex-wrap: wrap;
 }
 
-.anuncios .card{
-  display: inline-flex;      
-  align-items: center;       
-  gap: 10px;                 
+.anuncios .card {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   background: var(--green-400);
   color: #000;
   padding: 10px 14px;
@@ -463,42 +463,38 @@ color: var(--green-700)
   font-weight: 600;
   box-shadow: var(--shadow);
   flex-basis: 250px;
-
 }
 
-.anuncios   .beige{
-background-color: #FAEDC9;
+.anuncios .beige {
+  background-color: #faedc9;
 }
 
-.anuncios   .clarito{
-background-color: #bfe5c8;
+.anuncios .clarito {
+  background-color: #bfe5c8;
 }
 
-.anuncios   .skyblue{
-background-color: #bfe5e3;
+.anuncios .skyblue {
+  background-color: #bfe5e3;
 }
 
-.anuncios   .pink{
-background-color: #f8ecfe;
+.anuncios .pink {
+  background-color: #f8ecfe;
 }
 
-
-.anuncios .card svg{
-  display: block; 
+.anuncios .card svg {
+  display: block;
   width: 60px;
   height: 60px;
 }
 
 @media (max-width: 600px) {
-  .anuncios{
+  .anuncios {
     flex-direction: column;
     align-items: center;
     gap: 12px;
   }
-  .anuncios .card{
+  .anuncios .card {
     width: 100%;
     justify-content: center;
-    
   }
 }
-

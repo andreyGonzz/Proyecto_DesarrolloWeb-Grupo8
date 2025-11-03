@@ -5,6 +5,7 @@
 /home/andrey-gonzz/Documentos/GitHub/Proyecto_DesarrolloWeb-Grupo8/src/main/java/com/proyecto/proyectoweb/controller/LoginController.java
 /home/andrey-gonzz/Documentos/GitHub/Proyecto_DesarrolloWeb-Grupo8/src/main/java/com/proyecto/proyectoweb/controller/ProductAdminController.java
 /home/andrey-gonzz/Documentos/GitHub/Proyecto_DesarrolloWeb-Grupo8/src/main/java/com/proyecto/proyectoweb/controller/ProductController.java
+/home/andrey-gonzz/Documentos/GitHub/Proyecto_DesarrolloWeb-Grupo8/src/main/java/com/proyecto/proyectoweb/controller/ProductsPageController.java
 /home/andrey-gonzz/Documentos/GitHub/Proyecto_DesarrolloWeb-Grupo8/src/main/java/com/proyecto/proyectoweb/controller/RegisterController.java
 /home/andrey-gonzz/Documentos/GitHub/Proyecto_DesarrolloWeb-Grupo8/src/main/java/com/proyecto/proyectoweb/model/Product.java
 /home/andrey-gonzz/Documentos/GitHub/Proyecto_DesarrolloWeb-Grupo8/src/main/java/com/proyecto/proyectoweb/model/User.java
@@ -12,3 +13,4 @@
 /home/andrey-gonzz/Documentos/GitHub/Proyecto_DesarrolloWeb-Grupo8/src/main/java/com/proyecto/proyectoweb/repository/UserRepository.java
 /home/andrey-gonzz/Documentos/GitHub/Proyecto_DesarrolloWeb-Grupo8/src/main/java/com/proyecto/proyectoweb/service/ProductService.java
 /home/andrey-gonzz/Documentos/GitHub/Proyecto_DesarrolloWeb-Grupo8/src/main/java/com/proyecto/proyectoweb/service/UserService.java
+/home/andrey-gonzz/Documentos/GitHub/Proyecto_DesarrolloWeb-Grupo8/src/main/java/com/proyecto/proyectoweb/util/UrlValidator.java
