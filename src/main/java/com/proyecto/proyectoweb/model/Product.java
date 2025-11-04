@@ -1,12 +1,8 @@
 package com.proyecto.proyectoweb.model;
 
 import jakarta.persistence.*;
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-
 import lombok.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "products")
@@ -22,14 +18,32 @@ public class Product {
     private String name;
 
     @Column(nullable = false)
-    private String category; // Suplementos, Vitaminas, Productos, Nuevos
+    private String category;
 
     @Column(precision = 12, scale = 2)
     private BigDecimal price;
 
-    @Column
+    @Column(name = "image_url")
     private String imageUrl;
 
     @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    private java.time.LocalDateTime createdAt;
+
+    // Constructor
+    public Product(String name, String category, BigDecimal price, String imageUrl) {
+        this.name = name;
+        this.category = category;
+        this.price = price;
+        this.imageUrl = imageUrl;
+        this.createdAt = java.time.LocalDateTime.now();
+    }
+
+    // MÉTODO ESENCIAL QUE FALTA
+    @Transient
+    public String getFormattedPrice() {
+        if (price != null) {
+            return String.format("₡%,.2f", price);
+        }
+        return "₡0.00";
+    }
 }
