@@ -29,7 +29,7 @@
 
             <nav class="main-nav">
                 <ul>
-                    <li><a class="elements" href="#">Cuidado de la piel</a></li>
+                    <li><a class="elements" href="/productos">Todos los productos</a></li>
                     <li><a class="elements" href="#">Energía y vitalidad</a></li>
                     <li><a class="elements" href="#">Sistema inmunológico</a></li>
                     <li><a class="elements" href="#">Higiene</a></li>
@@ -38,7 +38,8 @@
 
             <div class="header-actions">
                 <form class="search" th:action="@{/productos/buscar}" method="get">
-                    <input name="query" type="search" placeholder="Buscar productos, marcas..." th:value="${busqueda}" />
+                    <input name="query" type="search" placeholder="Buscar productos, marcas..."
+                        th:value="${busqueda}" />
                     <button type="submit" aria-label="Buscar"><svg width="20px" height="20px" viewBox="0 0 24 24"
                             fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -161,8 +162,10 @@
             <!-- Si hay productos -->
             <div class="products-grid" th:if="${productos != null and !productos.empty}">
                 <article class="product-card" th:each="producto : ${productos}">
-                    <img th:if="${producto.imageUrl != null and #strings.startsWith(producto.imageUrl,'http')}" th:src="${producto.imageUrl}" th:alt="${producto.name}" />
-                    <img th:if="${producto.imageUrl != null and not #strings.startsWith(producto.imageUrl,'http')}" th:src="@{/images/{file}(file=${producto.imageUrl})}" th:alt="${producto.name}" />
+                    <img th:if="${producto.imageUrl != null and #strings.startsWith(producto.imageUrl,'http')}"
+                        th:src="${producto.imageUrl}" th:alt="${producto.name}" />
+                    <img th:if="${producto.imageUrl != null and not #strings.startsWith(producto.imageUrl,'http')}"
+                        th:src="@{/images/{file}(file=${producto.imageUrl})}" th:alt="${producto.name}" />
                     <img th:if="${producto.imageUrl == null}" th:src="@{/images/image.png}" th:alt="${producto.name}" />
                     <h3 th:text="${producto.name}">Nombre del producto</h3>
                     <p class="price" th:text="'₡' + ${producto.price}">₡0.00</p>
@@ -174,7 +177,8 @@
             <div th:if="${productos == null or productos.empty}" class="no-results">
                 <h3>No se encontraron productos</h3>
                 <p th:if="${busqueda}" th:text="'No se encontraron productos que coincidan con: ' + ${busqueda}"></p>
-                <p>Intenta con otros términos de búsqueda o <a th:href="@{/productos}">explora todos nuestros productos</a>.</p>
+                <p>Intenta con otros términos de búsqueda o <a th:href="@{/productos}">explora todos nuestros
+                        productos</a>.</p>
             </div>
         </section>
     </main>

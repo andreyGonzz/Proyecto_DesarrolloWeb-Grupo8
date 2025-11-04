@@ -34,4 +34,8 @@ public class ProductService {
     public List<Product> findByNameContainingIgnoreCase(String name) {
         return productRepository.findByNameContainingIgnoreCase(name);
     }
+
+    public List<Product> findyByIdBetween(Long primero, Long segundo) {
+        return productRepository.findByIdBetween(primero, segundo);
+    }
 }

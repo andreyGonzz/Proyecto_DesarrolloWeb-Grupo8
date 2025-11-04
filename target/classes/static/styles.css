@@ -252,6 +252,12 @@ button {
   border-radius: 8px;
   color: #fff;
   cursor: pointer;
+  transition: all 0.3s ease-out;
+  &:hover{
+    box-shadow: 2px 2px 0 0px #1f3c28;
+    transform: translateY(-1px);
+    background: var(--green-500);
+  }
 }
 
 /* PROMOCIONAL GRANDE */
