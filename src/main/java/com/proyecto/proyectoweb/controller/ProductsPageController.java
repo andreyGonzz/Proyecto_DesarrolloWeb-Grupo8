@@ -5,8 +5,10 @@ import com.proyecto.proyectoweb.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+
 
 @Controller
 public class ProductsPageController {
@@ -52,4 +54,13 @@ public class ProductsPageController {
         model.addAttribute("nuevos", nuevos);
         return "nuevos";
     }
+
+    @GetMapping("/productos/buscar")
+    public String buscarProductos(@RequestParam("query") String query, Model model) {
+        List<Product> productos = productService.findByNameContainingIgnoreCase(query);
+        model.addAttribute("productos", productos);
+        model.addAttribute("busqueda", query);
+        return "busquedaNombre";
+    }
+    
 }

@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/products")
@@ -30,4 +32,11 @@ public class ProductController {
         Product saved = productService.save(p);
         return ResponseEntity.ok(saved);
     }
+
+    @GetMapping("/{primero}/{segundo}")
+    public ResponseEntity<List<Product>> id(@PathVariable Long primero, @PathVariable Long segundo) {
+        List<Product> id = productService.findByIdBetween(primero, segundo);
+        return ResponseEntity.ok(id);
+    }
+
 }

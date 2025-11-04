@@ -28,6 +28,20 @@
                     </a>
                 </div>
 
+            <nav class="main-nav">
+                <ul>
+                      <li><a class="elements" href="/productos">Todos los productos</a></li>
+                    <li><a class="elements" href="#">Energía y vitalidad</a></li>
+                    <li><a class="elements" href="#">Sistema inmunológico</a></li>
+                    <li><a class="elements" href="#">Higiene</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+               <form class="search" th:action="@{/productos/buscar}" method="get">
+                    <input name="query" type="search" placeholder="Buscar productos, marcas..." />
+                    <button type="submit" aria-label="Buscar"><svg width="20px" height="20px" viewBox="0 0 24 24"
+                            fill="none" xmlns="http://www.w3.org/2000/svg">
                 <nav class="main-nav">
                     <ul>
                         <li><a class="elements" href="#">Cuidado de la piel</a></li>

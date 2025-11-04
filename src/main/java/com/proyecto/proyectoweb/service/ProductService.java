@@ -3,7 +3,6 @@ package com.proyecto.proyectoweb.service;
 import com.proyecto.proyectoweb.model.Product;
 import com.proyecto.proyectoweb.repository.ProductRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -31,8 +30,17 @@ public class ProductService {
         return productRepository.findAllByOrderByCreatedAtAsc();
     }
 
+    public List<Product> findByNameContainingIgnoreCase(String name) {
+        return productRepository.findByNameContainingIgnoreCase(name);
+    }
+
+    public List<Product> findByIdBetween(Long primero, Long segundo) {
+        return productRepository.findByIdBetween(primero, segundo);
+    }
+
     public Product getProductById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado con id: " + id));
     }
 }
+

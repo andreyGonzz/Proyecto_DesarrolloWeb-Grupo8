@@ -1,8 +1,9 @@
 package com.proyecto.proyectoweb.model;
 
 import jakarta.persistence.*;
-import lombok.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import lombok.*;
 
 @Entity
 @Table(name = "products")
@@ -27,18 +28,17 @@ public class Product {
     private String imageUrl;
 
     @Column(name = "created_at")
-    private java.time.LocalDateTime createdAt;
+    private LocalDateTime createdAt;
 
-    // Constructor
+    // Constructor personalizado
     public Product(String name, String category, BigDecimal price, String imageUrl) {
         this.name = name;
         this.category = category;
         this.price = price;
         this.imageUrl = imageUrl;
-        this.createdAt = java.time.LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
     }
 
-    // MÉTODO ESENCIAL QUE FALTA
     @Transient
     public String getFormattedPrice() {
         if (price != null) {

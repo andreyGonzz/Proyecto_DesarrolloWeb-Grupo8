@@ -3,7 +3,6 @@ com\proyecto\proyectoweb\config\WebConfig.class
 com\proyecto\proyectoweb\repository\OrderRepository.class
 com\proyecto\proyectoweb\repository\UserRepository.class
 com\proyecto\proyectoweb\controller\ProductAdminController.class
-com\proyecto\proyectoweb\repository\ProductRepository.class
 com\proyecto\proyectoweb\controller\AuthController.class
 com\proyecto\proyectoweb\model\User.class
 com\proyecto\proyectoweb\controller\ProductsPageController.class
@@ -17,7 +16,6 @@ com\proyecto\proyectoweb\model\Cart.class
 com\proyecto\proyectoweb\ProyectowebApplication.class
 com\proyecto\proyectoweb\controller\HomeController.class
 com\proyecto\proyectoweb\model\Order.class
-com\proyecto\proyectoweb\model\Product.class
 com\proyecto\proyectoweb\model\OrderItem.class
 com\proyecto\proyectoweb\repository\CartRepository.class
 com\proyecto\proyectoweb\service\CartService.class
