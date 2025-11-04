@@ -30,4 +30,9 @@ public class ProductService {
     public List<Product> findAllOrderByCreatedAtAsc() {
         return productRepository.findAllByOrderByCreatedAtAsc();
     }
+
+    public Product getProductById(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado con id: " + id));
+    }
 }

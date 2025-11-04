@@ -19,7 +19,6 @@ public class LoginController {
         this.userService = userService;
     }
 
-    // Root should show the login page
     @GetMapping({"/", "/login"})
     public String loginForm(@RequestParam(value = "error", required = false) String error, Model model) {
         if (error != null) model.addAttribute("error", error);
@@ -34,7 +33,6 @@ public class LoginController {
         if (maybe.isPresent()) {
             User u = maybe.get();
             if (u.getPassword() != null && u.getPassword().equals(password)) {
-                // success -> redirect to index
                 return "redirect:/index";
             }
         }
