@@ -108,9 +108,8 @@
         <section class="section products-section">
             <div class="section-header">
                 <h2>Productos populares</h2>
-                <a class="cta-link" href="/productos">Ver todos →</a>
+                <a class="cta-link" href="/productos/populares">Ver todos →</a>
             </div>
-
             <div class="products-grid" th:if="${popularProducts}">
                 <article class="product-card" th:each="p : ${popularProducts}">
                     <img th:src="@{/images/{file}(file=${p.imageUrl})}" th:alt="${p.name}" />
@@ -124,7 +123,7 @@
         <section class="section products-section">
             <div class="section-header">
                 <h2>Productos nuevos</h2>
-                <a class="cta-link" href="/productos">Ver todos →</a>
+                <a class="cta-link" href="/productos/nuevos">Ver todos →</a>
             </div>
 
             <div class="products-grid" th:if="${newProducts}">
@@ -156,7 +155,7 @@
         <section class="section products-section">
             <div class="section-header">
                 <h2>Suplementos</h2>
-                <a class="cta-link" href="/productos">Ver todos →</a>
+                <a class="cta-link" href="/productos/suplementos">Ver todos →</a>
             </div>
 
             <div class="products-grid" th:if="${suplementos}">
@@ -172,7 +171,7 @@
         <section class="section products-section">
             <div class="section-header">
                 <h2>Vitaminas</h2>
-                <a class="cta-link" href="/productos">Ver todos →</a>
+                <a class="cta-link" href="/productos/vitaminas">Ver todos →</a>
             </div>
 
             <div class="products-grid" th:if="${vitaminas}">

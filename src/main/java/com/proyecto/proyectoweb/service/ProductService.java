@@ -26,4 +26,8 @@ public class ProductService {
     public Product save(Product p) {
         return productRepository.save(p);
     }
+
+    public List<Product> findAllOrderByCreatedAtAsc() {
+        return productRepository.findAllByOrderByCreatedAtAsc();
+    }
 }

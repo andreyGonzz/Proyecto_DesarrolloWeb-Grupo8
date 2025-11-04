@@ -33,7 +33,6 @@ public class LoginController {
         Optional<User> maybe = userService.findByUsername(username);
         if (maybe.isPresent()) {
             User u = maybe.get();
-            // NOTE: passwords are stored in plain text per current project settings
             if (u.getPassword() != null && u.getPassword().equals(password)) {
                 // success -> redirect to index
                 return "redirect:/index";

@@ -2,6 +2,10 @@ package com.proyecto.proyectoweb.model;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 import lombok.*;
 
 @Entity
@@ -25,4 +29,7 @@ public class Product {
 
     @Column
     private String imageUrl;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 }
