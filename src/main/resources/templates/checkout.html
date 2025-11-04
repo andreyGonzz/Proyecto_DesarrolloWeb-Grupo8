@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Checkout - Salud con Amor</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" th:href="@{/images/image.png}">
+    
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+    <link rel="stylesheet" th:href="@{/css/cart.css}" />
+</head>
+<body>
+    <!-- HEADER (IGUAL AL TUYO) -->
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="brand">
+                <a th:href="@{/index}" class="logo-link">
+                    <img th:src="@{/images/image.png}" alt="Salud con Amor" class="logo-img" />
+                </a>
+            </div>
+
+            <nav class="main-nav">
+                <ul>
+                    <li><a class="elements" href="#">Cuidado de la piel</a></li>
+                    <li><a class="elements" href="#">Energía y vitalidad</a></li>
+                    <li><a class="elements" href="#">Sistema inmunológico</a></li>
+                    <li><a class="elements" href="#">Higiene</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <form class="search" th:action="@{/buscar}" method="get">
+                    <input name="q" type="search" placeholder="Buscar productos, marcas..." />
+                    <button type="submit" aria-label="Buscar">
+                        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 17C13.866 17 17 13.866 17 10C17 6.13401 13.866 3 10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17Z" 
+                                  stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M20.9992 21L14.9492 14.95" stroke="#ffffff" stroke-width="1.5" 
+                                  stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </button>
+                </form>
+                <a class="cart" th:href="@{/cart}" aria-label="Carrito">
+                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.29977 5H21L19 12H7.37671M20 16H8L6 3H3M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20ZM20 20C20 20.5523 19.5523 21 19 21C18.4477 21 18 20.5523 18 20C18 19.4477 18.4477 19 19 19C19.5523 19 20 19.4477 20 20Z" 
+                              stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                    <span th:if="${cartItemCount != null && cartItemCount > 0}" 
+                          class="cart-badge" th:text="${cartItemCount}"></span>
+                </a>
+                <a class="user" th:href="@{/login}">
+                    <svg width="20px" height="20px" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 7C9.65685 7 11 5.65685 11 4C11 2.34315 9.65685 1 8 1C6.34315 1 5 2.34315 5 4C5 5.65685 6.34315 7 8 7Z" 
+                              fill="#000000"></path>
+                        <path d="M14 12C14 10.3431 12.6569 9 11 9H5C3.34315 9 2 10.3431 2 12V15H14V12Z" 
+                              fill="#000000"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENIDO DEL CHECKOUT -->
+    <main class="container">
+        <div class="checkout-container">
+            <div class="checkout-main">
+                <h1 class="checkout-title">Finalizar Compra</h1>
+                
+                <div th:if="${error}" class="error-message">
+                    <div class="error-icon">⚠️</div>
+                    <span th:text="${error}"></span>
+                </div>
+                
+                <form th:action="@{/cart/process-order}" method="post" class="checkout-form">
+                    <!-- Información de Envío -->
+                    <section class="form-section">
+                        <h2 class="section-title">
+                            <span class="section-icon">📦</span>
+                            Información de Envío
+                        </h2>
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="fullName" class="form-label">Nombre completo *</label>
+                                <input type="text" id="fullName" name="fullName" class="form-input" required>
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="address" class="form-label">Dirección completa *</label>
+                                <input type="text" id="address" name="address" class="form-input" required 
+                                       placeholder="Calle, número, urbanización">
+                            </div>
+                            <div class="form-group">
+                                <label for="city" class="form-label">Ciudad *</label>
+                                <input type="text" id="city" name="city" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="zipCode" class="form-label">Código Postal *</label>
+                                <input type="text" id="zipCode" name="zipCode" class="form-input" required 
+                                       pattern="[0-9]{5}" title="5 dígitos numéricos">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Método de Pago -->
+                    <section class="form-section">
+                        <h2 class="section-title">
+                            <span class="section-icon">💳</span>
+                            Método de Pago
+                        </h2>
+                        <div class="options-grid">
+                            <label class="option-card">
+                                <input type="radio" name="paymentMethod" value="creditCard" required class="option-input">
+                                <div class="option-content">
+                                    <div class="option-icon">💳</div>
+                                    <div class="option-info">
+                                        <div class="option-title">Tarjeta de Crédito</div>
+                                        <div class="option-description">Paga con tu tarjeta de crédito</div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="option-card">
+                                <input type="radio" name="paymentMethod" value="debitCard" class="option-input">
+                                <div class="option-content">
+                                    <div class="option-icon">💳</div>
+                                    <div class="option-info">
+                                        <div class="option-title">Tarjeta de Débito</div>
+                                        <div class="option-description">Paga con tu tarjeta de débito</div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="option-card">
+                                <input type="radio" name="paymentMethod" value="sinpe" class="option-input">
+                                <div class="option-content">
+                                    <div class="option-icon">📱</div>
+                                    <div class="option-info">
+                                        <div class="option-title">Sinpe Móvil</div>
+                                        <div class="option-description">Transferencia por Sinpe Móvil</div>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </section>
+
+                    <!-- Método de Envío -->
+                    <section class="form-section">
+                        <h2 class="section-title">
+                            <span class="section-icon">🚚</span>
+                            Método de Envío
+                        </h2>
+                        <div class="options-grid">
+                            <label class="option-card">
+                                <input type="radio" name="shippingMethod" value="standard" required class="option-input">
+                                <div class="option-content">
+                                    <div class="option-icon">📦</div>
+                                    <div class="option-info">
+                                        <div class="option-title">Envío Estándar</div>
+                                        <div class="option-description">
+                                            5-7 días hábiles - 
+                                            <span th:if="${cart.total > 50000}" class="free-shipping">Gratis</span>
+                                            <span th:unless="${cart.total > 50000}">₡5,000.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="option-card">
+                                <input type="radio" name="shippingMethod" value="express" class="option-input">
+                                <div class="option-content">
+                                    <div class="option-icon">⚡</div>
+                                    <div class="option-info">
+                                        <div class="option-title">Envío Express</div>
+                                        <div class="option-description">2-3 días hábiles - ₡3,500.00</div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="option-card">
+                                <input type="radio" name="shippingMethod" value="nextDay" class="option-input">
+                                <div class="option-content">
+                                    <div class="option-icon">🚀</div>
+                                    <div class="option-info">
+                                        <div class="option-title">Próximo día hábil</div>
+                                        <div class="option-description">1 día hábil - ₡7,000.00</div>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </section>
+
+                    <button type="submit" class="btn-checkout">
+                        <span class="lock-icon">🔒</span>
+                        Realizar Pedido
+                    </button>
+                    
+                    <div class="security-notice">
+                        <span class="security-icon">🛡️</span>
+                        <span>Tu información está protegida con encriptación SSL</span>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Resumen del Pedido -->
+            <aside class="order-summary">
+                <div class="summary-card">
+                    <h3 class="summary-title">📋 Resumen del Pedido</h3>
+                    
+                    <div class="order-items">
+                        <div th:each="item : ${cart.items}" class="order-item">
+                            <div class="order-item-info">
+                                <img th:src="@{/images/{file}(file=${item.product.imageUrl})}" 
+                                     alt="Producto" 
+                                     class="order-item-image"
+                                     onerror="this.src='/images/placeholder-product.jpg'">
+                                <div class="order-item-details">
+                                    <h4 class="order-item-name" th:text="${item.product.name}"></h4>
+                                    <div class="order-item-quantity" th:text="'Cantidad: ' + ${item.quantity}"></div>
+                                </div>
+                            </div>
+                            <div class="order-item-price" th:text="${item.formattedSubtotal}"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-totals">
+                        <div class="total-row">
+                            <span>Subtotal:</span>
+                            <span th:text="${cart.formattedTotal}"></span>
+                        </div>
+                        <div class="total-row">
+                            <span>Envío:</span>
+                            <span id="shippingCost">Gratis</span>
+                        </div>
+                        <div class="total-row final-total">
+                            <span>Total:</span>
+                            <span id="finalTotal" th:text="${cart.formattedTotal}"></span>
+                        </div>
+                    </div>
+                    
+                    <div th:if="${cart.total < 50000}" class="shipping-promo">
+                        <div class="promo-message">
+                            🎁 ¡Faltan <strong>₡<span th:text="${#numbers.formatDecimal(50000 - cart.total, 1, 2, 'COMMA')}"></span></strong> para envío gratis!
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- FOOTER (IGUAL AL TUYO) -->
+    <footer class="site-footer">
+        <div class="footer-inner container">
+            <div class="col">
+                <h4>Contacto</h4>
+                <p>San José, Costa Rica<br />Tel: +506 8479 5825<br />escamillayalena@gmail.com</p>
+            </div>
+            <div class="col">
+                <h4>Otros</h4>
+                <ul>
+                    <li><a th:href="@{/}">Home</a></li>
+                    <li><a href="#">Sobre nosotros</a></li>
+                </ul>
+            </div>
+            <div class="col">
+                <h4>Servicios</h4>
+                <ul>
+                    <li><a href="#">Envíos</a></li>
+                    <li><a href="#">Políticas</a></li>
+                </ul>
+            </div>
+            <div class="col">
+                <h4>Síguenos</h4>
+                <div class="socials">
+                    <ul>
+                        <li><a target="_blank" href="https://www.facebook.com/share/1GA6qnUVkZ/">Facebook</a></li>
+                        <li><a target="_blank" href="https://wa.link/9m9oan">WhatsApp</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">© 2025 Salud con Amor - Todos los derechos reservados.</div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const shippingMethods = document.querySelectorAll('input[name="shippingMethod"]');
+            const shippingCostElement = document.getElementById('shippingCost');
+            const finalTotalElement = document.getElementById('finalTotal');
+            const cartTotal = parseFloat([[${cart.total}]]);
+
+            function updateTotals() {
+                let shippingCost = 0;
+                const selectedShipping = document.querySelector('input[name="shippingMethod"]:checked');
+                
+                if (selectedShipping) {
+                    switch(selectedShipping.value) {
+                        case 'express':
+                            shippingCost = 3500;
+                            break;
+                        case 'nextDay':
+                            shippingCost = 7000;
+                            break;
+                        case 'standard':
+                            shippingCost = 5000;
+                            break;
+                    }
+                }
+
+                // Envío gratis para compras mayores a ₡50,000 en estándar
+                if (cartTotal >= 50000 && selectedShipping && selectedShipping.value === 'standard') {
+                    shippingCost = 0;
+                }
+
+                const finalTotal = cartTotal + shippingCost;
+
+                // Formatear y actualizar display
+                shippingCostElement.textContent = shippingCost === 0 ? 'Gratis' : 
+                    '₡' + shippingCost.toLocaleString('es-CR', {minimumFractionDigits: 2});
+                finalTotalElement.textContent = '₡' + finalTotal.toLocaleString('es-CR', {minimumFractionDigits: 2});
+            }
+
+            shippingMethods.forEach(method => {
+                method.addEventListener('change', updateTotals);
+            });
+
+            // Inicializar con el primer método seleccionado
+            const firstShippingMethod = document.querySelector('input[name="shippingMethod"]');
+            if (firstShippingMethod) {
+                firstShippingMethod.checked = true;
+            }
+            updateTotals();
+
+            // Efectos visuales para las opciones
+            const optionCards = document.querySelectorAll('.option-card');
+            optionCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    optionCards.forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -29,4 +29,9 @@ public class UserService {
         u.setRoles("ROLE_USER");
         return userRepository.save(u);
     }
+
+    public User getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con id: " + id));
+    }
 }

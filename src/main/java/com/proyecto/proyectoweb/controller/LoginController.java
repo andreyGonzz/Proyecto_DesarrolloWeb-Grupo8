@@ -19,7 +19,8 @@ public class LoginController {
         this.userService = userService;
     }
 
-    @GetMapping({ "/login" })
+    // 🔹 Solo manejamos /login, no /
+    @GetMapping("/login")
     public String loginForm(@RequestParam(value = "error", required = false) String error, Model model) {
         if (error != null)
             model.addAttribute("error", error);
@@ -28,16 +29,17 @@ public class LoginController {
 
     @PostMapping("/login")
     public String loginSubmit(@RequestParam String username,
-            @RequestParam String password,
-            Model model) {
+                              @RequestParam String password,
+                              Model model) {
         Optional<User> maybe = userService.findByUsername(username);
         if (maybe.isPresent()) {
             User u = maybe.get();
             if (u.getPassword() != null && u.getPassword().equals(password)) {
-                return "redirect:/";
+                return "redirect:/home"; // 🔹 Redirige al home tras login exitoso
             }
         }
         model.addAttribute("error", "Usuario o contraseña incorrectos");
         return "login";
     }
 }
+

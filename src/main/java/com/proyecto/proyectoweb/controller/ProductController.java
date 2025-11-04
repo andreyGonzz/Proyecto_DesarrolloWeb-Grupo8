@@ -35,7 +35,7 @@ public class ProductController {
 
     @GetMapping("/{primero}/{segundo}")
     public ResponseEntity<List<Product>> id(@PathVariable Long primero, @PathVariable Long segundo) {
-        List<Product> id = productService.findyByIdBetween(primero, segundo);
+        List<Product> id = productService.findByIdBetween(primero, segundo);
         return ResponseEntity.ok(id);
     }
 
