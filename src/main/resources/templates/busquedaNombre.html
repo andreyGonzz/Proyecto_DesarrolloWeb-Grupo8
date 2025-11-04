@@ -37,8 +37,8 @@
             </nav>
 
             <div class="header-actions">
-               <form class="search" th:action="@{/productos/buscar}" method="get">
-                    <input name="query" type="search" placeholder="Buscar productos, marcas..." />
+                <form class="search" th:action="@{/productos/buscar}" method="get">
+                    <input name="query" type="search" placeholder="Buscar productos, marcas..." th:value="${busqueda}" />
                     <button type="submit" aria-label="Buscar"><svg width="20px" height="20px" viewBox="0 0 24 24"
                             fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -150,21 +150,33 @@
             </svg>Consejos de salud</div>
     </div>
 
-    <!-- PRODUCTOS -->
+    <!-- RESULTADOS DE BÚSQUEDA -->
     <main class="container">
-        <h2>Suplementos</h2>
+        <section class="section products-section">
+            <div class="section-header">
+                <h2>Resultados de búsqueda</h2>
+                <p th:if="${busqueda}" th:text="'Búsqueda: ' + ${busqueda}"></p>
+            </div>
 
-        <div class="products-grid" th:if="${Suplementos}">
-            <article class="product-card" th:each="p : ${Suplementos}">
-                <img th:src="@{/images/{file}(file=${p.imageUrl})}" th:alt="${p.name}" />
-                <h3 th:text="${p.name}">Nombre</h3>
-                <p class="price" th:text="${p.price}">₡0.00</p>
-                <button class="add">Añadir al carrito</button>
-            </article>
-        </div>
+            <!-- Si hay productos -->
+            <div class="products-grid" th:if="${productos != null and !productos.empty}">
+                <article class="product-card" th:each="producto : ${productos}">
+                    <img th:if="${producto.imageUrl != null and #strings.startsWith(producto.imageUrl,'http')}" th:src="${producto.imageUrl}" th:alt="${producto.name}" />
+                    <img th:if="${producto.imageUrl != null and not #strings.startsWith(producto.imageUrl,'http')}" th:src="@{/images/{file}(file=${producto.imageUrl})}" th:alt="${producto.name}" />
+                    <img th:if="${producto.imageUrl == null}" th:src="@{/images/image.png}" th:alt="${producto.name}" />
+                    <h3 th:text="${producto.name}">Nombre del producto</h3>
+                    <p class="price" th:text="'₡' + ${producto.price}">₡0.00</p>
+                    <button class="add">Añadir al carrito</button>
+                </article>
+            </div>
 
-
-
+            <!-- Si no hay productos -->
+            <div th:if="${productos == null or productos.empty}" class="no-results">
+                <h3>No se encontraron productos</h3>
+                <p th:if="${busqueda}" th:text="'No se encontraron productos que coincidan con: ' + ${busqueda}"></p>
+                <p>Intenta con otros términos de búsqueda o <a th:href="@{/productos}">explora todos nuestros productos</a>.</p>
+            </div>
+        </section>
     </main>
 
     <!-- FOOTER -->

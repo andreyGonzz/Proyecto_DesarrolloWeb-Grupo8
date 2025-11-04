@@ -2,8 +2,6 @@ package com.proyecto.proyectoweb.model;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import lombok.*;
@@ -22,7 +20,7 @@ public class Product {
     private String name;
 
     @Column(nullable = false)
-    private String category; // Suplementos, Vitaminas, Productos, Nuevos
+    private String category; 
 
     @Column(precision = 12, scale = 2)
     private BigDecimal price;

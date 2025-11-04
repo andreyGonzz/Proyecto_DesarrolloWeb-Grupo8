@@ -30,4 +30,8 @@ public class ProductService {
     public List<Product> findAllOrderByCreatedAtAsc() {
         return productRepository.findAllByOrderByCreatedAtAsc();
     }
+
+    public List<Product> findByNameContainingIgnoreCase(String name) {
+        return productRepository.findByNameContainingIgnoreCase(name);
+    }
 }

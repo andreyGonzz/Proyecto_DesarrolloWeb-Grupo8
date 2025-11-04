@@ -19,23 +19,22 @@ public class LoginController {
         this.userService = userService;
     }
 
-    // Root should show the login page
-    @GetMapping({"/", "/login"})
+    @GetMapping({ "/login" })
     public String loginForm(@RequestParam(value = "error", required = false) String error, Model model) {
-        if (error != null) model.addAttribute("error", error);
+        if (error != null)
+            model.addAttribute("error", error);
         return "login";
     }
 
     @PostMapping("/login")
     public String loginSubmit(@RequestParam String username,
-                              @RequestParam String password,
-                              Model model) {
+            @RequestParam String password,
+            Model model) {
         Optional<User> maybe = userService.findByUsername(username);
         if (maybe.isPresent()) {
             User u = maybe.get();
             if (u.getPassword() != null && u.getPassword().equals(password)) {
-                // success -> redirect to index
-                return "redirect:/index";
+                return "redirect:/";
             }
         }
         model.addAttribute("error", "Usuario o contraseña incorrectos");
