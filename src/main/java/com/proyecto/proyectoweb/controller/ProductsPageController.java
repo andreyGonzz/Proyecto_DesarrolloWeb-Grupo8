@@ -55,11 +55,11 @@ public class ProductsPageController {
         return "nuevos";
     }
 
-    @GetMapping("/productos/buscar")
-    public String buscarProductos(@RequestParam("query") String query, Model model) {
-        List<Product> productos = productService.findByNameContainingIgnoreCase(query);
+    @GetMapping("/buscar")
+    public String buscarProductos(@RequestParam("q") String q, Model model) {
+        List<Product> productos = productService.findByNameContainingIgnoreCase(q);
         model.addAttribute("productos", productos);
-        model.addAttribute("busqueda", query);
+        model.addAttribute("busqueda", q);
         return "busquedaNombre";
     }
     
