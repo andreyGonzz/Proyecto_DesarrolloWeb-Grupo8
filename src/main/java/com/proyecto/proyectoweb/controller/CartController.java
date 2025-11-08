@@ -103,11 +103,4 @@ public class CartController {
             return "checkout";
         }
     }
-
-    @GetMapping("/order-confirmation")
-    public String orderConfirmation(@RequestParam Long orderId, Model model) {
-        Order order = orderService.getOrderById(orderId);
-        model.addAttribute("order", order);
-        return "order-confirmation";
-    }
 }

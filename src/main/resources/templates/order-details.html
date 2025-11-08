@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'Pedido #' + ${order.id} + ' - Salud con Amor'">Detalles del Pedido - Salud con Amor</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" th:href="@{/orders.css}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="brand">
+                <a th:href="@{/}">
+                    <img th:src="@{/images/logo.png}" alt="Salud con Amor" class="logo-img">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a th:href="@{/}" class="elements">Inicio</a></li>
+                    <li><a th:href="@{/productos}" class="elements">Productos</a></li>
+                    <li><a th:href="@{/orders}" class="elements active">Mis Pedidos</a></li>
+                    <li><a th:href="@{/contact}" class="elements">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <form th:action="@{/busquedaNombre}" method="get" class="search">
+                    <input type="text" name="nombre" placeholder="Buscar productos...">
+                    <button type="submit">🔍</button>
+                </form>
+                <a th:href="@{/cart}" class="cart">
+                    🛒 <span class="cart-badge" th:text="${#authentication.principal.cartCount ?: 0}">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="orders-container order-details-page">
+        <div class="orders-header">
+            <h1>Detalles del Pedido</h1>
+            <p>Pedido #<span th:text="${order.id}">12345</span> - 
+               <span th:text="${#temporals.format(order.orderDate, 'dd/MM/yyyy HH:mm')}">01/12/2024 14:30</span></p>
+        </div>
+
+        <nav class="orders-nav">
+            <a th:href="@{/orders}">← Volver a Pedidos</a>
+            <a th:href="@{/order-history}">Historial</a>
+            <a th:href="@{/invoices}">Facturas</a>
+            <a th:href="@{/contact}?orderId=${order.id}">Solicitar Soporte</a>
+        </nav>
+
+        <div class="detail-section">
+            <h3>Estado del Pedido</h3>
+            <div class="order-status-large" th:classappend="'status-' + ${order.status?.toLowerCase()}" 
+                 th:text="${order.status}">ENTREGADO</div>
+            
+            <div class="tracking-steps">
+                <div class="step" th:classappend="${order.status == 'PENDING' or order.status == 'PROCESSING' or order.status == 'SHIPPED' or order.status == 'DELIVERED'} ? 'completed' : ''">
+                    <div class="step-icon">📦</div>
+                    <div class="step-label">Confirmado</div>
+                </div>
+                <div class="step" th:classappend="${order.status == 'PROCESSING' or order.status == 'SHIPPED' or order.status == 'DELIVERED'} ? 'completed' : ''">
+                    <div class="step-icon">🔧</div>
+                    <div class="step-label">En Proceso</div>
+                </div>
+                <div class="step" th:classappend="${order.status == 'SHIPPED' or order.status == 'DELIVERED'} ? 'completed' : ''">
+                    <div class="step-icon">🚚</div>
+                    <div class="step-label">Enviado</div>
+                </div>
+                <div class="step" th:classappend="${order.status == 'DELIVERED'} ? 'completed' : ''">
+                    <div class="step-icon">✅</div>
+                    <div class="step-label">Entregado</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-section">
+            <h3>Productos</h3>
+            <table class="items-table">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item : ${order.items}">
+                        <td th:text="${item.product?.name}">Proteína Whey</td>
+                        <td th:text="${item.quantity}">2</td>
+                        <td th:text="'₡' + ${#numbers.formatDecimal(item.unitPrice, 1, 2)}">₡22,500.00</td>
+                        <td th:text="'₡' + ${#numbers.formatDecimal(item.unitPrice * item.quantity, 1, 2)}">₡45,000.00</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="total-row">
+                        <td colspan="3" style="text-align: right;"><strong>Total:</strong></td>
+                        <td th:text="${order.formattedTotalAmount}"><strong>₡45,000.00</strong></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="detail-section">
+            <h3>Información de Envío</h3>
+            <div class="shipping-info">
+                <p><strong>Dirección:</strong> <span th:text="${order.shippingAddress}">San José, Costa Rica</span></p>
+                <p><strong>Método de envío:</strong> <span th:text="${order.shippingMethod}">Envío Estándar</span></p>
+                <p><strong>Método de pago:</strong> <span th:text="${order.paymentMethod}">Tarjeta de Crédito</span></p>
+            </div>
+        </div>
+
+        <div class="invoice-actions">
+            <button class="btn-print" onclick="window.print()">🖨️ Imprimir Comprobante</button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div>
+                <h4>Salud con Amor</h4>
+                <a href="#">Sobre nosotros</a>
+                <a href="#">Nuestras tiendas</a>
+                <a href="#">Trabaja con nosotros</a>
+            </div>
+            <div>
+                <h4>Productos</h4>
+                <a th:href="@{/vitaminas}">Vitaminas</a>
+                <a th:href="@{/suplementos}">Suplementos</a>
+                <a th:href="@{/nuevos}">Nuevos</a>
+            </div>
+            <div>
+                <h4>Atención al cliente</h4>
+                <a th:href="@{/contact}">Contáctanos</a>
+                <a href="#">Preguntas frecuentes</a>
+                <a href="#">Términos y condiciones</a>
+            </div>
+            <div>
+                <h4>Mi cuenta</h4>
+                <a th:href="@{/orders}">Mis pedidos</a>
+                <a th:href="@{/order-history}">Historial</a>
+                <a th:href="@{/invoices}">Facturas</a>
+            </div>
+            <div class="copyright">
+                © 2025 Salud con Amor - Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .order-status-large {
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .tracking-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            position: relative;
+        }
+
+        .tracking-steps::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: #e9efe9;
+            z-index: 1;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+
+        .step.completed .step-icon {
+            background: var(--green-500);
+            color: white;
+        }
+
+        .step-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #e9efe9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 1.2rem;
+        }
+
+        .step-label {
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .step.completed .step-label {
+            color: var(--green-700);
+            font-weight: 600;
+        }
+
+        .shipping-info p {
+            margin: 10px 0;
+        }
+    </style>
+</body>
+</html>

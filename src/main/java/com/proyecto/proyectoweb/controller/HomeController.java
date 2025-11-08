@@ -18,7 +18,7 @@ public class HomeController {
         this.productService = productService;
     }
 
-    @GetMapping({"/","/index"})
+    @GetMapping({"/", "/index", "/home"})
     public String index(Model model) {
         List<Product> all = productService.findAll();
 
