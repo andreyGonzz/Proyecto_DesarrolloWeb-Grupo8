@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estado de Pedidos - Salud con Amor</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" th:href="@{/orders.css}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="brand">
+                <a th:href="@{/}">
+                    <img th:src="@{/images/logo.png}" alt="Salud con Amor" class="logo-img">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a th:href="@{/}" class="elements">Inicio</a></li>
+                    <li><a th:href="@{/productos}" class="elements">Productos</a></li>
+                    <li><a th:href="@{/orders}" class="elements active">Mis Pedidos</a></li>
+                    <li><a th:href="@{/contact}" class="elements">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <form th:action="@{/busquedaNombre}" method="get" class="search">
+                    <input type="text" name="nombre" placeholder="Buscar productos...">
+                    <button type="submit">🔍</button>
+                </form>
+                <a th:href="@{/cart}" class="cart">
+                    🛒 <span class="cart-badge" th:text="${#authentication.principal.cartCount ?: 0}">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="orders-container">
+        <div class="orders-header">
+            <h1>Mis Pedidos</h1>
+            <p>Revisa el estado de tus compras recientes</p>
+        </div>
+
+        <nav class="orders-nav">
+            <a th:href="@{/orders}" class="active">Pedidos Actuales</a>
+            <a th:href="@{/order-history}">Historial</a>
+            <a th:href="@{/invoices}">Facturas</a>
+            <a th:href="@{/contact}">Soporte</a>
+        </nav>
+
+        <div class="orders-grid" th:if="${not orders.empty}">
+            <div class="order-card" th:each="order : ${orders}">
+                <div class="order-header">
+                    <div>
+                        <span class="order-id">Pedido #<span th:text="${order.id}">12345</span></span>
+                        <div class="order-date" th:text="${#temporals.format(order.orderDate, 'dd/MM/yyyy HH:mm')}">01/12/2024 14:30</div>
+                    </div>
+                    <span class="order-status" th:classappend="'status-' + ${order.status?.toLowerCase()}" 
+                          th:text="${order.status}">ENTREGADO</span>
+                </div>
+                
+                <div class="order-details">
+                    <div class="order-items">
+                        <strong th:text="${order.items.size()} + ' producto(s)'">3 producto(s)</strong>
+                        <div th:each="item : ${order.items}" th:if="${itemStat.index < 2}">
+                            • <span th:text="${item.quantity} + ' x ' + ${item.product?.name}">2 x Proteína Whey</span>
+                        </div>
+                        <div th:if="${order.items.size() > 2}">• y <span th:text="${order.items.size() - 2}">1</span> más...</div>
+                    </div>
+                    <div class="order-total" th:text="${order.formattedTotalAmount}">₡45,000.00</div>
+                </div>
+
+                <div class="order-actions">
+                    <a th:href="@{/orders/{id}(id=${order.id})}" class="btn-order btn-view">Ver Detalles</a>
+                    <a th:href="@{/invoices}" class="btn-order btn-invoice">Factura</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="empty-orders" th:if="${orders.empty}">
+            <div class="icon">📦</div>
+            <h3>No tienes pedidos activos</h3>
+            <p>Cuando realices un pedido, podrás ver su estado aquí.</p>
+            <a th:href="@{/productos}" class="btn btn-primary" style="margin-top: 20px;">Ir a Comprar</a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div>
+                <h4>Salud con Amor</h4>
+                <a href="#">Sobre nosotros</a>
+                <a href="#">Nuestras tiendas</a>
+                <a href="#">Trabaja con nosotros</a>
+            </div>
+            <div>
+                <h4>Productos</h4>
+                <a th:href="@{/vitaminas}">Vitaminas</a>
+                <a th:href="@{/suplementos}">Suplementos</a>
+                <a th:href="@{/nuevos}">Nuevos</a>
+            </div>
+            <div>
+                <h4>Atención al cliente</h4>
+                <a th:href="@{/contact}">Contáctanos</a>
+                <a href="#">Preguntas frecuentes</a>
+                <a href="#">Términos y condiciones</a>
+            </div>
+            <div>
+                <h4>Mi cuenta</h4>
+                <a th:href="@{/orders}">Mis pedidos</a>
+                <a th:href="@{/order-history}">Historial</a>
+                <a th:href="@{/invoices}">Facturas</a>
+            </div>
+            <div class="copyright">
+                © 2025 Salud con Amor - Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
