@@ -14,7 +14,7 @@
         <link rel="icon" type="image/x-icon" th:href="@{/images/image.png}">
 
         <!-- Use Thymeleaf resource URL syntax; static files live in /static -->
-        <link rel="stylesheet" th:href="@{/styles.css}" />
+        <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <!--   <link rel="stylesheet" th:href="@{/css/cart.css}" /> -->
     </head>
 
@@ -160,9 +160,11 @@
 
             <div class="products-grid" th:if="${nuevos}">
                 <article class="product-card" th:each="p : ${nuevos}">
-                    <img th:src="@{/images/{file}(file=${p.imageUrl})}" th:alt="${p.name}" />
-                    <h3 th:text="${p.name}">Nombre</h3>
-                    <p class="price" th:text="${p.price}">₡0.00</p>
+                    <a th:href="@{/producto/{id}(id=${p.id})}" class="product-link">
+                        <img th:src="@{/images/{file}(file=${p.imageUrl})}" th:alt="${p.name}" />
+                        <h3 th:text="${p.name}">Nombre</h3>
+                        <p class="price" th:text="${p.price}">₡0.00</p>
+                    </a>
                     <form th:action="@{/cart/add}" method="post" class="add-to-cart-form">
                         <input type="hidden" name="productId" th:value="${p.id}">
                         <input type="hidden" name="quantity" value="1">

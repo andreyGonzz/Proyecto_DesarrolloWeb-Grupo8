@@ -1,0 +1,87 @@
+/* Utilidades y estilos comunes para toda la aplicación */
+
+/* Espaciado */
+.margin-top-20 {
+    margin-top: 20px;
+}
+
+.height-6 {
+    height: 6px;
+}
+
+.height-8 {
+    height: 8px;
+}
+
+/* Alineación de texto */
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+/* Estados de error */
+.error-message {
+    color: #b00020;
+    margin-top: 8px;
+}
+
+.error-message-register {
+    color: #c0392b;
+    margin-bottom: 8px;
+}
+
+/* Espaciadores flexibles */
+.spacer-small {
+    height: 6px;
+}
+
+.spacer-medium {
+    height: 8px;
+}
+
+/* Botones con espaciado */
+.btn-with-margin-top {
+    margin-top: 20px;
+}
+
+/* Estilos para tablas */
+.table-total-row td {
+    text-align: right;
+}
+
+.table-total-row td:not(:last-child) {
+    text-align: left;
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+    .margin-top-20 {
+        margin-top: 15px;
+    }
+    
+    .btn-with-margin-top {
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .margin-top-20 {
+        margin-top: 10px;
+    }
+    
+    .btn-with-margin-top {
+        margin-top: 10px;
+    }
+    
+    .error-message,
+    .error-message-register {
+        font-size: 0.9rem;
+    }
+}

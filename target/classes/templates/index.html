@@ -14,7 +14,7 @@
         <link rel="icon" type="image/x-icon" th:href="@{/images/image.png}">
 
         <!-- Use Thymeleaf resource URL syntax; static files live in /static -->
-        <link rel="stylesheet" th:href="@{/styles.css}" />
+        <link rel="stylesheet" th:href="@{/css/styles.css}" />
         <link rel="stylesheet" th:href="@{/css/cart.css}" />
     </head>
 
@@ -116,9 +116,11 @@
                 </div>
                 <div class="products-grid" th:if="${popularProducts}">
                     <article class="product-card" th:each="p : ${popularProducts}">
-                        <img th:src="@{/images/{file}(file=${p.imageUrl})}" th:alt="${p.name}" />
-                        <h3 th:text="${p.name}">Nombre</h3>
-                        <p class="price" th:text="${p.price}">₡0.00</p>
+                        <a th:href="@{/producto/{id}(id=${p.id})}" class="product-link">
+                            <img th:src="@{/images/{file}(file=${p.imageUrl})}" th:alt="${p.name}" />
+                            <h3 th:text="${p.name}">Nombre</h3>
+                            <p class="price" th:text="${p.price}">₡0.00</p>
+                        </a>
                         <form th:action="@{/cart/add}" method="post" class="add-to-cart-form">
                             <input type="hidden" name="productId" th:value="${p.id}">
                             <input type="hidden" name="quantity" value="1">
@@ -138,9 +140,11 @@
 
                 <div class="products-grid" th:if="${newProducts}">
                     <article class="product-card" th:each="p : ${newProducts}">
-                        <img th:src="@{/images/{file}(file=${p.imageUrl})}" th:alt="${p.name}" />
-                        <h3 th:text="${p.name}">Nombre</h3>
-                        <p class="price" th:text="${p.price}">₡0.00</p>
+                        <a th:href="@{/producto/{id}(id=${p.id})}" class="product-link">
+                            <img th:src="@{/images/{file}(file=${p.imageUrl})}" th:alt="${p.name}" />
+                            <h3 th:text="${p.name}">Nombre</h3>
+                            <p class="price" th:text="${p.price}">₡0.00</p>
+                        </a>
                         <button class="add">Añadir al carrito</button>
                     </article>
                 </div>
@@ -170,9 +174,11 @@
 
                 <div class="products-grid" th:if="${suplementos}">
                     <article class="product-card" th:each="p : ${suplementos}">
-                        <img th:src="@{/images/{file}(file=${p.imageUrl})}" th:alt="${p.name}" />
-                        <h3 th:text="${p.name}">Nombre</h3>
-                        <p class="price" th:text="${p.price}">₡0.00</p>
+                        <a th:href="@{/producto/{id}(id=${p.id})}" class="product-link">
+                            <img th:src="@{/images/{file}(file=${p.imageUrl})}" th:alt="${p.name}" />
+                            <h3 th:text="${p.name}">Nombre</h3>
+                            <p class="price" th:text="${p.price}">₡0.00</p>
+                        </a>
                         <button class="add">Añadir al carrito</button>
                     </article>
                 </div>
@@ -186,9 +192,11 @@
 
                 <div class="products-grid" th:if="${vitaminas}">
                     <article class="product-card" th:each="p : ${vitaminas}">
-                        <img th:src="@{/images/{file}(file=${p.imageUrl})}" th:alt="${p.name}" />
-                        <h3 th:text="${p.name}">Nombre</h3>
-                        <p class="price" th:text="${p.price}">₡0.00</p>
+                        <a th:href="@{/producto/{id}(id=${p.id})}" class="product-link">
+                            <img th:src="@{/images/{file}(file=${p.imageUrl})}" th:alt="${p.name}" />
+                            <h3 th:text="${p.name}">Nombre</h3>
+                            <p class="price" th:text="${p.price}">₡0.00</p>
+                        </a>
                         <button class="add">Añadir al carrito</button>
                     </article>
                 </div>

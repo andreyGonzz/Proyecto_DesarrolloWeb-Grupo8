@@ -5,6 +5,7 @@ import com.proyecto.proyectoweb.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -61,6 +62,17 @@ public class ProductsPageController {
         model.addAttribute("productos", productos);
         model.addAttribute("busqueda", q);
         return "busquedaNombre";
+    }
+
+    @GetMapping("/producto/{id}")
+    public String productoDetalle(@PathVariable Long id, Model model) {
+        try {
+            Product producto = productService.getProductById(id);
+            model.addAttribute("producto", producto);
+            return "producto-detalle";
+        } catch (RuntimeException e) {
+            return "redirect:/productos";
+        }
     }
     
 }

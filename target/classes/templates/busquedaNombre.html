@@ -14,7 +14,7 @@
     <link rel="icon" type="image/x-icon" th:href="@{/images/image.png}">
 
     <!-- Use Thymeleaf resource URL syntax; static files live in /static -->
-    <link rel="stylesheet" th:href="@{/styles.css}" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 
 <body>
@@ -164,14 +164,16 @@
             <!-- Si hay productos -->
             <div class="products-grid" th:if="${productos != null and !productos.empty}">
                 <article class="product-card" th:each="producto : ${productos}">
-                    <img th:if="${producto.imageUrl != null and #strings.startsWith(producto.imageUrl,'http')}"
-                        th:src="${producto.imageUrl}" th:alt="${producto.name}" />
-                    <img th:if="${producto.imageUrl != null and not #strings.startsWith(producto.imageUrl,'http')}"
-                        th:src="@{/images/{file}(file=${producto.imageUrl})}" th:alt="${producto.name}" />
-                    <img th:if="${producto.imageUrl == null}" th:src="@{/images/image.png}" th:alt="${producto.name}" />
-                    <h3 th:text="${producto.name}">Nombre del producto</h3>
-                    <p class="price" th:text="'₡' + ${producto.price}">₡0.00</p>
-                    
+                    <a th:href="@{/producto/{id}(id=${producto.id})}" class="product-link">
+                        <img th:if="${producto.imageUrl != null and #strings.startsWith(producto.imageUrl,'http')}"
+                            th:src="${producto.imageUrl}" th:alt="${producto.name}" />
+                        <img th:if="${producto.imageUrl != null and not #strings.startsWith(producto.imageUrl,'http')}"
+                            th:src="@{/images/{file}(file=${producto.imageUrl})}" th:alt="${producto.name}" />
+                        <img th:if="${producto.imageUrl == null}" th:src="@{/images/image.png}" th:alt="${producto.name}" />
+                        <h3 th:text="${producto.name}">Nombre del producto</h3>
+                        <p class="price" th:text="'₡' + ${producto.price}">₡0.00</p>
+                    </a>
+                    <button class="add">Añadir al carrito</button>
                 </article>
             </div>
 

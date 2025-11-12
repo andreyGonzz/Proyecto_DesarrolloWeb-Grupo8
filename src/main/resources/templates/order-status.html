@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estado de Pedidos - Salud con Amor</title>
-    <link rel="stylesheet" th:href="@{/styles.css}">
-    <link rel="stylesheet" th:href="@{/orders.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/orders.css}">
+    <link rel="stylesheet" th:href="@{/css/utilities.css}">
 </head>
 <body>
     <!-- Header -->
@@ -82,7 +83,7 @@
             <div class="icon">📦</div>
             <h3>No tienes pedidos activos</h3>
             <p>Cuando realices un pedido, podrás ver su estado aquí.</p>
-            <a th:href="@{/productos}" class="btn btn-primary" style="margin-top: 20px;">Ir a Comprar</a>
+            <a th:href="@{/productos}" class="btn btn-primary btn-with-margin-top">Ir a Comprar</a>
         </div>
     </main>
 
