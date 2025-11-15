@@ -120,37 +120,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="site-footer">
-        <div class="footer-inner">
-            <div>
-                <h4>Salud con Amor</h4>
-                <a href="#">Sobre nosotros</a>
-                <a href="#">Nuestras tiendas</a>
-                <a href="#">Trabaja con nosotros</a>
-            </div>
-            <div>
-                <h4>Productos</h4>
-                <a th:href="@{/vitaminas}">Vitaminas</a>
-                <a th:href="@{/suplementos}">Suplementos</a>
-                <a th:href="@{/nuevos}">Nuevos</a>
-            </div>
-            <div>
-                <h4>Atención al cliente</h4>
-                <a th:href="@{/contact}">Contáctanos</a>
-                <a href="#">Preguntas frecuentes</a>
-                <a href="#">Términos y condiciones</a>
-            </div>
-            <div>
-                <h4>Mi cuenta</h4>
-                <a th:href="@{/orders}">Mis pedidos</a>
-                <a th:href="@{/order-history}">Historial</a>
-                <a th:href="@{/invoices}">Facturas</a>
-            </div>
-            <div class="copyright">
-                © 2025 Salud con Amor - Todos los derechos reservados.
-            </div>
-        </div>
-    </footer>
+    <div th:replace="~{fragments/_footer :: footer}"></div>
 
 </body>
 </html>
