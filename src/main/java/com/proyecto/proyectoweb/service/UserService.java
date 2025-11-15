@@ -15,16 +15,18 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public Optional<User> findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
-    public User register(String username, String rawPassword) {
-        if (userRepository.findByUsername(username).isPresent()) {
+    public User register(String email, String rawPassword, String nombre, String apellidos) {
+        if (userRepository.findByEmail(email).isPresent()) {
             throw new IllegalArgumentException("Usuario ya existe");
         }
         User u = new User();
-        u.setUsername(username);
+        u.setEmail(email);
+        u.setNombre(nombre);
+        u.setApellidos(apellidos);
         u.setPassword(rawPassword);
         u.setRoles("ROLE_USER");
         return userRepository.save(u);
@@ -43,14 +45,4 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User createDemoUserIfNotExists() {
-        return userRepository.findByUsername("demo")
-                .orElseGet(() -> {
-                    User demoUser = new User();
-                    demoUser.setUsername("demo");
-                    demoUser.setPassword("demo123");
-                    demoUser.setRoles("ROLE_USER");
-                    return userRepository.save(demoUser);
-                });
-    }
 }

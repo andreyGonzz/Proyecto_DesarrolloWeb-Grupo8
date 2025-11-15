@@ -80,7 +80,7 @@ public class OrderController {
     }
 
     private User getDemoUser() {
-        return userService.findByUsername("demo")
+        return userService.findByEmail("demo")
                 .orElseGet(() -> {
                     List<User> users = userService.findAllUsers();
                     if (!users.isEmpty()) {
@@ -88,7 +88,7 @@ public class OrderController {
                     }
                     User demoUser = new User();
                     demoUser.setId(1L);
-                    demoUser.setUsername("demo");
+                    demoUser.setEmail("demo@gmail.com");
                     return demoUser;
                 });
     }

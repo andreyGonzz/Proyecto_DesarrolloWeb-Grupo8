@@ -28,10 +28,10 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String loginSubmit(@RequestParam String username,
+    public String loginSubmit(@RequestParam String email,
                               @RequestParam String password,
                               Model model) {
-        Optional<User> maybe = userService.findByUsername(username);
+        Optional<User> maybe = userService.findByEmail(email);
         if (maybe.isPresent()) {
             User u = maybe.get();
             if (u.getPassword() != null && u.getPassword().equals(password)) {

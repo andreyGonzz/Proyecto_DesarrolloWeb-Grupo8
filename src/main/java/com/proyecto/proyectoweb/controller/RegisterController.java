@@ -23,13 +23,15 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String submitForm(@RequestParam String username,
+    public String submitForm(@RequestParam String email,
+                             @RequestParam String nombre,
+                             @RequestParam String apellidos,
                              @RequestParam String password,
                              @RequestParam(required = false) String confirm,
                              Model model) {
         // Basic validation
-        if (username == null || username.trim().isEmpty()) {
-            model.addAttribute("error", "El nombre de usuario es obligatorio");
+        if (email == null || email.trim().isEmpty()) {
+            model.addAttribute("error", "El email es obligatorio");
             return "register";
         }
         if (password == null || password.isEmpty()) {
@@ -41,9 +43,19 @@ public class RegisterController {
             return "register";
         }
 
+        if (nombre == null || nombre.trim().isEmpty()) {
+            model.addAttribute("error", "El nombre es obligatorio");
+            return "register";
+        }
+
+        if (apellidos == null || apellidos.trim().isEmpty()) {
+            model.addAttribute("error", "Los apellidos son obligatorio");
+            return "register";
+        }
+
         try {
-            User u = userService.register(username.trim(), password);
-            model.addAttribute("success", "Usuario registrado correctamente: " + u.getUsername());
+            User u = userService.register(email, password, nombre, apellidos);
+            model.addAttribute("success", "Usuario registrado correctamente: " + u.getNombre());
             return "login"; // after successful register redirect to login page (template)
         } catch (IllegalArgumentException ex) {
             model.addAttribute("error", ex.getMessage());

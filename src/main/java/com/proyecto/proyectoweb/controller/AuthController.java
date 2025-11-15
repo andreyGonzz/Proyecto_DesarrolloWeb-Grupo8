@@ -19,13 +19,15 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody Map<String, String> body) {
-        String username = body.get("username");
+        String email = body.get("email");
         String password = body.get("password");
-        if (username == null || password == null) {
+        String nombre = body.get("nombre");
+        String apellidos = body.get("apellidos");
+        if (email == null || password == null) {
             return ResponseEntity.badRequest().body("username and password required");
         }
         try {
-            User u = userService.register(username, password);
+            User u = userService.register(email, password, nombre, apellidos);
             u.setPassword(null);
             return ResponseEntity.ok(u);
         } catch (IllegalArgumentException ex) {
