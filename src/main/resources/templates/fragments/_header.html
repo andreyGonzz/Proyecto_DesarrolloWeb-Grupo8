@@ -70,9 +70,12 @@
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                                 <img th:src="@{${session.imageUsuario}}" alt="User" height="30" class="rounded-circle" th:if="${session.imageUsuario != null}"/>
                                 <i class="fas fa-user" th:if="${session.imageUsuario == null}"></i>
-                                <span sec:authentication="name"></span>
+                                <span th:text="${usuarioActual != null ? usuarioActual.nombre : #authentication.name}"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" th:href="@{/usuario/editar}"><i class="fas fa-user-edit"></i> Editar perfil</a>
+                                </li>
                                 <li>
                                     <form th:action="@{/logout}" method="post">
                                         <button class="dropdown-item" type="submit">Logout</button>
