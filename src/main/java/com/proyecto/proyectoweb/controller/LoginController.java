@@ -27,19 +27,7 @@ public class LoginController {
         return "login";
     }
 
-    @PostMapping("/login")
-    public String loginSubmit(@RequestParam String email,
-                              @RequestParam String password,
-                              Model model) {
-        Optional<User> maybe = userService.findByEmail(email);
-        if (maybe.isPresent()) {
-            User u = maybe.get();
-            if (u.getPassword() != null && u.getPassword().equals(password)) {
-                return "redirect:/home";
-            }
-        }
-        model.addAttribute("error", "Usuario o contraseña incorrectos");
-        return "login";
-    }
+    // El manejo del POST /login ahora lo realiza Spring Security (formLogin). Este método
+    // personalizado se elimina para evitar conflicto y doble autenticación.
 }
 

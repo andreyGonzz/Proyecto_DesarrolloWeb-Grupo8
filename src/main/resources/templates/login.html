@@ -50,7 +50,9 @@
 
                 <button class="btn btn--secondary" type="button"><a th:href="@{/register}">Registrarse</a></button>
 
-                <div th:if="${error}" class="auth-error">[[${error}]]</div>
+                <!-- Mensajes de estado gestionados por Spring Security -->
+                <div th:if="${param.error}" class="auth-error">Credenciales inválidas</div>
+                <div th:if="${param.logout}" class="auth-info">Sesión cerrada correctamente</div>
 
                 <p class="help">¿Necesitas tus medicamentos?<br><span>Visita nuestra pagina y explora ofertas.</span></p>
             </form>

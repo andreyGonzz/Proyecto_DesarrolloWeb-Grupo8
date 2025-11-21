@@ -70,7 +70,7 @@ public class CartService {
     }
     
     public Order createOrderFromCart(Long userId, String shippingAddress, 
-                                   String paymentMethod, String shippingMethod) {
+                                    String paymentMethod, String shippingMethod) {
         Cart cart = getCartWithItems(userId);
         
         if (cart.isEmpty()) {

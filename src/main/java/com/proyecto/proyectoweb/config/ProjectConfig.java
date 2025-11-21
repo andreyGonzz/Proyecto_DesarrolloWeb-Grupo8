@@ -43,8 +43,10 @@ public class ProjectConfig implements WebMvcConfigurer {
         ).formLogin(form -> form // Configuración de formulario de login
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/", true)
-                .failureUrl("/login?error=true")
+                .usernameParameter("email") // usamos el campo 'email' del formulario como username
+                .passwordParameter("password")
+                .defaultSuccessUrl("/home", true)
+                .failureUrl("/login?error") // query param sin valor para mostrar mensaje genérico
                 .permitAll()
         ).logout(logout -> logout // Configuración de logout
                 .logoutUrl("/logout")
@@ -66,27 +68,6 @@ public class ProjectConfig implements WebMvcConfigurer {
         return new BCryptPasswordEncoder();
     }
 
-    //Este método será reemplazado la siguiente semana
-    @Bean
-    public UserDetailsService users(PasswordEncoder passwordEncoder) {
-        UserDetails admin = User.builder()
-                .username("juan")
-                .password(passwordEncoder.encode("123"))
-                .roles("ADMIN")
-                .build();
-
-        UserDetails sales = User.builder()
-                .username("rebeca")
-                .password(passwordEncoder.encode("456"))
-                .roles("VENDEDOR")
-                .build();
-
-        UserDetails user = User.builder()
-                .username("pedro")
-                .password(passwordEncoder.encode("789"))
-                .roles("USUARIO") // Consistent con tu configuración
-                .build();
-
-        return new InMemoryUserDetailsManager(admin, sales, user);
-    }
+    // Usar el servicio personalizado para autenticación con usuarios de la base de datos
+    // Elimina el gestor en memoria y permite que Spring inyecte CustomUserDetailsService
 }

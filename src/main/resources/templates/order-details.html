@@ -11,32 +11,7 @@
 </head>
 <body>
     <!-- Header -->
-    <header class="site-header">
-        <div class="header-inner">
-            <div class="brand">
-                <a th:href="@{/}">
-                    <img th:src="@{/images/logo.png}" alt="Salud con Amor" class="logo-img">
-                </a>
-            </div>
-            <nav class="main-nav">
-                <ul>
-                    <li><a th:href="@{/}" class="elements">Inicio</a></li>
-                    <li><a th:href="@{/productos}" class="elements">Productos</a></li>
-                    <li><a th:href="@{/orders}" class="elements active">Mis Pedidos</a></li>
-                    <li><a th:href="@{/contact}" class="elements">Contacto</a></li>
-                </ul>
-            </nav>
-            <div class="header-actions">
-                <form th:action="@{/busquedaNombre}" method="get" class="search">
-                    <input type="text" name="nombre" placeholder="Buscar productos...">
-                    <button type="submit">🔍</button>
-                </form>
-                <a th:href="@{/cart}" class="cart">
-                    🛒 <span class="cart-badge" th:text="${#authentication.principal.cartCount ?: 0}">0</span>
-                </a>
-            </div>
-        </div>
-    </header>
+    <div th:replace="~{fragments/_header :: header}"></div>
 
     <main class="orders-container order-details-page">
         <div class="orders-header">

@@ -2,6 +2,7 @@ package com.proyecto.proyectoweb.service;
 
 import com.proyecto.proyectoweb.model.User;
 import com.proyecto.proyectoweb.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -10,9 +11,11 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Optional<User> findByEmail(String email) {
@@ -27,7 +30,7 @@ public class UserService {
         u.setEmail(email);
         u.setNombre(nombre);
         u.setApellidos(apellidos);
-        u.setPassword(rawPassword);
+        u.setPassword(passwordEncoder.encode(rawPassword)); // Guardar con BCrypt
         u.setRoles("ROLE_USER");
         return userRepository.save(u);
     }
