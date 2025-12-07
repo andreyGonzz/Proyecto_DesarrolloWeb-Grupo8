@@ -68,6 +68,5 @@ public class ProjectConfig implements WebMvcConfigurer {
         return new BCryptPasswordEncoder();
     }
 
-    // Usar el servicio personalizado para autenticación con usuarios de la base de datos
-    // Elimina el gestor en memoria y permite que Spring inyecte CustomUserDetailsService
+
 }

@@ -6,8 +6,8 @@ import com.proyecto.proyectoweb.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
-import java.util.Optional;
 
+import java.util.Optional;
 @Service
 @Transactional
 public class CartService {
@@ -18,7 +18,7 @@ public class CartService {
     private final UserService userService;
 
     public CartService(CartRepository cartRepository, OrderRepository orderRepository, 
-                      ProductService productService, UserService userService) {
+                    ProductService productService, UserService userService) {
         this.cartRepository = cartRepository;
         this.orderRepository = orderRepository;
         this.productService = productService;
@@ -32,7 +32,7 @@ public class CartService {
         } else {
             Cart newCart = new Cart(user);
             return cartRepository.save(newCart);
-        }
+        }   
     }
     
     public Cart getCartByUserId(Long userId) {
