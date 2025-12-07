@@ -1,7 +1,7 @@
 package com.proyecto.proyectoweb.controller;
 
 import com.proyecto.proyectoweb.model.Order;
-import com.proyecto.proyectoweb.model.User;
+import com.proyecto.proyectoweb.model.UserD;
 import com.proyecto.proyectoweb.service.OrderService;
 import com.proyecto.proyectoweb.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -26,7 +26,7 @@ public class OrderController {
 
     @GetMapping("/orders")
     public String getCurrentOrders(Model model) {
-        User user = getDemoUser();
+        UserD user = getDemoUser();
         List<Order> orders = orderService.getUserOrders(user);
         
         model.addAttribute("orders", orders);
@@ -36,7 +36,7 @@ public class OrderController {
 
     @GetMapping("/order-history")
     public String getOrderHistory(Model model) {
-        User user = getDemoUser();
+        UserD user = getDemoUser();
         List<Order> orders = orderService.getUserOrders(user);
         
         model.addAttribute("orders", orders);
@@ -46,7 +46,7 @@ public class OrderController {
 
     @GetMapping("/orders/{id}")
     public String getOrderDetails(@PathVariable Long id, Model model) {
-        User user = getDemoUser();
+        UserD user = getDemoUser();
         Order order = orderService.getOrderById(id);
         
         if (order.getUser() == null || !order.getUser().getId().equals(user.getId())) {
@@ -59,7 +59,7 @@ public class OrderController {
 
     @GetMapping("/invoices")
     public String getInvoices(Model model) {
-        User user = getDemoUser();
+        UserD user = getDemoUser();
         List<Order> orders = orderService.getUserOrders(user);
     
         BigDecimal totalSpent = orders.stream()
@@ -79,14 +79,14 @@ public class OrderController {
         return "invoices";
     }
 
-    private User getDemoUser() {
+    private UserD getDemoUser() {
         return userService.findByEmail("demo")
                 .orElseGet(() -> {
-                    List<User> users = userService.findAllUsers();
+                    List<UserD> users = userService.findAllUsers();
                     if (!users.isEmpty()) {
                         return users.get(0);
                     }
-                    User demoUser = new User();
+                    UserD demoUser = new UserD();
                     demoUser.setId(1L);
                     demoUser.setEmail("demo@gmail.com");
                     return demoUser;

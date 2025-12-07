@@ -1,6 +1,6 @@
 package com.proyecto.proyectoweb.service;
 
-import com.proyecto.proyectoweb.model.User;
+import com.proyecto.proyectoweb.model.UserD;
 import com.proyecto.proyectoweb.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,15 +18,15 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public Optional<User> findByEmail(String email) {
+    public Optional<UserD> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
-    public User register(String email, String rawPassword, String nombre, String apellidos) {
+    public UserD register(String email, String rawPassword, String nombre, String apellidos) {
         if (userRepository.findByEmail(email).isPresent()) {
             throw new IllegalArgumentException("Usuario ya existe");
         }
-        User u = new User();
+        UserD u = new UserD();
         u.setEmail(email);
         u.setNombre(nombre);
         u.setApellidos(apellidos);
@@ -35,16 +35,16 @@ public class UserService {
         return userRepository.save(u);
     }
 
-    public User getUserById(Long id) {
+    public UserD getUserById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado con id: " + id));
     }
 
-    public List<User> findAllUsers() {
+    public List<UserD> findAllUsers() {
         return userRepository.findAll();
     }
 
-    public User save(User user) {
+    public UserD save(UserD user) {
         return userRepository.save(user);
     }
 

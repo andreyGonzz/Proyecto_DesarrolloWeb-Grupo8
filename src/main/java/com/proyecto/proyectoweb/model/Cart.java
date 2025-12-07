@@ -19,7 +19,7 @@ public class Cart {
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserD user;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> items = new ArrayList<>();
@@ -33,7 +33,7 @@ public class Cart {
         this.lastUpdated = LocalDateTime.now();
     }
 
-    public Cart(User user) {
+    public Cart(UserD user) {
         this.user = user;
         this.lastUpdated = LocalDateTime.now();
     }

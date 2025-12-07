@@ -1,7 +1,7 @@
 package com.proyecto.proyectoweb.controller;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
-import com.proyecto.proyectoweb.model.User;
+import com.proyecto.proyectoweb.model.UserD;
 import com.proyecto.proyectoweb.service.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,7 +20,7 @@ public class UserController {
     }
 
     @ModelAttribute("usuarioActual")
-    public User usuarioActual() {
+    public UserD usuarioActual() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null && auth.isAuthenticated() && !auth.getName().equals("anonymousUser")) {
             return userService.findByEmail(auth.getName()).orElse(null);
@@ -32,7 +32,7 @@ public class UserController {
     public String mostrarFormularioEdicion(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
-        User usuario = userService.findByEmail(email).orElse(null);
+        UserD usuario = userService.findByEmail(email).orElse(null);
         model.addAttribute("usuario", usuario);
         return "editar-usuario";
     }
@@ -44,7 +44,7 @@ public class UserController {
                                     Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String actualEmail = auth.getName();
-        User usuario = userService.findByEmail(actualEmail).orElse(null);
+        UserD usuario = userService.findByEmail(actualEmail).orElse(null);
         if (usuario != null) {
             usuario.setNombre(nombre);
             usuario.setApellidos(apellidos);

@@ -1,6 +1,6 @@
 package com.proyecto.proyectoweb.controller;
 
-import com.proyecto.proyectoweb.model.User;
+import com.proyecto.proyectoweb.model.UserD;
 import com.proyecto.proyectoweb.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

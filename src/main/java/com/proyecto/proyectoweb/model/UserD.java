@@ -12,7 +12,7 @@ import lombok.*;
 @AllArgsConstructor
 @Setter
 @Getter
-public class User {
+public class UserD {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
