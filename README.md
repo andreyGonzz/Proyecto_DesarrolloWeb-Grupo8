@@ -1,4 +1,5 @@
-#💚 Proyecto Web: Salud con Amor (Macrobiótica)
+#SALUD CON AMOR
+💚 Proyecto Web: Salud con Amor (Macrobiótica)
 Este repositorio contiene el código fuente para el proyecto web "Salud con Amor", una plataforma dedicada a difundir los principios y la práctica de la macrobiótica.
 
 🌟 Visión General del Proyecto
