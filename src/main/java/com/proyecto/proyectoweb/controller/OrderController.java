@@ -43,7 +43,7 @@ public class OrderController {
             return "redirect:/login";
         }
         List<Order> orders = orderService.getUserOrders(user);
-        
+
         model.addAttribute("orders", orders);
         model.addAttribute("activePage", "orders");
         model.addAttribute("usuarioActual", user);
@@ -57,7 +57,7 @@ public class OrderController {
             return "redirect:/login";
         }
         List<Order> orders = orderService.getUserOrders(user);
-        
+
         model.addAttribute("orders", orders);
         model.addAttribute("activePage", "history");
         model.addAttribute("usuarioActual", user);
@@ -70,15 +70,15 @@ public class OrderController {
         if (user == null) {
             return "redirect:/login";
         }
-        
+
         try {
             Order order = orderService.getOrderById(id);
-            
+
             // Verificar que la orden pertenece al usuario actual
             if (order.getUser() == null || !order.getUser().getId().equals(user.getId())) {
                 return "redirect:/orders?error=notfound";
             }
-            
+
             model.addAttribute("order", order);
             model.addAttribute("usuarioActual", user);
             return "order-details";
@@ -87,74 +87,37 @@ public class OrderController {
         }
     }
 
-<<<<<<< HEAD
     @GetMapping("/invoices")
     public String getInvoices(Model model) {
-        User user = getDemoUser();
+        User user = getCurrentUser();
+        if (user == null) {
+            return "redirect:/login";
+        }
+
         List<Order> orders = orderService.getUserOrders(user);
-    
-        BigDecimal totalSpent = orders.stream()
-            .map(Order::getTotalAmount)
-            .reduce(BigDecimal.ZERO, BigDecimal::add);
-    
+
+        if (orders == null) {
+            orders = new ArrayList<>();
+        }
+
+        BigDecimal totalSpent = BigDecimal.ZERO;
+        for (Order order : orders) {
+            if (order.getTotalAmount() != null) {
+                totalSpent = totalSpent.add(order.getTotalAmount());
+            }
+        }
+
         int totalOrders = orders.size();
-        BigDecimal averageOrder = totalOrders > 0 ? 
-            totalSpent.divide(BigDecimal.valueOf(totalOrders), 2, RoundingMode.HALF_UP) : 
-            BigDecimal.ZERO;
-    
+        BigDecimal averageOrder = totalOrders > 0
+                ? totalSpent.divide(BigDecimal.valueOf(totalOrders), 2, RoundingMode.HALF_UP)
+                : BigDecimal.ZERO;
+
         model.addAttribute("orders", orders);
         model.addAttribute("totalSpent", totalSpent);
         model.addAttribute("totalOrders", totalOrders);
         model.addAttribute("averageOrder", averageOrder);
         model.addAttribute("activePage", "invoices");
+        model.addAttribute("usuarioActual", user);
         return "invoices";
     }
-
-    private User getDemoUser() {
-        return userService.findByEmail("demo")
-                .orElseGet(() -> {
-                    List<User> users = userService.findAllUsers();
-                    if (!users.isEmpty()) {
-                        return users.get(0);
-                    }
-                    User demoUser = new User();
-                    demoUser.setId(1L);
-                    demoUser.setEmail("demo@gmail.com");
-                    return demoUser;
-                });
-=======
-   @GetMapping("/invoices")
-public String getInvoices(Model model) {
-    User user = getCurrentUser();
-    if (user == null) {
-        return "redirect:/login";
->>>>>>> 72c05f2ca1aefdf78c0ce4430258a39a09cd3204
-    }
-    
-    List<Order> orders = orderService.getUserOrders(user);
-    
-    if (orders == null) {
-        orders = new ArrayList<>();
-    }
-    
-    BigDecimal totalSpent = BigDecimal.ZERO;
-    for (Order order : orders) {
-        if (order.getTotalAmount() != null) {
-            totalSpent = totalSpent.add(order.getTotalAmount());
-        }
-    }
-    
-    int totalOrders = orders.size();
-    BigDecimal averageOrder = totalOrders > 0 ? 
-        totalSpent.divide(BigDecimal.valueOf(totalOrders), 2, RoundingMode.HALF_UP) : 
-        BigDecimal.ZERO;
-    
-    model.addAttribute("orders", orders);
-    model.addAttribute("totalSpent", totalSpent);
-    model.addAttribute("totalOrders", totalOrders);
-    model.addAttribute("averageOrder", averageOrder);
-    model.addAttribute("activePage", "invoices");
-    model.addAttribute("usuarioActual", user);
-    return "invoices";
-}
 }
