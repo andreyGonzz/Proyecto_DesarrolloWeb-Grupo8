@@ -1,21 +1,39 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Editar información personal</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
+<style>
+    input {
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid gray;
+
+        &:focus {
+
+            transition: all 0.8S ease;
+            transform: scale(1.2);
+            border: 2px solid black;
+        }
+    }
+</style>
+
 <body>
     <div th:replace="~{fragments/_header :: header}"></div>
     <main class="container">
-        <section class="section card" style="max-width: 480px; margin: 0 auto;">
+        <section class="section card si" style="max-width: 480px; margin: 0 auto; border:none;">
             <h2 style="text-align:center; margin-bottom: 18px;">Editar información personal</h2>
-            <form th:action="@{/usuario/editar}" method="post" style="display: flex; flex-direction: column; gap: 16px;">
+            <form th:action="@{/usuario/editar}" method="post"
+                style="display: flex; flex-direction: column; gap: 16px; margin:20px; border-radius: 20px;  ">
                 <label class="label" for="nombre">Nombre</label>
                 <input class="input" type="text" id="nombre" name="nombre" th:value="${usuario.nombre}" required />
 
                 <label class="label" for="apellidos">Apellidos</label>
-                <input class="input" type="text" id="apellidos" name="apellidos" th:value="${usuario.apellidos}" required />
+                <input class="input" type="text" id="apellidos" name="apellidos" th:value="${usuario.apellidos}"
+                    required />
 
                 <label class="label" for="email">Correo electrónico</label>
                 <input class="input" type="email" id="email" name="email" th:value="${usuario.email}" required />
@@ -27,4 +45,5 @@
     </main>
     <div th:replace="~{fragments/_footer :: footer}"></div>
 </body>
+
 </html>
