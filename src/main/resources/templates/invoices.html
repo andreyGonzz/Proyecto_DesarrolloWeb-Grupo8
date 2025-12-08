@@ -11,10 +11,6 @@
 </head>
 <body>
     <!-- Header -->
-<<<<<<< HEAD
-        <!-- HEADER -->
-=======
->>>>>>> 72c05f2ca1aefdf78c0ce4430258a39a09cd3204
     <div th:replace="~{fragments/_header :: header}"></div>
 
     <main class="orders-container">
@@ -59,8 +55,8 @@
 
                 <div class="order-actions">
                     <a th:href="@{/orders/{id}(id=${order.id})}" class="btn-order btn-view">Ver Detalles</a>
-                    <button class="btn-order btn-invoice" th:onclick="'downloadInvoice(' + ${order.id} + ')'">📄 Descargar PDF</button>
-                    <button class="btn-order btn-view" th:onclick="'printInvoice(' + ${order.id} + ')'">🖨️ Imprimir</button>
+                    <button class="btn-order btn-invoice" onclick="downloadInvoice(${order.id})">📄 Descargar PDF</button>
+                    <button class="btn-order btn-view" onclick="printInvoice(${order.id})">🖨️ Imprimir</button>
                 </div>
             </div>
         </div>
@@ -96,13 +92,10 @@
 
     <script>
         function downloadInvoice(orderId) {
-            // Simulación de descarga de factura
             alert('Descargando factura del pedido #' + orderId);
-            // En una implementación real, aquí iría la llamada al endpoint de descarga
         }
 
         function printInvoice(orderId) {
-            // Redirigir a la página de detalles para imprimir
             window.open('/orders/' + orderId, '_blank');
         }
     </script>

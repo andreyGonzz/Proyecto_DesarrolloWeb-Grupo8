@@ -14,8 +14,7 @@
     <link rel="stylesheet" th:href="@{/css/cart.css}" />
 </head>
 <body>
-    <!-- HEADER (IGUAL AL TUYO) -->
-        <!-- HEADER -->
+    <!-- HEADER -->
     <div th:replace="~{fragments/_header :: header}"></div>
 
     <!-- CONTENIDO DEL CARRITO -->
@@ -29,7 +28,10 @@
             <div class="empty-cart-content">
                 <h2>Tu carrito está vacío</h2>
                 <p>¡Descubre nuestros productos para tu salud y bienestar!</p>
-                <a th:href="@{/productos}" class="btn btn-primary">Explorar Productos</a>
+                <div class="empty-cart-actions">
+                    <a th:href="@{/productos}" class="btn btn-primary">Explorar Productos</a>
+                    <a th:href="@{/order-history}" class="btn btn-secondary">Ver Historial de Pedidos</a>
+                </div>
             </div>
         </div>
         
@@ -113,6 +115,8 @@
                 <div class="cart-actions">
                     <a th:href="@{/productos}" class="btn btn-secondary">Seguir Comprando</a>
                     <a th:href="@{/cart/checkout}" class="btn btn-primary">Proceder al Checkout</a>
+                    <!-- Botón para ver historial de pedidos -->
+                    <a th:href="@{/order-history}" class="btn btn-secondary">Ver Historial de Pedidos</a>
                 </div>
             </div>
             
@@ -124,7 +128,7 @@
         </div>
     </main>
 
-    <!-- FOOTER (IGUAL AL TUYO) -->
+    <!-- FOOTER -->
     <div th:replace="~{fragments/_footer :: footer}"></div>
 
     <script>

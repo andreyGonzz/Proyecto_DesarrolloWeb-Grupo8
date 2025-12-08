@@ -17,7 +17,7 @@ public class UserService {
     private final CartRepository cartRepository;
 
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
-            CartRepository cartRepository) {
+                      CartRepository cartRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.cartRepository = cartRepository;
@@ -38,11 +38,11 @@ public class UserService {
         u.setPassword(passwordEncoder.encode(rawPassword));
         u.setRoles("ROLE_USER");
         User savedUser = userRepository.save(u);
-
+        
         // Crear carrito directamente con el repositorio
         Cart newCart = new Cart(savedUser);
         cartRepository.save(newCart);
-
+        
         return savedUser;
     }
 

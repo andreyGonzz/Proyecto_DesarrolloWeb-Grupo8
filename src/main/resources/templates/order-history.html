@@ -57,7 +57,6 @@
                 <div class="order-actions">
                     <a th:href="@{/orders/{id}(id=${order.id})}" class="btn-order btn-view">Ver Detalles</a>
                     <a th:href="@{/invoices}" class="btn-order btn-invoice">Factura</a>
-                    <!-- CORRECCIÓN: Sintaxis correcta para parámetros en Thymeleaf -->
                     <a th:href="@{/contact(orderId=${order.id})}" class="btn-order btn-view" th:if="${order.status != 'DELIVERED'}">Soporte</a>
                 </div>
             </div>

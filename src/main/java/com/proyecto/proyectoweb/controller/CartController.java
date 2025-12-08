@@ -26,14 +26,14 @@ public class CartController {
     private final CartService cartService;
     private final OrderService orderService;
     private final ProductService productService;
-    private final UserService userService; // Añadir UserService
+    private final UserService userService;
 
-    public CartController(CartService cartService, OrderService orderService,
-            ProductService productService, UserService userService) {
+    public CartController(CartService cartService, OrderService orderService, 
+                         ProductService productService, UserService userService) {
         this.cartService = cartService;
         this.orderService = orderService;
         this.productService = productService;
-        this.userService = userService; // Inyectar UserService
+        this.userService = userService;
     }
 
     // Obtener usuario autenticado
@@ -51,13 +51,13 @@ public class CartController {
     }
 
     @PostMapping("/add")
-    public String addToCart(@RequestParam Long productId,
-            @RequestParam(defaultValue = "1") int quantity,
-            HttpSession session) {
-
+    public String addToCart(@RequestParam Long productId, 
+                          @RequestParam(defaultValue = "1") int quantity,
+                          HttpSession session) {
+        
         Long userId = getCurrentUserId();
         if (userId == null) {
-            return "redirect:/login"; // Redirigir a login si no hay usuario
+            return "redirect:/login";
         }
         cartService.addToCart(userId, productId, quantity);
         return "redirect:/cart";
@@ -70,14 +70,8 @@ public class CartController {
             return "redirect:/login";
         }
         Cart cart = cartService.getCartWithItems(userId);
-        if (cart != null) {
-            model.addAttribute("cart", cart);
-            return "cart";
-        } else {
-            Cart cartVacio = new Cart(getCurrentUser());
-            model.addAttribute("cart", cartVacio);
-            return "cart";
-        }
+        model.addAttribute("cart", cart);
+        return "cart";
     }
 
     @PostMapping("/remove")
@@ -91,9 +85,9 @@ public class CartController {
     }
 
     @PostMapping("/update")
-    public String updateQuantity(@RequestParam Long productId,
-            @RequestParam int quantity,
-            HttpSession session) {
+    public String updateQuantity(@RequestParam Long productId, 
+                               @RequestParam int quantity, 
+                               HttpSession session) {
         Long userId = getCurrentUserId();
         cartService.updateQuantity(userId, productId, quantity);
         return "redirect:/cart";
@@ -103,33 +97,33 @@ public class CartController {
     public String checkout(HttpSession session, Model model) {
         Long userId = getCurrentUserId();
         Cart cart = cartService.getCartWithItems(userId);
-
+        
         if (cart.isEmpty()) {
             return "redirect:/cart";
         }
-
+        
         model.addAttribute("cart", cart);
         return "checkout";
     }
 
     @PostMapping("/process-order")
     public String processOrder(@RequestParam String fullName,
-            @RequestParam String address,
-            @RequestParam String city,
-            @RequestParam String zipCode,
-            @RequestParam String paymentMethod,
-            @RequestParam String shippingMethod,
-            HttpSession session,
-            Model model) {
-
+                             @RequestParam String address,
+                             @RequestParam String city,
+                             @RequestParam String zipCode,
+                             @RequestParam String paymentMethod,
+                             @RequestParam String shippingMethod,
+                             HttpSession session,
+                             Model model) {
+        
         Long userId = getCurrentUserId();
-
+        
         try {
             String shippingAddress = String.format("%s, %s, %s %s", fullName, address, city, zipCode);
-
+            
             Order order = cartService.createOrderFromCart(userId, shippingAddress, paymentMethod, shippingMethod);
             return "redirect:/order-confirmation?orderId=" + order.getId();
-
+            
         } catch (Exception e) {
             model.addAttribute("error", "Error al procesar la orden: " + e.getMessage());
             Cart cart = cartService.getCartWithItems(userId);
