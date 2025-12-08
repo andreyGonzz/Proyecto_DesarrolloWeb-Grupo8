@@ -1,6 +1,8 @@
 package com.proyecto.proyectoweb.service;
 
+import com.proyecto.proyectoweb.model.Cart;
 import com.proyecto.proyectoweb.model.User;
+import com.proyecto.proyectoweb.repository.CartRepository;
 import com.proyecto.proyectoweb.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,11 @@ public class UserService {
     private final CartRepository cartRepository;
 
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
+<<<<<<< HEAD
                       CartRepository cartRepository) { 
+=======
+                      CartRepository cartRepository) {
+>>>>>>> 72c05f2ca1aefdf78c0ce4430258a39a09cd3204
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.cartRepository = cartRepository;
@@ -41,6 +47,10 @@ public class UserService {
         u.setRoles("ROLE_USER");
         User savedUser = userRepository.save(u);
         
+<<<<<<< HEAD
+=======
+        // Crear carrito directamente con el repositorio
+>>>>>>> 72c05f2ca1aefdf78c0ce4430258a39a09cd3204
         Cart newCart = new Cart(savedUser);
         cartRepository.save(newCart);
         
@@ -59,5 +69,9 @@ public class UserService {
     public User save(User user) {
         return userRepository.save(user);
     }
+<<<<<<< HEAD
 
 }
+=======
+}
+>>>>>>> 72c05f2ca1aefdf78c0ce4430258a39a09cd3204

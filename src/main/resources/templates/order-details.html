@@ -24,7 +24,7 @@
             <a th:href="@{/orders}">← Volver a Pedidos</a>
             <a th:href="@{/order-history}">Historial</a>
             <a th:href="@{/invoices}">Facturas</a>
-            <a th:href="@{/contact}?orderId=${order.id}">Solicitar Soporte</a>
+            <a th:href="@{/contact(orderId=${order.id})}">Solicitar Soporte</a>
         </nav>
 
         <div class="detail-section">
