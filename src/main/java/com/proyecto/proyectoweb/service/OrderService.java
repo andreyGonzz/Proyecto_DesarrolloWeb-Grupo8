@@ -1,7 +1,7 @@
 package com.proyecto.proyectoweb.service;
 
 import com.proyecto.proyectoweb.model.Order;
-import com.proyecto.proyectoweb.model.UserD;
+import com.proyecto.proyectoweb.model.User;
 import com.proyecto.proyectoweb.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -20,7 +20,7 @@ public class OrderService {
         return orderRepository.save(order);
     }
     
-    public List<Order> getUserOrders(UserD user) {
+    public List<Order> getUserOrders(User user) {
         return orderRepository.findByUserOrderByOrderDateDesc(user);
     }
     

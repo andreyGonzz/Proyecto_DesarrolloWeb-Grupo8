@@ -25,7 +25,7 @@ public class CartService {
         this.userService = userService;
     }
 
-    public Cart getOrCreateCart(UserD user) {
+    public Cart getOrCreateCart(User user) {
         Optional<Cart> cartOpt = cartRepository.findByUser(user);
         if (cartOpt.isPresent()) {
             return cartOpt.get();
@@ -41,7 +41,7 @@ public class CartService {
     }
     
     public Cart addToCart(Long userId, Long productId, Integer quantity) {
-        UserD user = userService.getUserById(userId);
+        User user = userService.getUserById(userId);
         Product product = productService.getProductById(productId);
         Cart cart = getOrCreateCart(user);
         

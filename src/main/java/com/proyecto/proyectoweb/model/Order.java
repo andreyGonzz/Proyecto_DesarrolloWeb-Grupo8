@@ -19,7 +19,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserD user;
+    private User user;
 
     private LocalDateTime orderDate;
     

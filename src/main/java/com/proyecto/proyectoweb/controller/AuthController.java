@@ -1,6 +1,6 @@
 package com.proyecto.proyectoweb.controller;
 
-import com.proyecto.proyectoweb.model.UserD;
+import com.proyecto.proyectoweb.model.User;
 import com.proyecto.proyectoweb.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +27,7 @@ public class AuthController {
             return ResponseEntity.badRequest().body("username and password required");
         }
         try {
-            UserD u = userService.register(email, password, nombre, apellidos);
+            User u = userService.register(email, password, nombre, apellidos);
             u.setPassword(null);
             return ResponseEntity.ok(u);
         } catch (IllegalArgumentException ex) {

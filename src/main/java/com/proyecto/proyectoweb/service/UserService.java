@@ -1,24 +1,16 @@
 package com.proyecto.proyectoweb.service;
 
-<<<<<<< HEAD
-import com.proyecto.proyectoweb.model.UserD;
+import com.proyecto.proyectoweb.model.User;
 import com.proyecto.proyectoweb.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-=======
 
->>>>>>> 50721d4b3ddea2484c2747238609cd247931922c
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 import com.proyecto.proyectoweb.model.Cart;
-import com.proyecto.proyectoweb.model.User;
 import com.proyecto.proyectoweb.repository.CartRepository;
-import com.proyecto.proyectoweb.repository.UserRepository;
-
 @Service
 public class UserService {
 
@@ -33,15 +25,15 @@ public class UserService {
         this.cartRepository = cartRepository;
     }
 
-    public Optional<UserD> findByEmail(String email) {
+    public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
-    public UserD register(String email, String rawPassword, String nombre, String apellidos) {
+    public User register(String email, String rawPassword, String nombre, String apellidos) {
         if (userRepository.findByEmail(email).isPresent()) {
             throw new IllegalArgumentException("Usuario ya existe");
         }
-        UserD u = new UserD();
+        User u = new User();
         u.setEmail(email);
         u.setNombre(nombre);
         u.setApellidos(apellidos);
@@ -55,16 +47,16 @@ public class UserService {
         return savedUser;
     }
 
-    public UserD getUserById(Long id) {
+    public User getUserById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado con id: " + id));
     }
 
-    public List<UserD> findAllUsers() {
+    public List<User> findAllUsers() {
         return userRepository.findAll();
     }
 
-    public UserD save(UserD user) {
+    public User save(User user) {
         return userRepository.save(user);
     }
 
