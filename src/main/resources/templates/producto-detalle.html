@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title th:text="'Salud con Amor - ' + ${producto.name}">Salud con Amor - Producto</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/x-icon" th:href="@{/images/image.png}">
+
+    <!-- Use Thymeleaf resource URL syntax; static files live in /static -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <link rel="stylesheet" th:href="@{/css/producto-detalle.css}" />
+</head>
+
+<body>
+    <!-- HEADER -->
+    <div th:replace="~{fragments/_header :: header}"></div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container">
+        <!-- Link de regreso -->
+        <a th:href="@{/productos}" class="back-to-products">
+            ← Volver a productos
+        </a>
+
+        <!-- Detalle del producto -->
+        <div class="product-detail">
+            <div class="product-detail-container">
+                <!-- Imagen del producto -->
+                <div class="product-image-container">
+                    <img th:src="@{/images/{file}(file=${producto.imageUrl})}" th:alt="${producto.name}"
+                        class="product-detail-image" />
+                </div>
+
+                <!-- Información del producto -->
+                <div class="product-info">
+                    <!-- Categoría -->
+                    <span class="product-category" th:text="${producto.category}">Categoría</span>
+
+                    <!-- Nombre del producto -->
+                    <h1 class="product-title" th:text="${producto.name}">Nombre del Producto</h1>
+
+                    <!-- Precio -->
+                    <div class="product-price" th:text="${producto.formattedPrice}">₡0.00</div>
+
+                    <!-- Descripción (simulada ya que no está en el modelo) -->
+                    <div class="product-description">
+                        <p>Producto de alta calidad diseñado para mejorar tu bienestar y salud.
+                            Elaborado con ingredientes naturales y siguiendo los más altos estándares de calidad.</p>
+
+                        <p><strong>Beneficios:</strong></p>
+                        <ul>
+                            <li>Ingredientes 100% naturales</li>
+                            <li>Certificación de calidad</li>
+                            <li>Apto para consumo diario</li>
+                            <li>Sin conservantes artificiales</li>
+                        </ul>
+                    </div>
+
+                    <!-- Sección para añadir al carrito -->
+                    <div class="add-to-cart-section">
+                        <form th:action="@{/cart/add}" method="post">
+                            <input type="hidden" name="productId" th:value="${producto.id}">
+
+                            <div class="quantity-selector">
+                                <label for="quantity">Cantidad:</label>
+                                <input type="number" id="quantity" name="quantity" value="1" min="1" max="10"
+                                    class="quantity-input">
+                            </div>
+
+                            <button type="submit" class="add-to-cart-btn">
+                                🛒 Añadir al carrito
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Información adicional -->
+                    <div class="product-meta">
+                        <h4>Información del Producto</h4>
+                        <p><strong>ID:</strong> <span th:text="${producto.id}">#0</span></p>
+                        <p><strong>Categoría:</strong> <span th:text="${producto.category}">-</span></p>
+                        <p><strong>Fecha de agregado:</strong>
+                            <span th:text="${#temporals.format(producto.createdAt, 'dd/MM/yyyy')}">-</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <div th:replace="~{fragments/_footer :: footer}"></div>
+
+</body>
+
+</html>

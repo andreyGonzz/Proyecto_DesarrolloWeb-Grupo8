@@ -10,73 +10,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" th:href="@{/images/image.png}">
     
-    <link rel="stylesheet" th:href="@{/styles.css}" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <link rel="stylesheet" th:href="@{/css/cart.css}" />
 </head>
 <body>
     <!-- HEADER (IGUAL AL TUYO) -->
-    <header class="site-header">
-            <div class="header-inner">
-                <div class="brand">
-                    <a th:href="@{/index}" class="logo-link">
-                        <img th:src="@{/images/image.png}" alt="Salud con Amor" class="logo-img" />
-                    </a>
-                </div>
- 
-                <nav class="main-nav">
-                    <ul>
-                        <li><a class="elements" href="/productos">Todos los productos</a></li>
-                        <li><a class="elements" href="/productos/suplementos">Suplementos</a></li>
-                        <li><a class="elements" href="/productos/vitaminas">Vitaminas</a></li>
-                        <li><a class="elements" href="/productos/populares">Productos en tendencia</a></li>
-                    </ul>
-                </nav>
- 
-                <div class="header-actions">
-                    <form class="search" th:action="@{/buscar}" method="get">
-                        <input name="q" type="search" placeholder="Buscar productos, marcas..." />
-                        <button type="submit" aria-label="Buscar"><svg width="20px" height="20px" viewBox="0 0 24 24"
-                                                                       fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                            <g id="SVGRepo_iconCarrier">
-                            <path
-                                d="M10 17C13.866 17 17 13.866 17 10C17 6.13401 13.866 3 10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17Z"
-                                stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            </path>
-                            <path d="M20.9992 21L14.9492 14.95" stroke="#ffffff" stroke-width="1.5"
-                                  stroke-linecap="round" stroke-linejoin="round"></path>
-                            </g>
-                            </svg></button>
-                    </form>
-                    <a class="cart" th:href="@{/cart}" aria-label="Carrito">
-                        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                        <g id="SVGRepo_iconCarrier">
-                        <path d="M6.29977 5H21L19 12H7.37671M20 16H8L6 3H3M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20ZM20 20C20 20.5523 19.5523 21 19 21C18.4477 21 18 20.5523 18 20C18 19.4477 18.4477 19 19 19C19.5523 19 20 19.4477 20 20Z"
-                              stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                        </g>
-                        </svg>
-                        <!-- Badge para mostrar cantidad de items -->
-                        <span th:if="${cartItemCount != null && cartItemCount > 0}"
-                              class="cart-badge" th:text="${cartItemCount}"></span>
-                    </a>
-                    <a class="user" th:href="@{/login}"><svg width="20px" height="20px" viewBox="0 0 16 16" fill="none"
-                                                             xmlns="http://www.w3.org/2000/svg">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                        <g id="SVGRepo_iconCarrier">
-                        <path
-                            d="M8 7C9.65685 7 11 5.65685 11 4C11 2.34315 9.65685 1 8 1C6.34315 1 5 2.34315 5 4C5 5.65685 6.34315 7 8 7Z"
-                            fill="#000000"></path>
-                        <path d="M14 12C14 10.3431 12.6569 9 11 9H5C3.34315 9 2 10.3431 2 12V15H14V12Z"
-                              fill="#000000"></path>
-                        </g>
-                        </svg></a>
-                </div>
-            </div>
-        </header>
+        <!-- HEADER -->
+    <div th:replace="~{fragments/_header :: header}"></div>
 
     <!-- CONTENIDO DEL CARRITO -->
     <main class="container">
@@ -185,38 +125,7 @@
     </main>
 
     <!-- FOOTER (IGUAL AL TUYO) -->
-    <footer class="site-footer">
-        <div class="footer-inner container">
-            <div class="col">
-                <h4>Contacto</h4>
-                <p>San José, Costa Rica<br />Tel: +506 8479 5825<br />escamillayalena@gmail.com</p>
-            </div>
-            <div class="col">
-                <h4>Otros</h4>
-                <ul>
-                    <li><a th:href="@{/}">Home</a></li>
-                    <li><a href="#">Sobre nosotros</a></li>
-                </ul>
-            </div>
-            <div class="col">
-                <h4>Servicios</h4>
-                <ul>
-                    <li><a href="#">Envíos</a></li>
-                    <li><a href="#">Políticas</a></li>
-                </ul>
-            </div>
-            <div class="col">
-                <h4>Síguenos</h4>
-                <div class="socials">
-                    <ul>
-                        <li><a target="_blank" href="https://www.facebook.com/share/1GA6qnUVkZ/">Facebook</a></li>
-                        <li><a target="_blank" href="https://wa.link/9m9oan">WhatsApp</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="copyright">© 2025 Salud con Amor - Todos los derechos reservados.</div>
-    </footer>
+    <div th:replace="~{fragments/_footer :: footer}"></div>
 
     <script>
         function incrementQuantity(button) {

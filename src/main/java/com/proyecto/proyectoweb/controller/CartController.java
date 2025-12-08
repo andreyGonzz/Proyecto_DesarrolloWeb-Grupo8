@@ -1,14 +1,23 @@
 package com.proyecto.proyectoweb.controller;
 
-import com.proyecto.proyectoweb.model.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.proyecto.proyectoweb.model.Cart;
+import com.proyecto.proyectoweb.model.Order;
+import com.proyecto.proyectoweb.model.User;
 import com.proyecto.proyectoweb.service.CartService;
 import com.proyecto.proyectoweb.service.OrderService;
 import com.proyecto.proyectoweb.service.ProductService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import com.proyecto.proyectoweb.service.UserService;
+
 import jakarta.servlet.http.HttpSession;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/cart")
@@ -17,18 +26,28 @@ public class CartController {
     private final CartService cartService;
     private final OrderService orderService;
     private final ProductService productService;
+    private final UserService userService; // Añadir UserService
 
-    public CartController(CartService cartService, OrderService orderService, ProductService productService) {
+    public CartController(CartService cartService, OrderService orderService, 
+                         ProductService productService, UserService userService) {
         this.cartService = cartService;
         this.orderService = orderService;
         this.productService = productService;
+        this.userService = userService; // Inyectar UserService
     }
 
-    // Helper para obtener usuario actual (simulado)
-    private Long getCurrentUserId(HttpSession session) {
-        // Por ahora usamos un usuario fijo - luego integrarás con tu login
-        // Puedes cambiar este ID por el de cualquier usuario en tu BD
-        return 1L; // ID del usuario 'maria'
+    // Obtener usuario autenticado
+    private User getCurrentUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated() && !auth.getName().equals("anonymousUser")) {
+            return userService.findByEmail(auth.getName()).orElse(null);
+        }
+        return null;
+    }
+
+    private Long getCurrentUserId() {
+        User user = getCurrentUser();
+        return user != null ? user.getId() : null;
     }
 
     @PostMapping("/add")
@@ -36,14 +55,20 @@ public class CartController {
                           @RequestParam(defaultValue = "1") int quantity,
                           HttpSession session) {
         
-        Long userId = getCurrentUserId(session);
+        Long userId = getCurrentUserId();
+        if (userId == null) {
+            return "redirect:/login"; // Redirigir a login si no hay usuario
+        }
         cartService.addToCart(userId, productId, quantity);
         return "redirect:/cart";
     }
 
     @GetMapping
     public String viewCart(HttpSession session, Model model) {
-        Long userId = getCurrentUserId(session);
+        Long userId = getCurrentUserId();
+        if (userId == null) {
+            return "redirect:/login";
+        }
         Cart cart = cartService.getCartWithItems(userId);
         model.addAttribute("cart", cart);
         return "cart";
@@ -51,7 +76,10 @@ public class CartController {
 
     @PostMapping("/remove")
     public String removeFromCart(@RequestParam Long productId, HttpSession session) {
-        Long userId = getCurrentUserId(session);
+        Long userId = getCurrentUserId();
+        if (userId == null) {
+            return "redirect:/login";
+        }
         cartService.removeFromCart(userId, productId);
         return "redirect:/cart";
     }
@@ -60,14 +88,14 @@ public class CartController {
     public String updateQuantity(@RequestParam Long productId, 
                                @RequestParam int quantity, 
                                HttpSession session) {
-        Long userId = getCurrentUserId(session);
+        Long userId = getCurrentUserId();
         cartService.updateQuantity(userId, productId, quantity);
         return "redirect:/cart";
     }
 
     @GetMapping("/checkout")
     public String checkout(HttpSession session, Model model) {
-        Long userId = getCurrentUserId(session);
+        Long userId = getCurrentUserId();
         Cart cart = cartService.getCartWithItems(userId);
         
         if (cart.isEmpty()) {
@@ -88,7 +116,7 @@ public class CartController {
                              HttpSession session,
                              Model model) {
         
-        Long userId = getCurrentUserId(session);
+        Long userId = getCurrentUserId();
         
         try {
             String shippingAddress = String.format("%s, %s, %s %s", fullName, address, city, zipCode);

@@ -4,37 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estado de Pedidos - Salud con Amor</title>
-    <link rel="stylesheet" th:href="@{/styles.css}">
-    <link rel="stylesheet" th:href="@{/orders.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/orders.css}">
+    <link rel="stylesheet" th:href="@{/css/utilities.css}">
 </head>
 <body>
     <!-- Header -->
-    <header class="site-header">
-        <div class="header-inner">
-            <div class="brand">
-                <a th:href="@{/}">
-                    <img th:src="@{/images/logo.png}" alt="Salud con Amor" class="logo-img">
-                </a>
-            </div>
-            <nav class="main-nav">
-                <ul>
-                    <li><a th:href="@{/}" class="elements">Inicio</a></li>
-                    <li><a th:href="@{/productos}" class="elements">Productos</a></li>
-                    <li><a th:href="@{/orders}" class="elements active">Mis Pedidos</a></li>
-                    <li><a th:href="@{/contact}" class="elements">Contacto</a></li>
-                </ul>
-            </nav>
-            <div class="header-actions">
-                <form th:action="@{/busquedaNombre}" method="get" class="search">
-                    <input type="text" name="nombre" placeholder="Buscar productos...">
-                    <button type="submit">🔍</button>
-                </form>
-                <a th:href="@{/cart}" class="cart">
-                    🛒 <span class="cart-badge" th:text="${#authentication.principal.cartCount ?: 0}">0</span>
-                </a>
-            </div>
-        </div>
-    </header>
+    <div th:replace="~{fragments/_header :: header}"></div>
 
     <main class="orders-container">
         <div class="orders-header">
@@ -82,41 +58,11 @@
             <div class="icon">📦</div>
             <h3>No tienes pedidos activos</h3>
             <p>Cuando realices un pedido, podrás ver su estado aquí.</p>
-            <a th:href="@{/productos}" class="btn btn-primary" style="margin-top: 20px;">Ir a Comprar</a>
+            <a th:href="@{/productos}" class="btn btn-primary btn-with-margin-top">Ir a Comprar</a>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="site-footer">
-        <div class="footer-inner">
-            <div>
-                <h4>Salud con Amor</h4>
-                <a href="#">Sobre nosotros</a>
-                <a href="#">Nuestras tiendas</a>
-                <a href="#">Trabaja con nosotros</a>
-            </div>
-            <div>
-                <h4>Productos</h4>
-                <a th:href="@{/vitaminas}">Vitaminas</a>
-                <a th:href="@{/suplementos}">Suplementos</a>
-                <a th:href="@{/nuevos}">Nuevos</a>
-            </div>
-            <div>
-                <h4>Atención al cliente</h4>
-                <a th:href="@{/contact}">Contáctanos</a>
-                <a href="#">Preguntas frecuentes</a>
-                <a href="#">Términos y condiciones</a>
-            </div>
-            <div>
-                <h4>Mi cuenta</h4>
-                <a th:href="@{/orders}">Mis pedidos</a>
-                <a th:href="@{/order-history}">Historial</a>
-                <a th:href="@{/invoices}">Facturas</a>
-            </div>
-            <div class="copyright">
-                © 2025 Salud con Amor - Todos los derechos reservados.
-            </div>
-        </div>
-    </footer>
+    <div th:replace="~{fragments/_footer :: footer}"></div>
 </body>
 </html>

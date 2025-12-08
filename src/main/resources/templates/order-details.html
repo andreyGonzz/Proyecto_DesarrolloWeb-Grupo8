@@ -4,37 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="'Pedido #' + ${order.id} + ' - Salud con Amor'">Detalles del Pedido - Salud con Amor</title>
-    <link rel="stylesheet" th:href="@{/styles.css}">
-    <link rel="stylesheet" th:href="@{/orders.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/orders.css}">
+    <link rel="stylesheet" th:href="@{/css/order-details.css}">
+    <link rel="stylesheet" th:href="@{/css/utilities.css}">
 </head>
 <body>
     <!-- Header -->
-    <header class="site-header">
-        <div class="header-inner">
-            <div class="brand">
-                <a th:href="@{/}">
-                    <img th:src="@{/images/logo.png}" alt="Salud con Amor" class="logo-img">
-                </a>
-            </div>
-            <nav class="main-nav">
-                <ul>
-                    <li><a th:href="@{/}" class="elements">Inicio</a></li>
-                    <li><a th:href="@{/productos}" class="elements">Productos</a></li>
-                    <li><a th:href="@{/orders}" class="elements active">Mis Pedidos</a></li>
-                    <li><a th:href="@{/contact}" class="elements">Contacto</a></li>
-                </ul>
-            </nav>
-            <div class="header-actions">
-                <form th:action="@{/busquedaNombre}" method="get" class="search">
-                    <input type="text" name="nombre" placeholder="Buscar productos...">
-                    <button type="submit">🔍</button>
-                </form>
-                <a th:href="@{/cart}" class="cart">
-                    🛒 <span class="cart-badge" th:text="${#authentication.principal.cartCount ?: 0}">0</span>
-                </a>
-            </div>
-        </div>
-    </header>
+    <div th:replace="~{fragments/_header :: header}"></div>
 
     <main class="orders-container order-details-page">
         <div class="orders-header">
@@ -47,7 +24,7 @@
             <a th:href="@{/orders}">← Volver a Pedidos</a>
             <a th:href="@{/order-history}">Historial</a>
             <a th:href="@{/invoices}">Facturas</a>
-            <a th:href="@{/contact}?orderId=${order.id}">Solicitar Soporte</a>
+            <a th:href="@{/contact(orderId=${order.id})}">Solicitar Soporte</a>
         </nav>
 
         <div class="detail-section">
@@ -96,7 +73,7 @@
                 </tbody>
                 <tfoot>
                     <tr class="total-row">
-                        <td colspan="3" style="text-align: right;"><strong>Total:</strong></td>
+                        <td colspan="3" class="text-right"><strong>Total:</strong></td>
                         <td th:text="${order.formattedTotalAmount}"><strong>₡45,000.00</strong></td>
                     </tr>
                 </tfoot>
@@ -118,103 +95,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="site-footer">
-        <div class="footer-inner">
-            <div>
-                <h4>Salud con Amor</h4>
-                <a href="#">Sobre nosotros</a>
-                <a href="#">Nuestras tiendas</a>
-                <a href="#">Trabaja con nosotros</a>
-            </div>
-            <div>
-                <h4>Productos</h4>
-                <a th:href="@{/vitaminas}">Vitaminas</a>
-                <a th:href="@{/suplementos}">Suplementos</a>
-                <a th:href="@{/nuevos}">Nuevos</a>
-            </div>
-            <div>
-                <h4>Atención al cliente</h4>
-                <a th:href="@{/contact}">Contáctanos</a>
-                <a href="#">Preguntas frecuentes</a>
-                <a href="#">Términos y condiciones</a>
-            </div>
-            <div>
-                <h4>Mi cuenta</h4>
-                <a th:href="@{/orders}">Mis pedidos</a>
-                <a th:href="@{/order-history}">Historial</a>
-                <a th:href="@{/invoices}">Facturas</a>
-            </div>
-            <div class="copyright">
-                © 2025 Salud con Amor - Todos los derechos reservados.
-            </div>
-        </div>
-    </footer>
+    <div th:replace="~{fragments/_footer :: footer}"></div>
 
-    <style>
-        .order-status-large {
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-weight: bold;
-            text-transform: uppercase;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-
-        .tracking-steps {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
-            position: relative;
-        }
-
-        .tracking-steps::before {
-            content: '';
-            position: absolute;
-            top: 25px;
-            left: 10%;
-            right: 10%;
-            height: 3px;
-            background: #e9efe9;
-            z-index: 1;
-        }
-
-        .step {
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            flex: 1;
-        }
-
-        .step.completed .step-icon {
-            background: var(--green-500);
-            color: white;
-        }
-
-        .step-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: #e9efe9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 10px;
-            font-size: 1.2rem;
-        }
-
-        .step-label {
-            font-size: 0.9rem;
-            color: var(--muted);
-        }
-
-        .step.completed .step-label {
-            color: var(--green-700);
-            font-weight: 600;
-        }
-
-        .shipping-info p {
-            margin: 10px 0;
-        }
-    </style>
 </body>
 </html>

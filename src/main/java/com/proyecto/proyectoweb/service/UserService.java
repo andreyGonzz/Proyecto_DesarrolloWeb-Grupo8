@@ -1,7 +1,10 @@
 package com.proyecto.proyectoweb.service;
 
+import com.proyecto.proyectoweb.model.Cart;
 import com.proyecto.proyectoweb.model.User;
+import com.proyecto.proyectoweb.repository.CartRepository;
 import com.proyecto.proyectoweb.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -10,24 +13,37 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final CartRepository cartRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
+                      CartRepository cartRepository) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.cartRepository = cartRepository;
     }
 
-    public Optional<User> findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
-    public User register(String username, String rawPassword) {
-        if (userRepository.findByUsername(username).isPresent()) {
+    public User register(String email, String rawPassword, String nombre, String apellidos) {
+        if (userRepository.findByEmail(email).isPresent()) {
             throw new IllegalArgumentException("Usuario ya existe");
         }
         User u = new User();
-        u.setUsername(username);
-        u.setPassword(rawPassword);
+        u.setEmail(email);
+        u.setNombre(nombre);
+        u.setApellidos(apellidos);
+        u.setPassword(passwordEncoder.encode(rawPassword));
         u.setRoles("ROLE_USER");
-        return userRepository.save(u);
+        User savedUser = userRepository.save(u);
+        
+        // Crear carrito directamente con el repositorio
+        Cart newCart = new Cart(savedUser);
+        cartRepository.save(newCart);
+        
+        return savedUser;
     }
 
     public User getUserById(Long id) {
@@ -41,16 +57,5 @@ public class UserService {
 
     public User save(User user) {
         return userRepository.save(user);
-    }
-
-    public User createDemoUserIfNotExists() {
-        return userRepository.findByUsername("demo")
-                .orElseGet(() -> {
-                    User demoUser = new User();
-                    demoUser.setUsername("demo");
-                    demoUser.setPassword("demo123");
-                    demoUser.setRoles("ROLE_USER");
-                    return userRepository.save(demoUser);
-                });
     }
 }
