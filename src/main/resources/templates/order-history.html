@@ -19,13 +19,20 @@
         </div>
 
         <nav class="orders-nav">
-            <a th:href="@{/orders}">Pedidos Actuales</a>
-            <a th:href="@{/order-history}" class="active">Historial</a>
-            <a th:href="@{/invoices}">Facturas</a>
+            <a th:href="@{/orders}" th:classappend="${activePage == 'orders'} ? 'active' : ''">Pedidos Actuales</a>
+            <a th:href="@{/order-history}" th:classappend="${activePage == 'history'} ? 'active' : ''">Historial</a>
+            <a th:href="@{/invoices}" th:classappend="${activePage == 'invoices'} ? 'active' : ''">Facturas</a>
             <a th:href="@{/contact}">Soporte</a>
         </nav>
 
-        <div class="orders-grid" th:if="${not orders.empty}">
+        <div th:if="${usuarioActual == null}" class="empty-orders">
+            <div class="icon">🔒</div>
+            <h3>Acceso restringido</h3>
+            <p>Debes iniciar sesión para ver tu historial de pedidos.</p>
+            <a th:href="@{/login}" class="btn btn-primary btn-with-margin-top">Iniciar Sesión</a>
+        </div>
+
+        <div class="orders-grid" th:if="${not orders.empty and usuarioActual != null}">
             <div class="order-card" th:each="order : ${orders}">
                 <div class="order-header">
                     <div>
@@ -50,12 +57,13 @@
                 <div class="order-actions">
                     <a th:href="@{/orders/{id}(id=${order.id})}" class="btn-order btn-view">Ver Detalles</a>
                     <a th:href="@{/invoices}" class="btn-order btn-invoice">Factura</a>
-                    <a th:href="@{/contact}?orderId=${order.id}" class="btn-order btn-view" th:if="${order.status != 'DELIVERED'}">Soporte</a>
+                    <!-- CORRECCIÓN: Sintaxis correcta para parámetros en Thymeleaf -->
+                    <a th:href="@{/contact(orderId=${order.id})}" class="btn-order btn-view" th:if="${order.status != 'DELIVERED'}">Soporte</a>
                 </div>
             </div>
         </div>
 
-        <div class="empty-orders" th:if="${orders.empty}">
+        <div class="empty-orders" th:if="${orders.empty and usuarioActual != null}">
             <div class="icon">📋</div>
             <h3>No hay historial de pedidos</h3>
             <p>Cuando realices pedidos, aparecerán aquí para que puedas hacer seguimiento.</p>
