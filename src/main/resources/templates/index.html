@@ -82,7 +82,13 @@
                             <h3 th:text="${p.name}">Nombre</h3>
                             <p class="price" th:text="${p.price}">₡0.00</p>
                         </a>
-                        <button class="add">Añadir al carrito</button>
+                    <form th:action="@{/cart/add}" method="post" class="add-to-cart-form">
+                        <input type="hidden" name="productId" th:value="${p.id}">
+                        <input type="hidden" name="quantity" value="1">
+                        <button type="submit" class="add">
+                            🛒 Añadir al carrito
+                        </button>
+                    </form>
                     </article>
                 </div>
             </section>
@@ -94,10 +100,10 @@
                         <span class="badge">Hasta 50% de descuento</span>
                         <h3>Oferta del día: medicina natural</h3>
                         <p>Encuentra lo mejor en suplementos naturales seleccionados para ti.</p>
-                        <a class="btn btn-secondary" href="/ofertas">Compra ahora</a>
+                        <a class="btn btn-secondary" href="/productos/populares">Compra ahora</a>
                     </div>
                     <div class="promo-right">
-                        <img src="/images/promo-pill.png" alt="Promoción" />
+                        <img th:src="@{/images/promo.jpg}" alt="Promoción" />
                     </div>
                 </div>
             </section>
@@ -116,7 +122,13 @@
                             <h3 th:text="${p.name}">Nombre</h3>
                             <p class="price" th:text="${p.price}">₡0.00</p>
                         </a>
-                        <button class="add">Añadir al carrito</button>
+                    <form th:action="@{/cart/add}" method="post" class="add-to-cart-form">
+                        <input type="hidden" name="productId" th:value="${p.id}">
+                        <input type="hidden" name="quantity" value="1">
+                        <button type="submit" class="add">
+                            🛒 Añadir al carrito
+                        </button>
+                    </form>
                     </article>
                 </div>
             </section>
@@ -134,7 +146,13 @@
                             <h3 th:text="${p.name}">Nombre</h3>
                             <p class="price" th:text="${p.price}">₡0.00</p>
                         </a>
-                        <button class="add">Añadir al carrito</button>
+                        <form th:action="@{/cart/add}" method="post" class="add-to-cart-form">
+                            <input type="hidden" name="productId" th:value="${p.id}">
+                            <input type="hidden" name="quantity" value="1">
+                            <button type="submit" class="add">
+                                🛒 Añadir al carrito
+                            </button>
+                        </form>
                     </article>
                 </div>
             </section>
@@ -146,20 +164,20 @@
 
                 <div class="blog-grid">
                     <article class="blog-card">
-                        <img src="/images/blog-1.jpg" alt="Plato" />
+                    <img th:src="@{/images/plato1.jpeg}"alt="Plato" />
                         <div class="blog-info">
                             <h4>Los 5 Pilares de la Alimentación Macrobiótica</h4>
                             <p>Descubre cómo el equilibrio Yin-Yang puede transformar tu salud...</p>
-                            <a href="/blog/1" class="read-more">Leer más →</a>
+                            <a href="#" class="read-more">Leer más →</a>
                         </div>
                     </article>
 
                     <article class="blog-card">
-                        <img src="/images/blog-2.jpg" alt="Platos" />
+                        <img th:src="@{/images/plato2.webp}" alt="Platos" />
                         <div class="blog-info">
                             <h4>Recetas macrobióticas para fortalecer el sistema</h4>
                             <p>Preparaciones sencillas y naturales para tu día a día...</p>
-                            <a href="/blog/2" class="read-more">Leer más →</a>
+                            <a href="/#" class="read-more">Leer más →</a>
                         </div>
                     </article>
                 </div>
@@ -168,7 +186,5 @@
 
         <!-- FOOTER -->
         <div th:replace="~{fragments/_footer :: footer}"></div>
-
     </body>
-
 </html>
