@@ -143,7 +143,7 @@
                     <article class="product-card" th:each="p : ${vitaminas}">
                         <a th:href="@{/producto/{id}(id=${p.id})}" class="product-link">
                             <img th:src="@{/images/{file}(file=${p.imageUrl})}" th:alt="${p.name}" />
-                            <h3 th:text="${p.name}">Nombre</h3>
+                            <h3 th:text="${p.name}">Nombre</h3> 
                             <p class="price" th:text="${p.price}">₡0.00</p>
                         </a>
                         <form th:action="@{/cart/add}" method="post" class="add-to-cart-form">

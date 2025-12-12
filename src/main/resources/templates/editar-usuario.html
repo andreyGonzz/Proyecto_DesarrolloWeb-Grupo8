@@ -37,7 +37,12 @@
 
                 <label class="label" for="email">Correo electrónico</label>
                 <input class="input" type="email" id="email" name="email" th:value="${usuario.email}" required />
-
+                
+                <div style="display: flex; align-items: center; gap: 8px; margin-top: 10px;">
+                    <input type="checkbox" id="recibirInfo" name="recibirInfo" style="width: auto; transform: none;">
+                    <label for="recibirInfo" style="margin: 0; font-size: 14px;">Deseo recibir información periódica sobre productos y promociones</label>
+                </div>
+    
                 <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Guardar cambios</button>
             </form>
             <div th:if="${mensaje}" class="auth-info" th:text="${mensaje}" style="margin-top: 16px;"></div>
