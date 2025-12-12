@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Checkout - Salud con Amor</title>
+    <title th:text="#{page.checkout.title}">Checkout - Salud con Amor</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,7 +22,7 @@
     <main class="container">
         <div class="checkout-container">
             <div class="checkout-main">
-                <h1 class="checkout-title">Finalizar Compra</h1>
+                <h1 class="checkout-title" th:text="#{checkout.title}">Finalizar Compra</h1>
                 
                 <div th:if="${error}" class="error-message">
                     <div class="error-icon">⚠️</div>
@@ -34,24 +34,24 @@
                     <section class="form-section">
                         <h2 class="section-title">
                             <span class="section-icon">📦</span>
-                            Información de Envío
+                            <span th:text="#{checkout.shipping.title}">Información de Envío</span>
                         </h2>
                         <div class="form-grid">
                             <div class="form-group full-width">
-                                <label for="fullName" class="form-label">Nombre completo *</label>
+                                <label for="fullName" class="form-label" th:text="#{checkout.shipping.name} + ' *'">Nombre completo *</label>
                                 <input type="text" id="fullName" name="fullName" class="form-input" required>
                             </div>
                             <div class="form-group full-width">
-                                <label for="address" class="form-label">Dirección completa *</label>
+                                <label for="address" class="form-label" th:text="#{checkout.shipping.address} + ' *'">Dirección completa *</label>
                                 <input type="text" id="address" name="address" class="form-input" required 
                                        placeholder="Calle, número, urbanización">
                             </div>
                             <div class="form-group">
-                                <label for="city" class="form-label">Ciudad *</label>
+                                <label for="city" class="form-label" th:text="#{checkout.shipping.city} + ' *'">Ciudad *</label>
                                 <input type="text" id="city" name="city" class="form-input" required>
                             </div>
                             <div class="form-group">
-                                <label for="zipCode" class="form-label">Código Postal *</label>
+                                <label for="zipCode" class="form-label" th:text="#{checkout.shipping.zip} + ' *'">Código Postal *</label>
                                 <input type="text" id="zipCode" name="zipCode" class="form-input" required 
                                        pattern="[0-9]{5}" title="5 dígitos numéricos">
                             </div>
@@ -62,7 +62,7 @@
                     <section class="form-section">
                         <h2 class="section-title">
                             <span class="section-icon">💳</span>
-                            Método de Pago
+                            <span th:text="#{checkout.payment.title}">Método de Pago</span>
                         </h2>
                         <div class="options-grid">
                             <label class="option-card">
@@ -70,7 +70,7 @@
                                 <div class="option-content">
                                     <div class="option-icon">💳</div>
                                     <div class="option-info">
-                                        <div class="option-title">Tarjeta de Crédito</div>
+                                        <div class="option-title" th:text="#{checkout.payment.creditCard}">Tarjeta de Crédito</div>
                                         <div class="option-description">Paga con tu tarjeta de crédito</div>
                                     </div>
                                 </div>
@@ -80,7 +80,7 @@
                                 <div class="option-content">
                                     <div class="option-icon">💳</div>
                                     <div class="option-info">
-                                        <div class="option-title">Tarjeta de Débito</div>
+                                        <div class="option-title" th:text="#{checkout.payment.debitCard}">Tarjeta de Débito</div>
                                         <div class="option-description">Paga con tu tarjeta de débito</div>
                                     </div>
                                 </div>
@@ -90,7 +90,7 @@
                                 <div class="option-content">
                                     <div class="option-icon">📱</div>
                                     <div class="option-info">
-                                        <div class="option-title">Sinpe Móvil</div>
+                                        <div class="option-title" th:text="#{checkout.payment.sinpe}">Sinpe Móvil</div>
                                         <div class="option-description">Transferencia por Sinpe Móvil</div>
                                     </div>
                                 </div>
@@ -102,7 +102,7 @@
                     <section class="form-section">
                         <h2 class="section-title">
                             <span class="section-icon">🚚</span>
-                            Método de Envío
+                            <span th:text="#{checkout.shipping.method.title}">Método de Envío</span>
                         </h2>
                         <div class="options-grid">
                             <label class="option-card">
@@ -110,11 +110,11 @@
                                 <div class="option-content">
                                     <div class="option-icon">📦</div>
                                     <div class="option-info">
-                                        <div class="option-title">Envío Estándar</div>
+                                        <div class="option-title" th:text="'Envío ' + #{checkout.shipping.standard}">Envío Estándar</div>
                                         <div class="option-description">
-                                            5-7 días hábiles - 
-                                            <span th:if="${cart.total > 50000}" class="free-shipping">Gratis</span>
-                                            <span th:unless="${cart.total > 50000}">₡5,000.00</span>
+                                            <span th:text="#{checkout.shipping.standard.time}">5-7 días hábiles</span> - 
+                                            <span th:if="${cart.total > 50000}" class="free-shipping" th:text="#{checkout.order.free}">Gratis</span>
+                                            <span th:unless="${cart.total > 50000}" th:text="#{checkout.shipping.standard.price}">₡5,000.00</span>
                                         </div>
                                     </div>
                                 </div>
@@ -124,8 +124,11 @@
                                 <div class="option-content">
                                     <div class="option-icon">⚡</div>
                                     <div class="option-info">
-                                        <div class="option-title">Envío Express</div>
-                                        <div class="option-description">2-3 días hábiles - ₡3,500.00</div>
+                                        <div class="option-title" th:text="'Envío ' + #{checkout.shipping.express}">Envío Express</div>
+                                        <div class="option-description">
+                                            <span th:text="#{checkout.shipping.express.time}">2-3 días hábiles</span> - 
+                                            <span th:text="#{checkout.shipping.express.price}">₡3,500.00</span>
+                                        </div>
                                     </div>
                                 </div>
                             </label>
@@ -134,8 +137,11 @@
                                 <div class="option-content">
                                     <div class="option-icon">🚀</div>
                                     <div class="option-info">
-                                        <div class="option-title">Próximo día hábil</div>
-                                        <div class="option-description">1 día hábil - ₡7,000.00</div>
+                                        <div class="option-title" th:text="#{checkout.shipping.nextDay}">Próximo día hábil</div>
+                                        <div class="option-description">
+                                            <span th:text="#{checkout.shipping.nextDay.time}">1 día hábil</span> - 
+                                            <span th:text="#{checkout.shipping.nextDay.price}">₡7,000.00</span>
+                                        </div>
                                     </div>
                                 </div>
                             </label>
@@ -144,12 +150,12 @@
 
                     <button type="submit" class="btn-checkout">
                         <span class="lock-icon">🔒</span>
-                        Realizar Pedido
+                        <span th:text="#{checkout.button.placeOrder}">Realizar Pedido</span>
                     </button>
                     
                     <div class="security-notice">
                         <span class="security-icon">🛡️</span>
-                        <span>Tu información está protegida con encriptación SSL</span>
+                        <span th:text="#{checkout.security.notice}">Tu información está protegida con encriptación SSL</span>
                     </div>
                 </form>
             </div>
@@ -157,7 +163,7 @@
             <!-- Resumen del Pedido -->
             <aside class="order-summary">
                 <div class="summary-card">
-                    <h3 class="summary-title">📋 Resumen del Pedido</h3>
+                    <h3 class="summary-title">📋 <span th:text="#{checkout.order.summary}">Resumen del Pedido</span></h3>
                     
                     <div class="order-items">
                         <div th:each="item : ${cart.items}" class="order-item">
@@ -168,7 +174,7 @@
                                      onerror="this.src='/images/placeholder-product.jpg'">
                                 <div class="order-item-details">
                                     <h4 class="order-item-name" th:text="${item.product.name}"></h4>
-                                    <div class="order-item-quantity" th:text="'Cantidad: ' + ${item.quantity}"></div>
+                                    <div class="order-item-quantity" th:text="#{checkout.order.quantity} + ' ' + ${item.quantity}"></div>
                                 </div>
                             </div>
                             <div class="order-item-price" th:text="${item.formattedSubtotal}"></div>
@@ -177,22 +183,22 @@
                     
                     <div class="order-totals">
                         <div class="total-row">
-                            <span>Subtotal:</span>
+                            <span th:text="#{checkout.order.subtotal}">Subtotal:</span>
                             <span th:text="${cart.formattedTotal}"></span>
                         </div>
                         <div class="total-row">
-                            <span>Envío:</span>
-                            <span id="shippingCost">Gratis</span>
+                            <span th:text="#{checkout.order.shipping}">Envío:</span>
+                            <span id="shippingCost" th:text="#{checkout.order.free}">Gratis</span>
                         </div>
                         <div class="total-row final-total">
-                            <span>Total:</span>
+                            <span th:text="#{checkout.order.total}">Total:</span>
                             <span id="finalTotal" th:text="${cart.formattedTotal}"></span>
                         </div>
                     </div>
                     
                     <div th:if="${cart.total < 50000}" class="shipping-promo">
                         <div class="promo-message">
-                            🎁 ¡Faltan <strong>₡<span th:text="${#numbers.formatDecimal(50000 - cart.total, 1, 2, 'COMMA')}"></span></strong> para envío gratis!
+                            🎁 <span th:text="#{checkout.order.freeShipping.message}">¡Faltan</span> <strong>₡<span th:text="${#numbers.formatDecimal(50000 - cart.total, 1, 2, 'COMMA')}"></span></strong> <span th:text="#{checkout.order.freeShipping.suffix}">para envío gratis!</span>
                         </div>
                     </div>
                 </div>
@@ -203,12 +209,13 @@
     <!-- FOOTER (IGUAL AL TUYO) -->
     <div th:replace="~{fragments/_footer :: footer}"></div>
 
-    <script>
+    <script th:inline="javascript">
         document.addEventListener('DOMContentLoaded', function() {
             const shippingMethods = document.querySelectorAll('input[name="shippingMethod"]');
             const shippingCostElement = document.getElementById('shippingCost');
             const finalTotalElement = document.getElementById('finalTotal');
             const cartTotal = parseFloat([[${cart.total}]]);
+            const freeText = /*[[#{checkout.order.free}]]*/ 'Gratis';
 
             function updateTotals() {
                 let shippingCost = 0;
@@ -236,7 +243,7 @@
                 const finalTotal = cartTotal + shippingCost;
 
                 // Formatear y actualizar display
-                shippingCostElement.textContent = shippingCost === 0 ? 'Gratis' : 
+                shippingCostElement.textContent = shippingCost === 0 ? freeText : 
                     '₡' + shippingCost.toLocaleString('es-CR', {minimumFractionDigits: 2});
                 finalTotalElement.textContent = '₡' + finalTotal.toLocaleString('es-CR', {minimumFractionDigits: 2});
             }

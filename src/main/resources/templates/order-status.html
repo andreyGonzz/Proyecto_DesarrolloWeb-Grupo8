@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="order-actions">
-                    <a th:href="@{/orders/{id}(id=${order.id})}" class="btn-order btn-view">Ver Detalles</a>
+                    <a th:href="@{/orders/{id}(id=${order.id})}" class="btn-order btn-view" th:text="#{button.viewDetails}">Ver Detalles</a>
                     <a th:href="@{/invoices}" class="btn-order btn-invoice">Factura</a>
                 </div>
             </div>

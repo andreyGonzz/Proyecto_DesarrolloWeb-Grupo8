@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="'Pedido #' + ${order.id} + ' - Salud con Amor'">Detalles del Pedido - Salud con Amor</title>
+    <title th:text="#{order.id} + ${order.id} + ' - Salud con Amor'">Detalles del Pedido - Salud con Amor</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/orders.css}">
     <link rel="stylesheet" th:href="@{/css/order-details.css}">
@@ -15,52 +15,52 @@
 
     <main class="orders-container order-details-page">
         <div class="orders-header">
-            <h1>Detalles del Pedido</h1>
-            <p>Pedido #<span th:text="${order.id}">12345</span> - 
+            <h1 th:text="#{order.details.title}">Detalles del Pedido</h1>
+            <p><span th:text="#{order.id}">Pedido #</span><span th:text="${order.id}">12345</span> - 
                <span th:text="${#temporals.format(order.orderDate, 'dd/MM/yyyy HH:mm')}">01/12/2024 14:30</span></p>
         </div>
 
         <nav class="orders-nav">
-            <a th:href="@{/orders}">← Volver a Pedidos</a>
-            <a th:href="@{/order-history}">Historial</a>
-            <a th:href="@{/invoices}">Facturas</a>
-            <a th:href="@{/contact(orderId=${order.id})}">Solicitar Soporte</a>
+            <a th:href="@{/orders}" th:text="#{order.details.nav.back}">← Volver a Pedidos</a>
+            <a th:href="@{/order-history}" th:text="#{order.details.nav.history}">Historial</a>
+            <a th:href="@{/invoices}" th:text="#{order.details.nav.invoices}">Facturas</a>
+            <a th:href="@{/contact(orderId=${order.id})}" th:text="#{order.details.nav.support}">Solicitar Soporte</a>
         </nav>
 
         <div class="detail-section">
-            <h3>Estado del Pedido</h3>
+            <h3 th:text="#{order.details.status.title}">Estado del Pedido</h3>
             <div class="order-status-large" th:classappend="'status-' + ${order.status?.toLowerCase()}" 
                  th:text="${order.status}">ENTREGADO</div>
             
             <div class="tracking-steps">
                 <div class="step" th:classappend="${order.status == 'PENDING' or order.status == 'PROCESSING' or order.status == 'SHIPPED' or order.status == 'DELIVERED'} ? 'completed' : ''">
                     <div class="step-icon">📦</div>
-                    <div class="step-label">Confirmado</div>
+                    <div class="step-label" th:text="#{order.tracking.confirmed}">Confirmado</div>
                 </div>
                 <div class="step" th:classappend="${order.status == 'PROCESSING' or order.status == 'SHIPPED' or order.status == 'DELIVERED'} ? 'completed' : ''">
                     <div class="step-icon">🔧</div>
-                    <div class="step-label">En Proceso</div>
+                    <div class="step-label" th:text="#{order.tracking.processing}">En Proceso</div>
                 </div>
                 <div class="step" th:classappend="${order.status == 'SHIPPED' or order.status == 'DELIVERED'} ? 'completed' : ''">
                     <div class="step-icon">🚚</div>
-                    <div class="step-label">Enviado</div>
+                    <div class="step-label" th:text="#{order.tracking.shipped}">Enviado</div>
                 </div>
                 <div class="step" th:classappend="${order.status == 'DELIVERED'} ? 'completed' : ''">
                     <div class="step-icon">✅</div>
-                    <div class="step-label">Entregado</div>
+                    <div class="step-label" th:text="#{order.tracking.delivered}">Entregado</div>
                 </div>
             </div>
         </div>
 
         <div class="detail-section">
-            <h3>Productos</h3>
+            <h3 th:text="#{order.details.products.title}">Productos</h3>
             <table class="items-table">
                 <thead>
                     <tr>
-                        <th>Producto</th>
-                        <th>Cantidad</th>
-                        <th>Precio Unitario</th>
-                        <th>Subtotal</th>
+                        <th th:text="#{order.table.product}">Producto</th>
+                        <th th:text="#{order.table.quantity}">Cantidad</th>
+                        <th th:text="#{order.table.unit.price}">Precio Unitario</th>
+                        <th th:text="#{order.table.subtotal}">Subtotal</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,7 +73,7 @@
                 </tbody>
                 <tfoot>
                     <tr class="total-row">
-                        <td colspan="3" class="text-right"><strong>Total:</strong></td>
+                        <td colspan="3" class="text-right"><strong th:text="#{order.table.total}">Total:</strong></td>
                         <td th:text="${order.formattedTotalAmount}"><strong>₡45,000.00</strong></td>
                     </tr>
                 </tfoot>
@@ -81,16 +81,16 @@
         </div>
 
         <div class="detail-section">
-            <h3>Información de Envío</h3>
+            <h3 th:text="#{order.shipping.info.title}">Información de Envío</h3>
             <div class="shipping-info">
-                <p><strong>Dirección:</strong> <span th:text="${order.shippingAddress}">San José, Costa Rica</span></p>
-                <p><strong>Método de envío:</strong> <span th:text="${order.shippingMethod}">Envío Estándar</span></p>
-                <p><strong>Método de pago:</strong> <span th:text="${order.paymentMethod}">Tarjeta de Crédito</span></p>
+                <p><strong th:text="#{order.shipping.address}">Dirección:</strong> <span th:text="${order.shippingAddress}">San José, Costa Rica</span></p>
+                <p><strong th:text="#{order.shipping.method}">Método de envío:</strong> <span th:text="${order.shippingMethod}">Envío Estándar</span></p>
+                <p><strong th:text="#{order.payment.method}">Método de pago:</strong> <span th:text="${order.paymentMethod}">Tarjeta de Crédito</span></p>
             </div>
         </div>
 
         <div class="invoice-actions">
-            <button class="btn-print" onclick="window.print()">🖨️ Imprimir Comprobante</button>
+            <button class="btn-print" onclick="window.print()" th:text="#{order.print.receipt}">🖨️ Imprimir Comprobante</button>
         </div>
     </main>
 

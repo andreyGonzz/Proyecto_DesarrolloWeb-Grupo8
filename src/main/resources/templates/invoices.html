@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis Facturas - Salud con Amor</title>
+    <title th:text="#{page.invoices.title}">Mis Facturas - Salud con Amor</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/orders.css}">
     <link rel="stylesheet" th:href="@{/css/invoices.css}">
@@ -15,73 +15,73 @@
 
     <main class="orders-container">
         <div class="orders-header">
-            <h1>Mis Facturas</h1>
-            <p>Accede a tus comprobantes de compra para orden financiero</p>
+            <h1 th:text="#{invoices.title}">Mis Facturas</h1>
+            <p th:text="#{invoices.subtitle}">Accede a tus comprobantes de compra para orden financiero</p>
         </div>
 
         <nav class="orders-nav">
-            <a th:href="@{/orders}" th:classappend="${activePage == 'orders'} ? 'active' : ''">Pedidos Actuales</a>
-            <a th:href="@{/order-history}" th:classappend="${activePage == 'history'} ? 'active' : ''">Historial</a>
-            <a th:href="@{/invoices}" th:classappend="${activePage == 'invoices'} ? 'active' : ''">Facturas</a>
-            <a th:href="@{/contact}">Soporte</a>
+            <a th:href="@{/orders}" th:classappend="${activePage == 'orders'} ? 'active' : ''" th:text="#{invoices.nav.current}">Pedidos Actuales</a>
+            <a th:href="@{/order-history}" th:classappend="${activePage == 'history'} ? 'active' : ''" th:text="#{invoices.nav.history}">Historial</a>
+            <a th:href="@{/invoices}" th:classappend="${activePage == 'invoices'} ? 'active' : ''" th:text="#{invoices.nav.invoices}">Facturas</a>
+            <a th:href="@{/contact}" th:text="#{invoices.nav.support}">Soporte</a>
         </nav>
 
         <div th:if="${usuarioActual == null}" class="empty-orders">
             <div class="icon">🔒</div>
-            <h3>Acceso restringido</h3>
-            <p>Debes iniciar sesión para ver tus facturas.</p>
-            <a th:href="@{/login}" class="btn btn-primary btn-with-margin-top">Iniciar Sesión</a>
+            <h3 th:text="#{invoices.restricted.title}">Acceso restringido</h3>
+            <p th:text="#{invoices.restricted.message}">Debes iniciar sesión para ver tus facturas.</p>
+            <a th:href="@{/login}" class="btn btn-primary btn-with-margin-top" th:text="#{invoices.restricted.login}">Iniciar Sesión</a>
         </div>
 
         <div class="orders-grid" th:if="${not orders.empty and usuarioActual != null}">
             <div class="order-card" th:each="order : ${orders}">
                 <div class="order-header">
                     <div>
-                        <span class="order-id">Factura #<span th:text="${order.id}">12345</span></span>
+                        <span class="order-id"><span th:text="#{invoices.card.invoice}">Factura #</span><span th:text="${order.id}">12345</span></span>
                         <div class="order-date" th:text="${#temporals.format(order.orderDate, 'dd/MM/yyyy HH:mm')}">01/12/2024 14:30</div>
                     </div>
-                    <span class="order-status status-delivered">COMPLETADO</span>
+                    <span class="order-status status-delivered" th:text="#{invoices.card.completed}">COMPLETADO</span>
                 </div>
                 
                 <div class="order-details">
                     <div class="order-items">
-                        <strong th:text="${order.items.size()} + ' producto(s)'">3 producto(s)</strong>
-                        <div>Total: <span th:text="${order.formattedTotalAmount}">₡45,000.00</span></div>
+                        <strong th:text="${order.items.size()} + ' ' + #{invoices.card.products}">3 producto(s)</strong>
+                        <div><span th:text="#{invoices.card.total}">Total:</span> <span th:text="${order.formattedTotalAmount}">₡45,000.00</span></div>
                     </div>
                     <div class="invoice-info">
-                        <div><strong>Método de pago:</strong> <span th:text="${order.paymentMethod}">Tarjeta de Crédito</span></div>
+                        <div><strong th:text="#{invoices.card.paymentMethod}">Método de pago:</strong> <span th:text="${order.paymentMethod}">Tarjeta de Crédito</span></div>
                     </div>
                 </div>
 
                 <div class="order-actions">
-                    <a th:href="@{/orders/{id}(id=${order.id})}" class="btn-order btn-view">Ver Detalles</a>
-                    <button class="btn-order btn-invoice" onclick="downloadInvoice(${order.id})">📄 Descargar PDF</button>
-                    <button class="btn-order btn-view" onclick="printInvoice(${order.id})">🖨️ Imprimir</button>
+                    <a th:href="@{/orders/{id}(id=${order.id})}" class="btn-order btn-view" th:text="#{button.viewDetails}">Ver Detalles</a>
+                    <button class="btn-order btn-invoice" th:onclick="'downloadInvoice(' + ${order.id} + ')'">📄 <span th:text="#{invoices.button.download}">Descargar PDF</span></button>
+                    <button class="btn-order btn-view" th:onclick="'printInvoice(' + ${order.id} + ')'">🖨️ <span th:text="#{invoices.button.print}">Imprimir</span></button>
                 </div>
             </div>
         </div>
 
         <div class="empty-orders" th:if="${orders.empty and usuarioActual != null}">
             <div class="icon">🧾</div>
-            <h3>No hay facturas disponibles</h3>
-            <p>Las facturas de tus pedidos completados aparecerán aquí.</p>
-            <a th:href="@{/order-history}" class="btn btn-primary btn-with-margin-top">Ver Historial de Pedidos</a>
+            <h3 th:text="#{invoices.empty.title}">No hay facturas disponibles</h3>
+            <p th:text="#{invoices.empty.message}">Las facturas de tus pedidos completados aparecerán aquí.</p>
+            <a th:href="@{/order-history}" class="btn btn-primary btn-with-margin-top" th:text="#{invoices.empty.viewHistory}">Ver Historial de Pedidos</a>
         </div>
 
         <div class="financial-summary" th:if="${not orders.empty and usuarioActual != null}">
-            <h3>Resumen Financiero</h3>
+            <h3 th:text="#{invoices.summary.title}">Resumen Financiero</h3>
             <div class="summary-cards">
                 <div class="summary-card">
                     <div class="summary-value" th:text="'₡' + ${#numbers.formatDecimal(totalSpent, 1, 2)}">₡125,000.00</div>
-                    <div class="summary-label">Total Gastado</div>
+                    <div class="summary-label" th:text="#{invoices.summary.totalSpent}">Total Gastado</div>
                 </div>
                 <div class="summary-card">
                     <div class="summary-value" th:text="${totalOrders}">8</div>
-                    <div class="summary-label">Pedidos Totales</div>
+                    <div class="summary-label" th:text="#{invoices.summary.totalOrders}">Pedidos Totales</div>
                 </div>
                 <div class="summary-card">
                     <div class="summary-value" th:text="'₡' + ${#numbers.formatDecimal(averageOrder, 1, 2)}">₡15,625.00</div>
-                    <div class="summary-label">Promedio por Pedido</div>
+                    <div class="summary-label" th:text="#{invoices.summary.averageOrder}">Promedio por Pedido</div>
                 </div>
             </div>
         </div>
@@ -90,9 +90,11 @@
     <!-- Footer -->
     <div th:replace="~{fragments/_footer :: footer}"></div>
 
-    <script>
+    <script th:inline="javascript">
+        const downloadText = /*[[#{invoices.download.alert}]]*/ 'Descargando factura del pedido #';
+        
         function downloadInvoice(orderId) {
-            alert('Descargando factura del pedido #' + orderId);
+            alert(downloadText + orderId);
         }
 
         function printInvoice(orderId) {

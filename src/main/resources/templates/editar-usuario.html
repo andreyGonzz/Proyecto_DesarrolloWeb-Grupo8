@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Editar información personal</title>
+    <title th:text="#{editProfile.title}">Editar información personal</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <style>
@@ -25,25 +25,25 @@
     <div th:replace="~{fragments/_header :: header}"></div>
     <main class="container">
         <section class="section card si" style="max-width: 480px; margin: 0 auto; border:none;">
-            <h2 style="text-align:center; margin-bottom: 18px;">Editar información personal</h2>
+            <h2 style="text-align:center; margin-bottom: 18px;" th:text="#{editProfile.title}">Editar información personal</h2>
             <form th:action="@{/usuario/editar}" method="post"
                 style="display: flex; flex-direction: column; gap: 16px; margin:20px; border-radius: 20px;  ">
-                <label class="label" for="nombre">Nombre</label>
+                <label class="label" for="nombre" th:text="#{editProfile.name}">Nombre</label>
                 <input class="input" type="text" id="nombre" name="nombre" th:value="${usuario.nombre}" required />
 
-                <label class="label" for="apellidos">Apellidos</label>
+                <label class="label" for="apellidos" th:text="#{editProfile.lastName}">Apellidos</label>
                 <input class="input" type="text" id="apellidos" name="apellidos" th:value="${usuario.apellidos}"
                     required />
 
-                <label class="label" for="email">Correo electrónico</label>
+                <label class="label" for="email" th:text="#{editProfile.email}">Correo electrónico</label>
                 <input class="input" type="email" id="email" name="email" th:value="${usuario.email}" required />
                 
                 <div style="display: flex; align-items: center; gap: 8px; margin-top: 10px;">
                     <input type="checkbox" id="recibirInfo" name="recibirInfo" style="width: auto; transform: none;">
-                    <label for="recibirInfo" style="margin: 0; font-size: 14px;">Deseo recibir información periódica sobre productos y promociones</label>
+                    <label for="recibirInfo" style="margin: 0; font-size: 14px;" th:text="#{editProfile.newsletter}">Deseo recibir información periódica sobre productos y promociones</label>
                 </div>
     
-                <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Guardar cambios</button>
+                <button type="submit" class="btn btn-primary" style="margin-top: 10px;" th:text="#{editProfile.save}">Guardar cambios</button>
             </form>
             <div th:if="${mensaje}" class="auth-info" th:text="${mensaje}" style="margin-top: 16px;"></div>
         </section>

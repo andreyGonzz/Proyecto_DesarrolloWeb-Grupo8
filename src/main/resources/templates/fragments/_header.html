@@ -23,35 +23,47 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <!-- Admin/Vendedor Menu -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0" sec:authorize="hasRole('ROLE_VENDEDOR') or hasRole('ROLE_ADMIN')">
-                        <li class="nav-item"><a class="nav-link" th:href="@{/categoria/listado}">Categorías</a></li>
-                        <li class="nav-item"><a class="nav-link" th:href="@{/producto/listado}">Productos</a></li>
-                        <li class="nav-item"><a class="nav-link" th:href="@{/consultas/listado}">Consultas</a></li>
+                        <li class="nav-item"><a class="nav-link" th:href="@{/categoria/listado}" th:text="#{nav.categories}">Categorías</a></li>
+                        <li class="nav-item"><a class="nav-link" th:href="@{/producto/listado}" th:text="#{nav.products}">Productos</a></li>
+                        <li class="nav-item"><a class="nav-link" th:href="@{/consultas/listado}" th:text="#{nav.queries}">Consultas</a></li>
                         
                         <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Admin</a>
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" th:text="#{nav.admin}">Admin</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" th:href="@{/usuario/listado}">Usuarios</a></li>
-                                <li><a class="dropdown-item" th:href="@{/role/listado}">Roles</a></li>
-                                <li><a class="dropdown-item" th:href="@{/usuario_role/asignar}">Permisos</a></li>
-                                <li><a class="dropdown-item" th:href="@{/ruta/listado}">Rutas</a></li>
-                                <li><a class="dropdown-item" th:href="@{/constante/listado}">Constantes</a></li>
+                                <li><a class="dropdown-item" th:href="@{/usuario/listado}" th:text="#{nav.users}">Usuarios</a></li>
+                                <li><a class="dropdown-item" th:href="@{/role/listado}" th:text="#{nav.roles}">Roles</a></li>
+                                <li><a class="dropdown-item" th:href="@{/usuario_role/asignar}" th:text="#{nav.permissions}">Permisos</a></li>
+                                <li><a class="dropdown-item" th:href="@{/ruta/listado}" th:text="#{nav.routes}">Rutas</a></li>
+                                <li><a class="dropdown-item" th:href="@{/constante/listado}" th:text="#{nav.constants}">Constantes</a></li>
                             </ul>
                         </li>
                     </ul>
 
                     <!-- Customer Menu (Existing links) -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0" sec:authorize="!hasRole('ROLE_VENDEDOR') and !hasRole('ROLE_ADMIN')">
-                         <li class="nav-item"><a class="nav-link" th:href="@{/productos}">Todos los productos</a></li>
-                         <li class="nav-item"><a class="nav-link" th:href="@{/productos/suplementos}">Suplementos</a></li>
-                         <li class="nav-item"><a class="nav-link" th:href="@{/productos/vitaminas}">Vitaminas</a></li>
-                         <li class="nav-item"><a class="nav-link" th:href="@{/productos/populares}">Tendencias</a></li>
+                         <li class="nav-item"><a class="nav-link" th:href="@{/productos}" th:text="#{nav.allProducts}">Todos los productos</a></li>
+                         <li class="nav-item"><a class="nav-link" th:href="@{/productos/suplementos}" th:text="#{nav.supplements}">Suplementos</a></li>
+                         <li class="nav-item"><a class="nav-link" th:href="@{/productos/vitaminas}" th:text="#{nav.vitamins}">Vitaminas</a></li>
+                         <li class="nav-item"><a class="nav-link" th:href="@{/productos/populares}" th:text="#{nav.trends}">Tendencias</a></li>
                     </ul>
 
                     <!-- Search -->
                     <form class="d-flex me-3" th:action="@{/buscar}" method="get">
-                        <input class="form-control me-2" name="q" type="search" placeholder="Buscar..." aria-label="Search">
+                        <input class="form-control me-2" name="q" type="search" th:placeholder="#{nav.search.placeholder}" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">🔍</button>
                     </form>
+
+                    <!-- Language Selector -->
+                    <div class="nav-item dropdown me-3">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-globe"></i>
+                            <span th:text="${#locale.language == 'en' ? 'EN' : 'ES'}">ES</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{''(lang=es)}">🇪🇸 Español</a></li>
+                            <li><a class="dropdown-item" th:href="@{''(lang=en)}">🇺🇸 English</a></li>
+                        </ul>
+                    </div>
 
                     <!-- Cart -->
                     <a class="nav-link me-3 position-relative" th:href="@{/cart}">
@@ -64,7 +76,7 @@
                     <!-- Auth -->
                     <ul class="navbar-nav">
                         <li class="nav-item" sec:authorize="!isAuthenticated()">
-                            <a class="nav-link" th:href="@{/login}"><i class="fas fa-sign-in-alt"></i> Login</a>
+                            <a class="nav-link" th:href="@{/login}"><i class="fas fa-sign-in-alt"></i> <span th:text="#{nav.login}">Login</span></a>
                         </li>
                         <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
@@ -74,11 +86,11 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
-                                    <a class="dropdown-item" th:href="@{/usuario/editar}"><i class="fas fa-user-edit"></i> Editar perfil</a>
+                                    <a class="dropdown-item" th:href="@{/usuario/editar}"><i class="fas fa-user-edit"></i> <span th:text="#{nav.editProfile}">Editar perfil</span></a>
                                 </li>
                                 <li>
                                     <form th:action="@{/logout}" method="post">
-                                        <button class="dropdown-item" type="submit">Logout</button>
+                                        <button class="dropdown-item" type="submit" th:text="#{nav.logout}">Logout</button>
                                     </form>
                                 </li>
                             </ul>

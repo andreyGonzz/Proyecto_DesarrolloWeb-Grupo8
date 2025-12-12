@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto - Salud con Amor</title>
+    <title th:text="#{page.contact.title}">Contacto - Salud con Amor</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/contact.css}">
 </head>
@@ -14,135 +14,128 @@
 
     <main class="contact-container">
         <div class="contact-header">
-            <h1>¿Necesitas Ayuda?</h1>
-            <p>Estamos aquí para resolver tus dudas y problemas con tus pedidos</p>
+            <h1 th:text="#{contact.header.title}">¿Necesitas Ayuda?</h1>
+            <p th:text="#{contact.header.subtitle}">Estamos aquí para resolver tus dudas y problemas con tus pedidos</p>
         </div>
 
         <div th:if="${success}" class="alert alert-success">
-            <span th:text="${message}">¡Tu mensaje ha sido enviado con éxito!</span>
+            <span th:text="${message}"></span>
         </div>
 
         <div class="contact-grid">
             <div class="contact-info">
-                <h2>Información de Contacto</h2>
+                <h2 th:text="#{contact.info.title}">Información de Contacto</h2>
                 <div class="contact-methods">
                     <div class="contact-method">
                         <div class="method-icon">📞</div>
                         <div class="method-info">
-                            <h3>Teléfono</h3>
+                            <h3 th:text="#{contact.phone}">Teléfono</h3>
                             <p>+506 4000-1234</p>
-                            <p>Lunes a Viernes: 8:00 AM - 6:00 PM</p>
+                            <p th:text="#{contact.phone.schedule}">Lunes a Viernes: 8:00 AM - 6:00 PM</p>
                         </div>
                     </div>
                     <div class="contact-method">
                         <div class="method-icon">✉️</div>
                         <div class="method-info">
-                            <h3>Email</h3>
+                            <h3 th:text="#{contact.email}">Email</h3>
                             <p>soporte@saludconamor.cr</p>
-                            <p>Respuesta en 24 horas</p>
+                            <p th:text="#{contact.email.response}">Respuesta en 24 horas</p>
                         </div>
                     </div>
                     <div class="contact-method">
                         <div class="method-icon">💬</div>
                         <div class="method-info">
-                            <h3>WhatsApp</h3>
+                            <h3 th:text="#{contact.whatsapp}">WhatsApp</h3>
                             <p>+506 8888-8888</p>
-                            <p>Atención inmediata</p>
+                            <p th:text="#{contact.whatsapp.immediate}">Atención inmediata</p>
                         </div>
                     </div>
                     <div class="contact-method">
                         <div class="method-icon">🏪</div>
                         <div class="method-info">
-                            <h3>Tiendas Físicas</h3>
-                            <p>San José Centro</p>
-                            <p>Escazú, Multiplaza</p>
+                            <h3 th:text="#{contact.stores}">Tiendas Físicas</h3>
+                            <p th:text="#{contact.stores.sanjose}">San José Centro</p>
+                            <p th:text="#{contact.stores.escazu}">Escazú, Multiplaza</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="contact-form">
-                <h2>Envíanos un Mensaje</h2>
+                <h2 th:text="#{contact.form.title}">Envíanos un Mensaje</h2>
                 <form th:action="@{/contact}" method="post">
                     <div class="form-group">
-                        <label for="name">Nombre completo *</label>
+                        <label for="name" th:text="#{contact.form.name}">Nombre completo *</label>
                         <input type="text" id="name" name="name" class="form-control" required 
                                th:value="${#authentication.principal.username}">
                     </div>
                     <div class="form-group">
-                        <label for="email">Correo electrónico *</label>
+                        <label for="email" th:text="#{contact.form.email}">Correo electrónico *</label>
                         <input type="email" id="email" name="email" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="orderId">Número de pedido (opcional)</label>
+                        <label for="orderId" th:text="#{contact.form.orderid}">Número de pedido (opcional)</label>
                         <input type="text" id="orderId" name="orderId" class="form-control" 
                                th:value="${param.orderId}">
                     </div>
                     <div class="form-group">
-                        <label for="subject">Asunto *</label>
+                        <label for="subject" th:text="#{contact.form.subject}">Asunto *</label>
                         <select id="subject" name="subject" class="form-control" required>
-                            <option value="">Selecciona un asunto</option>
-                            <option value="problema-pedido">Problema con mi pedido</option>
-                            <option value="seguimiento-pedido">Seguimiento de pedido</option>
-                            <option value="devolucion">Devolución o cambio</option>
-                            <option value="facturacion">Problema con facturación</option>
-                            <option value="producto">Consulta sobre producto</option>
-                            <option value="general">Consulta general</option>
+                            <option value="" th:text="#{contact.form.subject.select}">Selecciona un asunto</option>
+                            <option value="problema-pedido" th:text="#{contact.form.subject.problem}">Problema con mi pedido</option>
+                            <option value="seguimiento-pedido" th:text="#{contact.form.subject.tracking}">Seguimiento de pedido</option>
+                            <option value="devolucion" th:text="#{contact.form.subject.return}">Devolución o cambio</option>
+                            <option value="facturacion" th:text="#{contact.form.subject.billing}">Problema con facturación</option>
+                            <option value="producto" th:text="#{contact.form.subject.product}">Consulta sobre producto</option>
+                            <option value="general" th:text="#{contact.form.subject.general}">Consulta general</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="message">Mensaje *</label>
+                        <label for="message" th:text="#{contact.form.message}">Mensaje *</label>
                         <textarea id="message" name="message" class="form-control" 
-                                  placeholder="Describe tu duda o problema en detalle..." required></textarea>
+                                  th:placeholder="#{contact.form.message.placeholder}" required></textarea>
                     </div>
-                    <button type="submit" class="btn-submit">Enviar Mensaje</button>
+                    <button type="submit" class="btn-submit" th:text="#{contact.form.submit}">Enviar Mensaje</button>
                 </form>
             </div>
         </div>
 
         <div class="faq-section">
-            <h2>Preguntas Frecuentes</h2>
+            <h2 th:text="#{contact.faq.title}">Preguntas Frecuentes</h2>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFAQ(this)">
-                    ¿Cómo puedo hacer seguimiento a mi pedido?
+                    <span th:text="#{contact.faq.tracking.question}">¿Cómo puedo hacer seguimiento a mi pedido?</span>
                     <span>+</span>
                 </div>
                 <div class="faq-answer">
-                    Puedes revisar el estado de tu pedido en la sección "Mis Pedidos" en tu cuenta. 
-                    Allí encontrarás información actualizada sobre el proceso de envío.
+                    <span th:text="#{contact.faq.tracking.answer}">Puedes revisar el estado de tu pedido en la sección "Mis Pedidos" en tu cuenta. Allí encontrarás información actualizada sobre el proceso de envío.</span>
                 </div>
             </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFAQ(this)">
-                    ¿Cuánto tiempo tarda la entrega?
+                    <span th:text="#{contact.faq.delivery.question}">¿Cuánto tiempo tarda la entrega?</span>
                     <span>+</span>
                 </div>
                 <div class="faq-answer">
-                    El tiempo de entrega varía según tu ubicación: 
-                    • Área Metropolitana: 1-2 días hábiles
-                    • Otras provincias: 3-5 días hábiles
-                    • Zonas rurales: 5-7 días hábiles
+                    <span th:text="#{contact.faq.delivery.answer}">El tiempo de entrega varía según tu ubicación: • Área Metropolitana: 1-2 días hábiles • Otras provincias: 3-5 días hábiles • Zonas rurales: 5-7 días hábiles</span>
                 </div>
             </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFAQ(this)">
-                    ¿Puedo modificar o cancelar mi pedido?
+                    <span th:text="#{contact.faq.modify.question}">¿Puedo modificar o cancelar mi pedido?</span>
                     <span>+</span>
                 </div>
                 <div class="faq-answer">
-                    Los pedidos pueden ser modificados o cancelados dentro de las primeras 2 horas 
-                    después de realizado el pedido. Después de ese tiempo, contacta con soporte 
-                    para ver las opciones disponibles.
+                    <span th:text="#{contact.faq.modify.answer}">Los pedidos pueden ser modificados o cancelados dentro de las primeras 2 horas después de realizado el pedido. Después de ese tiempo, contacta con soporte para ver las opciones disponibles.</span>
                 </div>
             </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFAQ(this)">
-                    ¿Qué métodos de pago aceptan?
+                    <span th:text="#{contact.faq.payment.question}">¿Qué métodos de pago aceptan?</span>
                     <span>+</span>
                 </div>
                 <div class="faq-answer">
-                    Aceptamos: Tarjetas de crédito/débito (Visa, MasterCard), Sinpe Móvil, 
-                    transferencias bancarias y efectivo en tiendas físicas.
+                    <span th:text="#{contact.faq.payment.answer}">Aceptamos: Tarjetas de crédito/débito (Visa, MasterCard), Sinpe Móvil, transferencias bancarias y efectivo en tiendas físicas.</span>
                 </div>
             </div>
         </div>

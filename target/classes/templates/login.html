@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" th:href="@{/images/image.png}">
 
-    <title>Macrobitica Salud con Amor</title>
+    <title th:text="#{page.login.title}">Macrobitica Salud con Amor</title>
 </head>
 
 
@@ -31,30 +31,30 @@
  
             
 
-            <h2 id="title">Nombre de Usuario</h2>
+            <h2 id="title" th:text="#{login.title}">Nombre de Usuario</h2>
 
             <form class="form" th:action="@{/login}" method="post">
-                <label class="label" for="email">Correo</label>
+                <label class="label" for="email" th:text="#{login.email}">Correo</label>
                 <input id="email" name="email" class="input" type="text" placeholder="Escribe aquí" />
 
-                <label class="label" for="pass">Contraseña</label>
+                <label class="label" for="pass" th:text="#{login.password}">Contraseña</label>
                 <input id="pass" name="password" class="input" type="password" placeholder="Escribe aquí" />
 
-                <a class="recover" href="#">¿Olvidó su contraseña? <br><strong>Recuperar</strong></a>
+                <a class="recover" href="#"><span th:text="#{login.forgotPassword}">¿Olvidó su contraseña?</span> <br><strong th:text="#{login.recover}">Recuperar</strong></a>
 
                 <div class="auth-spacer-small"></div>
 
-                <button class="btn btn--primary" type="submit">Iniciar Sesión</button>
+                <button class="btn btn--primary" type="submit" th:text="#{login.submit}">Iniciar Sesión</button>
 
                 <div class="auth-spacer-medium"></div>
 
-                <button class="btn btn--secondary" type="button"><a th:href="@{/register}">Registrarse</a></button>
+                <button class="btn btn--secondary" type="button"><a th:href="@{/register}" th:text="#{login.register}">Registrarse</a></button>
 
                 <!-- Mensajes de estado gestionados por Spring Security -->
-                <div th:if="${param.error}" class="auth-error">Credenciales inválidas</div>
-                <div th:if="${param.logout}" class="auth-info">Sesión cerrada correctamente</div>
+                <div th:if="${param.error}" class="auth-error" th:text="#{login.error}">Credenciales inválidas</div>
+                <div th:if="${param.logout}" class="auth-info" th:text="#{login.logout}">Sesión cerrada correctamente</div>
 
-                <p class="help">¿Necesitas tus medicamentos?<br><span>Visita nuestra pagina y explora ofertas.</span></p>
+                <p class="help"><span th:text="#{login.help}">¿Necesitas tus medicamentos?</span><br><span th:text="#{login.helpText}">Visita nuestra pagina y explora ofertas.</span></p>
             </form>
         </main>
     </div>

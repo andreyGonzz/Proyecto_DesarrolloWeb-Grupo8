@@ -4,25 +4,25 @@
     <footer class="site-footer">
         <div class="footer-inner container">
             <div class="col">
-                <h4>Contacto</h4>
-                <p>San José, Costa Rica<br/>Tel: +506 8479 5825<br/>escamillayalena@gmail.com</p>
+                <h4 th:text="#{footer.contact}">Contacto</h4>
+                <p><span th:text="#{footer.location}">San José, Costa Rica</span><br/>Tel: +506 8479 5825<br/>escamillayalena@gmail.com</p>
             </div>
             <div class="col">
-                <h4>Otros</h4>
+                <h4 th:text="#{footer.others}">Otros</h4>
                 <ul>
-                    <li><a th:href="@{/}">Home</a></li>
-                    <li><a href="#">Sobre nosotros</a></li>
+                    <li><a th:href="@{/}" th:text="#{footer.home}">Home</a></li>
+                    <li><a href="#" th:text="#{footer.aboutus}">Sobre nosotros</a></li>
                 </ul>
             </div>
             <div class="col">
-                <h4>Servicios</h4>
+                <h4 th:text="#{footer.services}">Servicios</h4>
                 <ul>
-                    <li><a href="#">Envíos</a></li>
-                    <li><a href="#">Políticas</a></li>
+                    <li><a href="#" th:text="#{footer.shipping}">Envíos</a></li>
+                    <li><a href="#" th:text="#{footer.policies}">Políticas</a></li>
                 </ul>
             </div>
             <div class="col">
-                <h4>Síguenos</h4>
+                <h4 th:text="#{footer.followus}">Síguenos</h4>
                 <div class="socials">
                     <ul>
                         <li><a target="_blank" href="https://www.facebook.com/share/1GA6qnUVkZ/">Facebook</a></li>
@@ -31,6 +31,6 @@
                 </div>
             </div>
         </div>
-        <div class="copyright">© 2025 Salud con Amor - Todos los derechos reservados.</div>
+        <div class="copyright" th:text="#{footer.copyright}">© 2025 Salud con Amor - Todos los derechos reservados.</div>
     </footer>
 </div>

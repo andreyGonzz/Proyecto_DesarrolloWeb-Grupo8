@@ -26,7 +26,7 @@
     <main class="container">
         <!-- Link de regreso -->
         <a th:href="@{/productos}" class="back-to-products">
-            ← Volver a productos
+            <span th:text="#{product.back.link}">← Volver a productos</span>
         </a>
 
         <!-- Detalle del producto -->
@@ -51,15 +51,15 @@
 
                     <!-- Descripción (simulada ya que no está en el modelo) -->
                     <div class="product-description">
-                        <p>Producto de alta calidad diseñado para mejorar tu bienestar y salud.
+                        <p th:text="#{product.description}">Producto de alta calidad diseñado para mejorar tu bienestar y salud.
                             Elaborado con ingredientes naturales y siguiendo los más altos estándares de calidad.</p>
 
-                        <p><strong>Beneficios:</strong></p>
+                        <p><strong th:text="#{product.benefits}">Beneficios:</strong></p>
                         <ul>
-                            <li>Ingredientes 100% naturales</li>
-                            <li>Certificación de calidad</li>
-                            <li>Apto para consumo diario</li>
-                            <li>Sin conservantes artificiales</li>
+                            <li th:text="#{product.benefit.natural}">Ingredientes 100% naturales</li>
+                            <li th:text="#{product.benefit.quality}">Certificación de calidad</li>
+                            <li th:text="#{product.benefit.daily}">Apto para consumo diario</li>
+                            <li th:text="#{product.benefit.preservatives}">Sin conservantes artificiales</li>
                         </ul>
                     </div>
 
@@ -69,23 +69,23 @@
                             <input type="hidden" name="productId" th:value="${producto.id}">
 
                             <div class="quantity-selector">
-                                <label for="quantity">Cantidad:</label>
+                                <label for="quantity" th:text="#{button.quantity}">Cantidad:</label>
                                 <input type="number" id="quantity" name="quantity" value="1" min="1" max="10"
                                     class="quantity-input">
                             </div>
 
                             <button type="submit" class="add-to-cart-btn">
-                                🛒 Añadir al carrito
+                                🛒 <span th:text="#{button.addToCart.text}">Añadir al carrito</span>
                             </button>
                         </form>
                     </div>
 
                     <!-- Información adicional -->
                     <div class="product-meta">
-                        <h4>Información del Producto</h4>
-                        <p><strong>ID:</strong> <span th:text="${producto.id}">#0</span></p>
-                        <p><strong>Categoría:</strong> <span th:text="${producto.category}">-</span></p>
-                        <p><strong>Fecha de agregado:</strong>
+                        <h4 th:text="#{product.info.title}">Información del Producto</h4>
+                        <p><strong th:text="#{product.info.id}">ID:</strong> <span th:text="${producto.id}">#0</span></p>
+                        <p><strong th:text="#{product.info.category}">Categoría:</strong> <span th:text="${producto.category}">-</span></p>
+                        <p><strong th:text="#{product.info.dateAdded}">Fecha de agregado:</strong>
                             <span th:text="${#temporals.format(producto.createdAt, 'dd/MM/yyyy')}">-</span>
                         </p>
                     </div>

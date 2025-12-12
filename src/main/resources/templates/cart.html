@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Carrito de Compras - Salud con Amor</title>
+    <title th:text="#{page.cart.title}">Carrito de Compras - Salud con Amor</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,17 +20,17 @@
     <!-- CONTENIDO DEL CARRITO -->
     <main class="container">
         <div class="cart-header">
-            <h1 class="cart-title">🛒 Tu Carrito de Compras</h1>
-            <a th:href="@{/productos}" class="btn btn-secondary">Seguir Comprando</a>
+            <h1 class="cart-title" th:text="#{cart.title}">🛒 Tu Carrito de Compras</h1>
+            <a th:href="@{/productos}" class="btn btn-secondary" th:text="#{cart.continueShopping}">Seguir Comprando</a>
         </div>
         
         <div th:if="${cart.empty}" class="empty-cart">
             <div class="empty-cart-content">
-                <h2>Tu carrito está vacío</h2>
-                <p>¡Descubre nuestros productos para tu salud y bienestar!</p>
+                <h2 th:text="#{cart.empty}">Tu carrito está vacío</h2>
+                <p th:text="#{cart.empty.message}">¡Descubre nuestros productos para tu salud y bienestar!</p>
                 <div class="empty-cart-actions">
-                    <a th:href="@{/productos}" class="btn btn-primary">Explorar Productos</a>
-                    <a th:href="@{/order-history}" class="btn btn-secondary">Ver Historial de Pedidos</a>
+                    <a th:href="@{/productos}" class="btn btn-primary" th:text="#{cart.empty.explore}">Explorar Productos</a>
+                    <a th:href="@{/order-history}" class="btn btn-secondary" th:text="#{cart.empty.history}">Ver Historial de Pedidos</a>
                 </div>
             </div>
         </div>
@@ -39,11 +39,11 @@
             <table class="cart-table">
                 <thead>
                     <tr>
-                        <th>Producto</th>
-                        <th>Precio</th>
-                        <th>Cantidad</th>
-                        <th>Subtotal</th>
-                        <th>Acciones</th>
+                        <th th:text="#{cart.product}">Producto</th>
+                        <th th:text="#{cart.price}">Precio</th>
+                        <th th:text="#{cart.quantity}">Cantidad</th>
+                        <th th:text="#{cart.subtotal}">Subtotal</th>
+                        <th th:text="#{cart.actions}">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -83,7 +83,7 @@
                                 <input type="hidden" name="productId" th:value="${item.product.id}">
                                 <button type="submit" class="btn-remove">
                                     <span class="remove-icon">🗑️</span>
-                                    Eliminar
+                                    <span th:text="#{cart.remove}">Eliminar</span>
                                 </button>
                             </form>
                         </td>
@@ -94,18 +94,18 @@
             <div class="cart-summary">
                 <div class="summary-section">
                     <div class="summary-row">
-                        <span class="summary-label">Subtotal:</span>
+                        <span class="summary-label" th:text="#{cart.summary.subtotal}">Subtotal:</span>
                         <span class="summary-value" th:text="${cart.formattedTotal}"></span>
                     </div>
                     <div class="summary-row">
-                        <span class="summary-label">Envío:</span>
+                        <span class="summary-label" th:text="#{cart.summary.shipping}">Envío:</span>
                         <span class="summary-value">
-                            <span th:if="${cart.total > 50000}">Gratis</span>
+                            <span th:if="${cart.total > 50000}" th:text="#{cart.summary.free}">Gratis</span>
                             <span th:unless="${cart.total > 50000}">₡5,000.00</span>
                         </span>
                     </div>
                     <div class="summary-row total">
-                        <span class="summary-label">Total:</span>
+                        <span class="summary-label" th:text="#{cart.summary.total}">Total:</span>
                         <span class="summary-value total-amount">
                             ₡<span th:text="${#numbers.formatDecimal(cart.total + (cart.total > 50000 ? 0 : 5000), 1, 2, 'COMMA')}"></span>
                         </span>
@@ -113,16 +113,16 @@
                 </div>
                 
                 <div class="cart-actions">
-                    <a th:href="@{/productos}" class="btn btn-secondary">Seguir Comprando</a>
-                    <a th:href="@{/cart/checkout}" class="btn btn-primary">Proceder al Checkout</a>
+                    <a th:href="@{/productos}" class="btn btn-secondary" th:text="#{cart.continue.shopping}">Seguir Comprando</a>
+                    <a th:href="@{/cart/checkout}" class="btn btn-primary" th:text="#{cart.checkout}">Proceder al Checkout</a>
                     <!-- Botón para ver historial de pedidos -->
-                    <a th:href="@{/order-history}" class="btn btn-secondary">Ver Historial de Pedidos</a>
+                    <a th:href="@{/order-history}" class="btn btn-secondary" th:text="#{button.viewOrderHistory}">Ver Historial de Pedidos</a>
                 </div>
             </div>
             
             <div th:if="${cart.total < 50000}" class="shipping-notice">
                 <div class="shipping-message">
-                    🚚 ¡Faltan <strong>₡<span th:text="${#numbers.formatDecimal(50000 - cart.total, 1, 2, 'COMMA')}"></span></strong> para envío gratis!
+                    <span th:text="#{cart.shipping.notice}">🚚 ¡Faltan</span> <strong>₡<span th:text="${#numbers.formatDecimal(50000 - cart.total, 1, 2, 'COMMA')}"></span></strong> <span th:text="#{cart.shipping.notice.amount}">para envío gratis!</span>
                 </div>
             </div>
         </div>
@@ -151,9 +151,10 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             const removeButtons = document.querySelectorAll('.btn-remove');
+            const confirmMessage = /*[[#{cart.confirm.remove}]]*/ '¿Estás seguro de que quieres eliminar este producto del carrito?';
             removeButtons.forEach(button => {
                 button.addEventListener('click', function(e) {
-                    if (!confirm('¿Estás seguro de que quieres eliminar este producto del carrito?')) {
+                    if (!confirm(confirmMessage)) {
                         e.preventDefault();
                     }
                 });

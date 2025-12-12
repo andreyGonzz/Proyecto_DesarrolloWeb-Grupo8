@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <title>Salud con Amor - Inicio</title>
+        <title th:text="#{page.home.title}">Salud con Amor - Inicio</title>
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,17 +24,17 @@
         <section class="hero">
             <div class="hero-inner">
                 <div class="hero-copy">
-                    <h1>Invierte en tu salud de manera valiosa: tu cuerpo merece lo natural</h1>
-                    <p class="hero-sub">Consigue productos de alta calidad con ingredientes naturales y el mejor precio.</p>
+                    <h1 th:text="#{hero.title}">Invierte en tu salud de manera valiosa: tu cuerpo merece lo natural</h1>
+                    <p class="hero-sub" th:text="#{hero.subtitle}">Consigue productos de alta calidad con ingredientes naturales y el mejor precio.</p>
                     <div class="hero-cta">
-                        <a class="btn btn-primary" href="/productos">Empezar a comprar</a>
+                        <a class="btn btn-primary" href="/productos" th:text="#{hero.cta}">Empezar a comprar</a>
                     </div>
 
                     <div class="hero-highlights">
-                        <div class="highlight">Hasta 25% de descuento</div>
-                        <div class="highlight">Envíos a todo el país</div>
-                        <div class="highlight">Consulta a un profesional</div>
-                        <div class="highlight">Consejos de Salud</div>
+                        <div class="highlight" th:text="#{hero.discount}">Hasta 25% de descuento</div>
+                        <div class="highlight" th:text="#{hero.shipping}">Envíos a todo el país</div>
+                        <div class="highlight" th:text="#{hero.consultation}">Consulta a un profesional</div>
+                        <div class="highlight" th:text="#{hero.tips}">Consejos de Salud</div>
                     </div>
                 </div>
 
@@ -48,8 +48,8 @@
         <main class="container">
             <section class="section products-section">
                 <div class="section-header">
-                    <h2>Productos populares</h2>
-                    <a class="cta-link" href="/productos/populares">Ver todos →</a>
+                    <h2 th:text="#{section.popular}">Productos populares</h2>
+                    <a class="cta-link" href="/productos/populares" th:text="#{section.viewAll} + ' →'">Ver todos →</a>
                 </div>
                 <div class="products-grid" th:if="${popularProducts}">
                     <article class="product-card" th:each="p : ${popularProducts}">
@@ -62,7 +62,7 @@
                             <input type="hidden" name="productId" th:value="${p.id}">
                             <input type="hidden" name="quantity" value="1">
                             <button type="submit" class="add">
-                                🛒 Añadir al carrito
+                                🛒 <span th:text="#{button.addToCart.text}">Añadir al carrito</span>
                             </button>
                         </form>
                     </article>
@@ -71,8 +71,8 @@
 
             <section class="section products-section">
                 <div class="section-header">
-                    <h2>Productos nuevos</h2>
-                    <a class="cta-link" href="/productos/nuevos">Ver todos →</a>
+                    <h2 th:text="#{section.new}">Productos nuevos</h2>
+                    <a class="cta-link" href="/productos/nuevos" th:text="#{section.viewAll} + ' →'">Ver todos →</a>
                 </div>
 
                 <div class="products-grid" th:if="${newProducts}">
@@ -86,7 +86,7 @@
                         <input type="hidden" name="productId" th:value="${p.id}">
                         <input type="hidden" name="quantity" value="1">
                         <button type="submit" class="add">
-                            🛒 Añadir al carrito
+                            🛒 <span th:text="#{button.addToCart.text}">Añadir al carrito</span>
                         </button>
                     </form>
                     </article>
@@ -100,7 +100,7 @@
                         <span class="badge">Hasta 50% de descuento</span>
                         <h3>Oferta del día: medicina natural</h3>
                         <p>Encuentra lo mejor en suplementos naturales seleccionados para ti.</p>
-                        <a class="btn btn-secondary" href="/productos/populares">Compra ahora</a>
+                        <a class="btn btn-secondary" href="/productos/populares" th:text="#{order.continueShopping}">Compra ahora</a>
                     </div>
                     <div class="promo-right">
                         <img th:src="@{/images/promo.jpg}" alt="Promoción" />
@@ -111,8 +111,8 @@
 
             <section class="section products-section">
                 <div class="section-header">
-                    <h2>Suplementos</h2>
-                    <a class="cta-link" href="/productos/suplementos">Ver todos →</a>
+                    <h2 th:text="#{section.suplementos}">Suplementos</h2>
+                    <a class="cta-link" href="/productos/suplementos" th:text="#{section.viewAll} + ' →'">Ver todos →</a>
                 </div>
 
                 <div class="products-grid" th:if="${suplementos}">
@@ -126,7 +126,7 @@
                         <input type="hidden" name="productId" th:value="${p.id}">
                         <input type="hidden" name="quantity" value="1">
                         <button type="submit" class="add">
-                            🛒 Añadir al carrito
+                            🛒 <span th:text="#{button.addToCart.text}">Añadir al carrito</span>
                         </button>
                     </form>
                     </article>
@@ -135,8 +135,8 @@
 
             <section class="section products-section">
                 <div class="section-header">
-                    <h2>Vitaminas</h2>
-                    <a class="cta-link" href="/productos/vitaminas">Ver todos →</a>
+                    <h2 th:text="#{section.vitaminas}">Vitaminas</h2>
+                    <a class="cta-link" href="/productos/vitaminas" th:text="#{section.viewAll} + ' →'">Ver todos →</a>
                 </div>
 
                 <div class="products-grid" th:if="${vitaminas}">
@@ -150,7 +150,7 @@
                             <input type="hidden" name="productId" th:value="${p.id}">
                             <input type="hidden" name="quantity" value="1">
                             <button type="submit" class="add">
-                                🛒 Añadir al carrito
+                                🛒 <span th:text="#{button.addToCart.text}">Añadir al carrito</span>
                             </button>
                         </form>
                     </article>
@@ -159,7 +159,7 @@
             <!-- BLOG / INFORMACIÓN -->
             <section class="section blog-section">
                 <div class="section-header">
-                    <h2>Blogs e información</h2>
+                    <h2 th:text="#{section.blog}">Blogs e información</h2>
                 </div>
 
                 <div class="blog-grid">
@@ -168,7 +168,7 @@
                         <div class="blog-info">
                             <h4>Los 5 Pilares de la Alimentación Macrobiótica</h4>
                             <p>Descubre cómo el equilibrio Yin-Yang puede transformar tu salud...</p>
-                            <a href="#" class="read-more">Leer más →</a>
+                            <a href="#" class="read-more" th:text="#{button.readMore}">Leer más →</a>
                         </div>
                     </article>
 
@@ -177,7 +177,7 @@
                         <div class="blog-info">
                             <h4>Recetas macrobióticas para fortalecer el sistema</h4>
                             <p>Preparaciones sencillas y naturales para tu día a día...</p>
-                            <a href="/#" class="read-more">Leer más →</a>
+                            <a href="/#" class="read-more" th:text="#{button.readMore}">Leer más →</a>
                         </div>
                     </article>
                 </div>
