@@ -1,6 +1,6 @@
 package com.proyecto.proyectoweb.service;
 
-import com.proyecto.proyectoweb.model.*;
+import com.proyecto.proyectoweb.domain.*;
 import com.proyecto.proyectoweb.repository.CartRepository;
 import com.proyecto.proyectoweb.repository.OrderRepository;
 import org.springframework.stereotype.Service;

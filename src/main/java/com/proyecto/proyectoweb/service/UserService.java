@@ -1,7 +1,7 @@
 package com.proyecto.proyectoweb.service;
 
-import com.proyecto.proyectoweb.model.Cart;
-import com.proyecto.proyectoweb.model.User;
+import com.proyecto.proyectoweb.domain.Cart;
+import com.proyecto.proyectoweb.domain.User;
 import com.proyecto.proyectoweb.repository.CartRepository;
 import com.proyecto.proyectoweb.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -1,7 +1,9 @@
 package com.proyecto.proyectoweb.repository;
 
-import com.proyecto.proyectoweb.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.proyecto.proyectoweb.domain.Product;
+
 import java.util.List;
 
 

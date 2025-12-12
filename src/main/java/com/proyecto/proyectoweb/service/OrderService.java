@@ -1,7 +1,7 @@
 package com.proyecto.proyectoweb.service;
 
-import com.proyecto.proyectoweb.model.Order;
-import com.proyecto.proyectoweb.model.User;
+import com.proyecto.proyectoweb.domain.Order;
+import com.proyecto.proyectoweb.domain.User;
 import com.proyecto.proyectoweb.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;

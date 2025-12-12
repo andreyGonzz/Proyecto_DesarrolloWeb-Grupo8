@@ -1,4 +1,4 @@
-package com.proyecto.proyectoweb.model;
+package com.proyecto.proyectoweb.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;

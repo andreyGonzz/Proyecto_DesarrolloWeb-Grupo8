@@ -1,7 +1,7 @@
 package com.proyecto.proyectoweb.controller;
 
-import com.proyecto.proyectoweb.model.Order;
-import com.proyecto.proyectoweb.model.User;
+import com.proyecto.proyectoweb.domain.Order;
+import com.proyecto.proyectoweb.domain.User;
 import com.proyecto.proyectoweb.service.OrderService;
 import com.proyecto.proyectoweb.service.UserService;
 import org.springframework.security.core.Authentication;

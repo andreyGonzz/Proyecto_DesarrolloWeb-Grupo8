@@ -1,6 +1,6 @@
 package com.proyecto.proyectoweb.controller;
 
-import com.proyecto.proyectoweb.model.User;
+import com.proyecto.proyectoweb.domain.User;
 import com.proyecto.proyectoweb.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

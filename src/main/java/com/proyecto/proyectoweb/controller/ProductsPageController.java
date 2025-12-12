@@ -1,6 +1,6 @@
 package com.proyecto.proyectoweb.controller;
 
-import com.proyecto.proyectoweb.model.Product;
+import com.proyecto.proyectoweb.domain.Product;
 import com.proyecto.proyectoweb.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

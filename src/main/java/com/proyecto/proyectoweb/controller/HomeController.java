@@ -1,7 +1,9 @@
 package com.proyecto.proyectoweb.controller;
 
-import com.proyecto.proyectoweb.model.Product;
+import com.proyecto.proyectoweb.domain.Product;
+import com.proyecto.proyectoweb.domain.Blog;
 import com.proyecto.proyectoweb.service.ProductService;
+import com.proyecto.proyectoweb.service.BlogService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +15,11 @@ import java.util.List;
 public class HomeController {
 
     private final ProductService productService;
+    private final BlogService blogService;
 
-    public HomeController(ProductService productService) {
+    public HomeController(ProductService productService, BlogService blogService) {
         this.productService = productService;
+        this.blogService = blogService;
     }
 
     @GetMapping({"/", "/index", "/home"})
@@ -40,11 +44,18 @@ public class HomeController {
         // Otros productos (categoria 'Productos')
         List<Product> otros = productService.findByCategory("Productos");
 
+        // Obtener blogs recientes de la base de datos
+        List<Blog> recentBlogs = blogService.findRecentBlogs();
+        if (recentBlogs == null) {
+            recentBlogs = new ArrayList<>();
+        }
+
         model.addAttribute("popularProducts", popular);
         model.addAttribute("newProducts", nuevos);
         model.addAttribute("suplementos", suplementos);
         model.addAttribute("vitaminas", vitaminas);
         model.addAttribute("otrosProducts", otros);
+        model.addAttribute("recentBlogs", recentBlogs);
 
         return "index";
     }

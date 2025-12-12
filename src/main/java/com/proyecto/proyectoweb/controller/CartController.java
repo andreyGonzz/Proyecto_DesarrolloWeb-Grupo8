@@ -9,12 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.proyecto.proyectoweb.model.Cart;
-import com.proyecto.proyectoweb.model.Order;
-import com.proyecto.proyectoweb.model.User;
+import com.proyecto.proyectoweb.domain.Cart;
+import com.proyecto.proyectoweb.domain.Order;
+import com.proyecto.proyectoweb.domain.User;
 import com.proyecto.proyectoweb.service.CartService;
-import com.proyecto.proyectoweb.service.OrderService;
-import com.proyecto.proyectoweb.service.ProductService;
 import com.proyecto.proyectoweb.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -24,15 +22,10 @@ import jakarta.servlet.http.HttpSession;
 public class CartController {
 
     private final CartService cartService;
-    private final OrderService orderService;
-    private final ProductService productService;
     private final UserService userService;
 
-    public CartController(CartService cartService, OrderService orderService, 
-                         ProductService productService, UserService userService) {
+    public CartController(CartService cartService, UserService userService) {
         this.cartService = cartService;
-        this.orderService = orderService;
-        this.productService = productService;
         this.userService = userService;
     }
 

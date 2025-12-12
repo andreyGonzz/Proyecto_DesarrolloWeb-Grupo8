@@ -1,7 +1,8 @@
 package com.proyecto.proyectoweb.controller;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
-import com.proyecto.proyectoweb.model.User;
+
+import com.proyecto.proyectoweb.domain.User;
 import com.proyecto.proyectoweb.service.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

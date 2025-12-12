@@ -162,24 +162,20 @@
                     <h2 th:text="#{section.blog}">Blogs e información</h2>
                 </div>
 
-                <div class="blog-grid">
-                    <article class="blog-card">
-                    <img th:src="@{/images/plato1.jpeg}"alt="Plato" />
+                <div class="blog-grid" th:if="${recentBlogs != null and !recentBlogs.isEmpty()}">
+                    <article class="blog-card" th:each="blog : ${recentBlogs}">
+                        <img th:src="@{/images/{file}(file=${blog.imageUrl})}" th:alt="${blog.title}" />
                         <div class="blog-info">
-                            <h4>Los 5 Pilares de la Alimentación Macrobiótica</h4>
-                            <p>Descubre cómo el equilibrio Yin-Yang puede transformar tu salud...</p>
-                            <a href="#" class="read-more" th:text="#{button.readMore}">Leer más →</a>
+                            <h4 th:text="${blog.title}">Título del blog</h4>
+                            <p th:text="${blog.summary}">Resumen del blog...</p>
+                            <a th:href="@{/blog/{id}(id=${blog.id})}" class="read-more" th:text="#{blog.readMore}">Leer más →</a>
                         </div>
                     </article>
-
-                    <article class="blog-card">
-                        <img th:src="@{/images/plato2.webp}" alt="Platos" />
-                        <div class="blog-info">
-                            <h4>Recetas macrobióticas para fortalecer el sistema</h4>
-                            <p>Preparaciones sencillas y naturales para tu día a día...</p>
-                            <a href="/#" class="read-more" th:text="#{button.readMore}">Leer más →</a>
-                        </div>
-                    </article>
+                </div>
+                
+                <!-- Mensaje si no hay blogs -->
+                <div th:if="${recentBlogs == null or recentBlogs.isEmpty()}" class="no-blogs-message">
+                    <p th:text="#{blog.noBlogsHome}">No hay blogs disponibles actualmente.</p>
                 </div>
             </section>
         </main>

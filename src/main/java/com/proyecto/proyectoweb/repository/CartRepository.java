@@ -1,10 +1,12 @@
 package com.proyecto.proyectoweb.repository;
 
-import com.proyecto.proyectoweb.model.Cart;
-import com.proyecto.proyectoweb.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import com.proyecto.proyectoweb.domain.Cart;
+import com.proyecto.proyectoweb.domain.User;
+
 import java.util.Optional;
 
 public interface CartRepository extends JpaRepository<Cart, Long> {

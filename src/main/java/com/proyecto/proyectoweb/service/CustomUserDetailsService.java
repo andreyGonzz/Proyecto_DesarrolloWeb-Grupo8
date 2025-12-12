@@ -16,7 +16,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        com.proyecto.proyectoweb.model.User user = userService.findByEmail(email)
+        com.proyecto.proyectoweb.domain.User user = userService.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + email));
         // roles: puede ser "ROLE_USER" o "ROLE_ADMIN" etc, separados por coma si hay varios
         return org.springframework.security.core.userdetails.User.withUsername(user.getEmail())

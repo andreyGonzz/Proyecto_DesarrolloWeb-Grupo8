@@ -1,6 +1,6 @@
 package com.proyecto.proyectoweb.service;
 
-import com.proyecto.proyectoweb.model.Product;
+import com.proyecto.proyectoweb.domain.Product;
 import com.proyecto.proyectoweb.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
