@@ -27,7 +27,8 @@ public class ProjectConfig implements WebMvcConfigurer {
             "/producto/**",
             "/buscar",
             "/contact",
-            "/css/**", "/images/**", "/js/**", "/webjars/**"
+            "/css/**", "/images/**", "/js/**", "/webjars/**",
+            "/blog/**"
     };
 
      @Bean
