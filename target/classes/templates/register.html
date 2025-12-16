@@ -36,7 +36,7 @@
             <form class="form" th:action="@{/register}" method="post">
                 <div th:if="${error}" class="auth-error-register" th:text="${error}"></div>
                 <label class="label" for="emal" th:text="#{register.email}">Email</label>
-                <input id="email" name="email" class="input" type="text" placeholder="Escribe aquí" />
+                <input id="email" name="email" class="input" type="email" placeholder="Escribe aquí" />
 
                 <label class="label" for="nombre" th:text="#{register.name}">Nombre</label>
                 <input id="nombre" name="nombre" class="input" type="text" placeholder="Escribe aquí" />
